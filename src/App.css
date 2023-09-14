@@ -1,0 +1,140 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --base--primary--color: #003C6B;
+    --default--color: #FFFFFF;
+    --brand--pink: #FF99BF;
+    --brand--blue: #5CE1E6;
+    --brand--yellow: #FFDE59;
+    --base--secondary--color: #7AC9FA;
+    --base--third--color: #156CAD;
+
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--base--primary--color);
+    color: var(--default--color);
+    font-size: 1.5vw;
+}
+
+h1 {
+    font-size: 3vw;
+}
+
+h2 {
+    font-size: 2.5vw;
+    color: var(--brand--pink);
+}
+
+h3 {
+    font-size: 2.2vw;
+}
+
+h4 {
+    font-size: 2vw;
+}
+
+.hero img {
+    width: max(30vw,1vw);
+}
+
+.row-md img {
+    width: max(30vw,1vw);
+}
+
+#hero {
+    padding: 120px 20vw 25px 20vw;
+}
+
+
+button {
+    border-radius: 7px;
+    border: 0;
+    background-color: var(--brand--blue);
+    margin-right: 15px;
+    min-width:max-content;
+    
+}
+
+.btn {
+    font-size: min(2vw, 20px);
+}
+
+.btn-outline-primary {
+    color: var(--brand--blue);
+    border-color: var(--brand--blue);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--brand--blue);
+    color: var(--base--primary--color);
+}
+
+.btn-outline-secondary {
+    color: var(--brand--yellow);
+    border-color: var(--brand--yellow);;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--brand--yellow);
+    color: var(--base---primary--color);
+}
+
+#about {
+    background-color: var(--base--secondary--color);
+    padding: 2% 10%;
+}
+
+#about div {
+    max-width: 55vw;
+}
+
+#services {
+    padding: 25px 20vw 25px 20vw;
+}
+
+#services p {
+    color: var(--brand--pink);
+    font-size: 1.7vw;
+}
+
+
+#services-container ul {
+    background-color: var(--base--third--color);
+    padding: 20px;
+    border-radius: 7px;
+}
+
+#services-container ul {
+    width:fit-content;
+    font-size: 1.2vw;
+
+}
+
+#services-container ul li img{
+    width: 15%;
+    margin-left: 20px;
+}
+
+.services-general {
+    width: max-content;
+}
+
+#contact {
+    background-color: var(--base--secondary--color);
+    color: var(--base--primary--color);
+}
+
+#contact img {
+    width: max(25vw,1vw);
+}
+
+footer {
+    color: var(--base--primary--color);
+}
+
+
