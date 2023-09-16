@@ -81,7 +81,7 @@ function RegisterCompanyManager() {
                         Şifre Onayı
                         <input id="passwordControl" type="password" name="passwordControl" />
                     </label>
-                    <button className="btn btn-lg btn-outline-primary" type="submit">GÖNDER</button>
+                    <button className="btn btn-lg btn-outline-primary" type="button">GÖNDER</button>
                     <a href="http://localhost:5173/register">
                         <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                     </a>
@@ -120,7 +120,7 @@ function RegisterGuest() {
                         Şifre Onayı
                         <input id="passwordControl" type="password" name="passwordControl" />
                     </label>
-                    <button className="btn btn-lg btn-outline-primary" type="submit">GÖNDER</button>
+                    <button className="btn btn-lg btn-outline-primary" type="button">GÖNDER</button>
                     <a href="http://localhost:5173/register">
                         <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                     </a>

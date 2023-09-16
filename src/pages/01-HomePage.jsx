@@ -11,13 +11,14 @@ export function HomePage() {
         <>
             <NavHeader />
             <main>
-                <section className="hero d-flex flex-row justify-content-around align-items-center">
+
+                <section className="hero d-flex flex-row justify-content-around align-items-center w-100">
                     <div className="row-md">
                         <h1>İnsan Kaynakları yönetimi artık çok kolay!</h1>
                         <h2>Siz de aramıza katılın</h2>
                         <div className="buttons d-flex flex-row justify-content-left">
                             <NavLink to="/register">
-                                <button type="button" className="btn btn-lg btn-outline-primary">KAYIT OL!</button>
+                                <button type="button" className="btn btn-lg btn-outline-primary me-2">KAYIT OL!</button>
                             </NavLink>
                             <button type="button" className="btn btn-lg btn-outline-secondary">GİRİŞ YAP</button>
                         </div>
