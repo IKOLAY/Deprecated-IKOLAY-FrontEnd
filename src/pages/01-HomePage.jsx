@@ -35,8 +35,8 @@ export function HomePage() {
                     </div>
                 </section>
 
-                <section className="services">
-                    <div className="services-general text-start">
+                <section className="services d-flex flex-column justify-content-center align-items-center text-center">
+                    <div className="services-general">
                         <h3>Hizmetlerimiz</h3>
                         <p>İnsan Kaynakları’na dair her şeyi tek bir yerden yönetin!</p>
                         <div className="services-container d-flex flex-row justify-content-between mb-2 align-items-center gap-4">
