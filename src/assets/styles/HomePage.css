@@ -1,3 +1,7 @@
+h1 {
+    color: var(--default--color);
+}
+
 /* ----- HERO SECTION ----- */
 
 .hero {
@@ -24,6 +28,7 @@
 .btn-outline-primary:hover {
     background-color: var(--brand--blue);
     color: var(--base--primary--color);
+    transition: 1.5s;
 }
 
 .btn-outline-secondary {
@@ -35,6 +40,7 @@
 .btn-outline-secondary:hover {
     background-color: var(--brand--yellow);
     color: var(--base---primary--color);
+    transition: 1.5s;
 }
 
 /* ----- ABOUT(VIZYONUMUZ) SECTION ----- */

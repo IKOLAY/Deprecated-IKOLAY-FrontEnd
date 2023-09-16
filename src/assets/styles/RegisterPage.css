@@ -1,26 +1,36 @@
-
-
-
-
-.section-left {
-    height: 100vh;
+.btn {
+    margin: 0;
 }
 
-.section-left img {
+.section-one {
+    height: 100vh;
+
+}
+
+.section-one img {
     width: max(40vw,1vw);
 }
 
-.section-right {
+.section-two {
     background-color: var(--default--color);
     height: 100vh;
-}
 
-.form-container {
-    height: "100vh";
 }
-
 
 .logo {
-    width: 25vw;
+    max-width: 200px;
 }
+
+.company {
+    background-color: var(--default--color);
+}
+
+.company-heading {
+    color: var(--base--primary--color);
+}
+
+.guest img {
+    width: max(25vw,1vw);
+}
+
 

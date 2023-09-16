@@ -64,11 +64,14 @@ select {
     border-color: var(--base--primary--color);
     height: 4vw;
     border-radius: 7px;
+    min-width: 100%;
 }
 
 label {
     color: var(--base--primary--color);
-    font-size: 1.5vw;
+    font-size: max(16px, 1vw);
+    font-weight: 600;
+    width: max(80%, 50px)
 }
 
 input {
