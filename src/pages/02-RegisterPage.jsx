@@ -44,7 +44,7 @@ function SelectRole({ setRole }) {
 function RegisterCompanyManager() {
     return (
         <div className="company d-flex flex-row justify-content-center align-items-center">
-            <section className="section-two w-50 d-flex flex-column justify-content-center  text-center  p-3" style={{ borderRight: "1px solid #003C6B" }}>
+            <section className="section-one w-50 d-flex flex-column justify-content-center  text-center  p-3">
 
                 <h1 className="company-heading">İK hiç bu kadar kolay olmamıştı!</h1>
                 <h2>İlk 1 ay tamamen ücretsiz</h2>
@@ -81,10 +81,12 @@ function RegisterCompanyManager() {
                         Şifre Onayı
                         <input id="passwordControl" type="password" name="passwordControl" />
                     </label>
-                    <button className="btn btn-lg btn-outline-primary" type="button">GÖNDER</button>
+                    <div className="d-flex mt-2">
+                    <button className="btn btn-lg btn-outline-primary me-2" type="button">GÖNDER</button>
                     <a href="http://localhost:5173/register">
                         <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                     </a>
+                    </div>
                 </form>
 
             </section>

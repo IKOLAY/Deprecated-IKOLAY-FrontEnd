@@ -73,7 +73,7 @@ option {
 
 label {
     color: var(--base--primary--color);
-    font-size: max(16px, 1vw);
+    font-size: max(1vw, 1.5vw);
     font-weight: 600;
     width: max(100%, 100px)
 }

@@ -4,7 +4,12 @@
 
 .section-one {
     height: 100vh;
+    background-color: var(--base--primary--color);
 
+}
+
+.section-one h1 {
+    color: var(--default--color);
 }
 
 .section-one img {
@@ -18,7 +23,7 @@
 }
 
 .logo {
-    max-width: 200px;
+    width: min(10em, 20em);
 }
 
 .company {
