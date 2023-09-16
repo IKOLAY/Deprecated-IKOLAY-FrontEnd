@@ -1,0 +1,36 @@
+.btn {
+    margin: 0;
+}
+
+.section-one {
+    height: 100vh;
+
+}
+
+.section-one img {
+    width: max(40vw,1vw);
+}
+
+.section-two {
+    background-color: var(--default--color);
+    height: 100vh;
+
+}
+
+.logo {
+    max-width: 200px;
+}
+
+.company {
+    background-color: var(--default--color);
+}
+
+.company-heading {
+    color: var(--base--primary--color);
+}
+
+.guest img {
+    width: max(25vw,1vw);
+}
+
+

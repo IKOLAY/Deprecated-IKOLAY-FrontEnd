@@ -1,0 +1,99 @@
+h1 {
+    color: var(--default--color);
+}
+
+/* ----- HERO SECTION ----- */
+
+.hero {
+    padding: 120px 20vw 25px 20vw;
+}
+
+.hero img {
+    width: max(30vw, 1vw);
+}
+
+.row-md img {
+    width: max(30vw, 1vw);
+}
+
+.btn {
+    margin-right: 15px;
+}
+
+.btn-outline-primary {
+    color: var(--brand--blue);
+    border-color: var(--brand--blue);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--brand--blue);
+    color: var(--base--primary--color);
+    transition: 1.5s;
+}
+
+.btn-outline-secondary {
+    color: var(--brand--yellow);
+    border-color: var(--brand--yellow);
+    ;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--brand--yellow);
+    color: var(--base---primary--color);
+    transition: 1.5s;
+}
+
+/* ----- ABOUT(VIZYONUMUZ) SECTION ----- */
+
+.about {
+    background-color: var(--base--secondary--color);
+    padding: 2% 10%;
+}
+
+.about div {
+    max-width: 55vw;
+}
+
+/* ----- SERVICES(HIZMETLERIMIZ) SECTION ----- */
+
+.services {
+    padding: 25px 20vw 25px 20vw;
+}
+
+.services p {
+    color: var(--brand--pink);
+    font-size: 1.7vw;
+}
+
+
+.services-container ul {
+    background-color: var(--base--third--color);
+    padding: 20px;
+    border-radius: 7px;
+}
+
+.services-container ul {
+    width: fit-content;
+    font-size: 1.2vw;
+
+}
+
+.services-container ul li img {
+    width: 15%;
+    margin-left: 20px;
+}
+
+.services-general {
+    width: max-content;
+}
+
+/* ----- CONTACT(BIZE ULASIN) SECTION ----- */
+
+.contact {
+    background-color: var(--base--secondary--color);
+    color: var(--base--primary--color);
+}
+
+.contact img {
+    width: max(25vw, 1vw);
+}
