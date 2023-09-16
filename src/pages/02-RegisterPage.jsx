@@ -44,16 +44,16 @@ function SelectRole({ setRole }) {
 function RegisterCompanyManager() {
     return (
         <div className="company d-flex flex-row justify-content-center align-items-center">
-            <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center text-center  p-2" style={{ borderRight: "1px solid #003C6B" }}>
+            <section className="section-two w-50 d-flex flex-column justify-content-center  text-center  p-3" style={{ borderRight: "1px solid #003C6B" }}>
 
                 <h1 className="company-heading">İK hiç bu kadar kolay olmamıştı!</h1>
                 <h2>İlk 1 ay tamamen ücretsiz</h2>
 
             </section>
 
-            <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center">
+            <section className="section-two w-50 d-flex flex-column justify-content-center p-4">
 
-                <form action="" className="d-flex flex-column gap-2 align-items-center">
+                <form action="" className="d-flex flex-column gap-2 align-items-center px-5">
                     <NavLink to="/">
                         <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />
                     </NavLink>
@@ -98,9 +98,9 @@ function RegisterGuest() {
     return (
         <div className="guest d-flex flex-row justify-content-center align-items-center">
 
-            <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center" style={{ borderRight: "1px solid #003C6B" }}>
+            <section className="section-two w-50 d-flex flex-column justify-content-center p-4" style={{ borderRight: "1px solid #003C6B" }}>
 
-                <form action="" className="d-flex flex-column align-items-center gap-2">
+                <form action="" className="d-flex flex-column align-items-center gap-2 px-5">
                     <NavLink to="/">
                         <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />
                     </NavLink>

@@ -4,7 +4,7 @@ export default function NavHeader (){
                 <nav className="navbar navbar-light fixed-top bg-light px-5">
 
                     <div className="container-fluid">
-                        <a href="#about">
+                        <a href="#">
                             <img src="/img/ikolay-logo.svg" alt="ikolay logo" />
                         </a>
                         <button
@@ -31,7 +31,7 @@ export default function NavHeader (){
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#contact">
+                                    <a className="nav-link" href="#">
                                         Bize Ulaşın
                                     </a>
                                 </li>
