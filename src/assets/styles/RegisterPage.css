@@ -1,0 +1,26 @@
+
+
+
+
+.section-left {
+    height: 100vh;
+}
+
+.section-left img {
+    width: max(40vw,1vw);
+}
+
+.section-right {
+    background-color: var(--default--color);
+    height: 100vh;
+}
+
+.form-container {
+    height: "100vh";
+}
+
+
+.logo {
+    width: 25vw;
+}
+
