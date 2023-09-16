@@ -82,10 +82,10 @@ function RegisterCompanyManager() {
                         <input id="passwordControl" type="password" name="passwordControl" />
                     </label>
                     <div className="d-flex mt-2">
-                    <button className="btn btn-lg btn-outline-primary me-2" type="button">GÖNDER</button>
-                    <a href="http://localhost:5173/register">
-                        <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
-                    </a>
+                        <button className="btn btn-lg btn-outline-primary me-2" type="button">GÖNDER</button>
+                        <a href="http://localhost:5173/register">
+                            <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
+                        </a>
                     </div>
                 </form>
 
@@ -122,10 +122,12 @@ function RegisterGuest() {
                         Şifre Onayı
                         <input id="passwordControl" type="password" name="passwordControl" />
                     </label>
-                    <button className="btn btn-lg btn-outline-primary" type="button">GÖNDER</button>
-                    <a href="http://localhost:5173/register">
-                        <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
-                    </a>
+                    <div className="d-flex mt-2">
+                        <button className="btn btn-lg btn-outline-primary me-2" type="button">GÖNDER</button>
+                        <a href="http://localhost:5173/register">
+                            <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
+                        </a>
+                    </div>
                 </form>
 
             </section>
