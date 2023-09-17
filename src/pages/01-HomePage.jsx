@@ -30,7 +30,8 @@ export function HomePage() {
 
                 <section className="about d-flex flex-column justify-content-center align-items-center text-center">
                     <div className="d-flex flex-column justify-content-center align-items-center text-center">
-                        <h3>Vizyonumuz</h3>
+                        <h3 id="services">Vizyonumuz</h3>
+
                         <p>Vizyonumuz, insan kaynakları yönetimini daha kolay, verimli ve etkili hale getirerek dünya genelinde şirketlerin ve çalışanların başarısını artırmak ve iş dünyasına olumlu bir etki yapmaktır. İşimizi daha iyi hale getirmek için sürekli çaba gösterir, yenilikçi çözümler sunarız ve müşteri memnuniyetini en üst düzeye çıkarmak için çalışırız.</p>
                     </div>
                 </section>
@@ -72,7 +73,7 @@ export function HomePage() {
                     </div>
                 </section>
 
-                <section className="contact text-center">
+                <section id="contact" className="contact text-center">
                     <h3 className="py-4">Bize Ulaşın</h3>
                     <div className="contact-container d-flex justify-content-center align-items-center pb-4 gap-4">
                         <img className="ms-5" src="/img/ikolay-contact-img.svg" alt="laptop başında otururken telefon eden kadın illüstrasyon" />
@@ -90,7 +91,7 @@ export function HomePage() {
                 </section>
 
             </main>
-            
+
             <MainFooter />
         </>
     )
