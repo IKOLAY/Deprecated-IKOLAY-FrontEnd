@@ -1,9 +1,9 @@
-import NavHeaderCompany from "../components/NavHeaderCompany";
 import "../assets/styles/CompanyPage.css";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
+import { IncomingPayments } from "../components/IncomingPayments";
 
 
 
@@ -60,10 +60,10 @@ export function CompanyPage() {
                 </div>
                 <div className="col-8 d-flex align-items-center justify-content-center">
                     {method === null && <WelcomeToDashboard />}
-                    {method === "employees" && <FindAllEmployees />}
-                    {method === "yearly-profit-and-loss" && <YearlyProfitAndLoss />}
+                    {method === "employees" && <EmployeeSection />}
+                    {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
                     {method === "all-company-loss" && <AllCompanyLoss />}
-                    {method === "incoming-payment" && <IncomingPayment />}
+                    {method === "incoming-payment" && <IncomingPayments />}
                     {method === "holidays" && <Holidays />}
 
                 </div>
@@ -86,41 +86,11 @@ function WelcomeToDashboard() {
 }
 
 
-function FindAllEmployees() {
-
-    return (
-
-        <EmployeeSection />
-
-    )
-}
-
-function YearlyProfitAndLoss() {
-
-    return (
-        <>
-            <AnnualProfitLoss />
-        </>
-    )
-}
-
-
-
 function AllCompanyLoss() {
 
     return (
         <>
             <h1>Hello Losses</h1>
-        </>
-    )
-}
-
-
-function IncomingPayment() {
-
-    return (
-        <>
-            <h1>Hello Payment</h1>
         </>
     )
 }
