@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 export default function LoginPage() {
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center">
+        <div className="page d-flex flex-column justify-content-center align-items-center">
             <div className="content p-5 d-flex flex-column align-items-center gap-2">
                 <NavLink to="/">
                     <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />

@@ -1,0 +1,11 @@
+.nav-link {
+    border-radius: 7px;
+}
+
+.nav-link:hover {
+    background-color: var(--base--third--color);
+}
+
+.adminbar {
+    background-color: var(--base--secondary--color)
+}

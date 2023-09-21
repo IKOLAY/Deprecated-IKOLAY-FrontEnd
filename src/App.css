@@ -5,19 +5,19 @@
 }
 
 :root {
-    --base--primary--color: #003C6B;
+    --base--primary--color: #04182d;
     --default--color: #FFFFFF;
     --brand--pink: #FF99BF;
     --brand--blue: #5CE1E6;
     --brand--yellow: #FFDE59;
-    --base--secondary--color: #7AC9FA;
+    --base--secondary--color: #003C6B;
     --base--third--color: #156CAD;
 
-    --font--xl: 3vw;
-    --font--lg: 2.5vw;
-    --font--md: 2.2vw;
-    --font--sm: 2vw;
-    --font--xs: 1.5vw;
+    --font--xl: min(48px,3vw);
+    --font--lg: min(40px,2.5vw);
+    --font--md: min(32px,2.2vw);
+    --font--sm: min(24px,2vw);
+    --font--xs: max(16px,1.5vw);
 
 }
 

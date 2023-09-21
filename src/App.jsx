@@ -5,6 +5,7 @@ import { HomePage } from './pages/01-HomePage'
 import { RegisterPage } from './pages/02-RegisterPage'
 import { CompanyPage } from './pages/04-CompanyPage'
 import LoginPage from './pages/03-LoginPage'
+import AdminPage from './pages/05-AdminPage'
 
 function App() {
     return (
@@ -13,6 +14,8 @@ function App() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/company" element={<CompanyPage />} />
             <Route path="/login" element={<LoginPage />} />
+
+            <Route path="/admin" element={<AdminPage />} />
         </Routes>
     )
 }
