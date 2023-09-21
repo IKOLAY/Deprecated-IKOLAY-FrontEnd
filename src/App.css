@@ -13,11 +13,10 @@
     --base--secondary--color: #003C6B;
     --base--third--color: #156CAD;
 
-    --font--xl: min(48px,3vw);
-    --font--lg: min(40px,2.5vw);
-    --font--md: min(32px,2.2vw);
-    --font--sm: min(24px,2vw);
-    --font--xs: max(16px,1.5vw);
+    --font--xl: 40px;
+    --font--lg: 32px;
+    --font--md: 24px;
+    --font--sm: 16px;
 
 }
 
@@ -25,7 +24,7 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--base--primary--color);
     color: var(--default--color);
-    font-size: var(--font--xs);
+    font-size: var(--font--sm);
 }
 
 /* ----- HEADINGS ----- */
@@ -48,7 +47,7 @@ h4 {
 }
 
 a {
-    font-size: var(--font--xs);
+    font-size: var(--font--sm);
 }
 
 /* ----- BUTTONS ----- */
@@ -58,7 +57,7 @@ button {
 }
 
 .btn {
-    font-size: min(2vw, 20px);
+    font-size: var(--font--sm);
 }
 
 /* ----- FORM COMPONENTS ----- */
@@ -68,16 +67,16 @@ select {
     border-color: var(--base--primary--color);
     border-radius: 7px;
     min-width: 100%;
-    font-size: max(1.5vw, 14px);
+    font-size: var(--font--sm);
 }
 
 option {
-    font-size: max(1.5vw, 14px);
+    font-size: var(--font--sm);
 }
 
 label {
     color: var(--base--primary--color);
-    font-size: max(1.5vw, 14px);
+    font-size: var(--font--sm);
     font-weight: 600;
     width: max(100%, 100px)
 }

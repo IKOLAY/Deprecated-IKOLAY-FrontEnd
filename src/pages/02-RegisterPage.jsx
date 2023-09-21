@@ -92,7 +92,7 @@ function RegisterCompanyManager() {
 
                 <form action="" className="d-flex flex-column gap-2 align-items-center px-5"onSubmit={handleSubmit}>
                     <NavLink to="/">
-                        <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />
+                        <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                     </NavLink>
                     <label className="d-flex flex-column" htmlFor="companyName">
                         Şirket Adı

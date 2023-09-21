@@ -12,7 +12,7 @@ export default function NavHeader (){
 
                     <div className="container-fluid">
                         <a href="/">
-                            <img src="/img/ikolay-logo.svg" alt="ikolay logo" />
+                            <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                         </a>
                         <button
                             className="navbar-toggler"
