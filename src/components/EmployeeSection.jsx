@@ -1,57 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export function EmployeeSection() {
+    const user = JSON.parse(localStorage.getItem("user"));
+ 
     return (
-        <ListEmployeeAndAddEmployee />
+       <>
+     
+       <ListEmployeeAndAddEmployee {...user} />
+       </>
     )
 }
 
-function ListEmployeeAndAddEmployee() {
+function ListEmployeeAndAddEmployee({companyId}) {
+   
+    const [employeeList,setEmployeeList] = useState([]);
+
+    useEffect(()=>{
+        fetch(`http://localhost:80/user/getallpersonelwithcompanyid?companyId=${companyId}`).then(resp => {
+            if (!resp.ok)
+                throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+           setEmployeeList(data);
+        }).catch(err => console.log(err))
+    },[]);
+
+    
+
     return (
         <div className="d-flex flex-column gap-1">
             <section className="d-flex flex-row gap-2">
-                <EmployeeAdd />
+                <EmployeeAdd companyId={companyId} />
                 <EmployeeDelete />
             </section>
             <table className="table table-hover table-striped table-responsive">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        
                         <th scope="col">İsim</th>
                         <th scope="col">Soyisim</th>
-                        <th scope="col">Mail Adres</th>
+                        <th scope="col">E-Mail</th>
                         <th scope="col">Telefon</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Doruk</td>
-                        <td>Tokinan</td>
-                        <td>doruk@gmail.com</td>
-                        <td>55555555</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>55555555</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>55555555</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Selim</td>
-                        <td>Adanedhel</td>
-                        <td>@twitter</td>
-                        <td>55555555</td>
-                    </tr>
+                    {employeeList.map(emp => <EmployeeRow key={emp.email} {...emp}/>)}
                 </tbody>
             </table>
 
@@ -59,7 +52,47 @@ function ListEmployeeAndAddEmployee() {
     )
 }
 
-function EmployeeAdd() {
+function EmployeeRow({firstname,lastname,email,phone}){
+
+    return(
+        <tr>            
+        <td>{firstname}</td>
+        <td>{lastname}</td>
+        <td>{email}</td>
+        <td>{phone}</td>
+    </tr>
+    )
+}
+
+function EmployeeAdd({companyId}) {
+    const defUser ={firstname:"",lastname:"",email:""};
+    const[newEmployee,setNewEmployee] = useState({...defUser})
+
+    function handleSubmit(e){
+        e.preventDefault()
+        setNewEmployee({...newEmployee, password:"random",role:"EMPLOYEE",companyId:companyId})
+        fetch("http://localhost:80/auth/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newEmployee)
+        }).then(resp => {
+            if(!resp.ok)
+           throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+             setNewEmployee({...defUser})
+            console.log(data);
+        }).catch(err => console.log(err))
+    }
+
+    function handleChange(e){
+        setNewEmployee({...newEmployee,[e.target.name]:e.target.value})
+    }
+
+
+
     return (
         <>
             <button
@@ -92,38 +125,45 @@ function EmployeeAdd() {
                             />
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputEmail1">Email address</label>
+                                    <label htmlFor="email">Email address</label>
                                     <input
                                         type="email"
                                         className="form-control"
-                                        id="exampleInputEmail1"
+                                        id="email"
+                                        name="email"
                                         aria-describedby="emailHelp"
                                         placeholder="Enter email"
+                                        value={newEmployee.email}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputPassword1">İsim</label>
+                                    <label htmlFor="firstname">İsim</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="text"
+                                        id="firstname"
+                                        name="firstname"
                                         placeholder="Çalışan İsmini Giriniz"
+                                        value={newEmployee.firstname}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputPassword1">Soyisim</label>
+                                    <label htmlFor="lastname">Soyisim</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        id="text"
+                                        id="lastname"
+                                        name="lastname"
                                         placeholder="Çalışan Soyismini Giriniz"
+                                        value={newEmployee.lastname}
+                                        onChange={handleChange}
                                     />
                                 </div>
-                            </form>
-                        </div>
-                        <div className="modal-footer justify-content-between">
+                                <div className="modal-footer justify-content-between">
                             <button
                                 type="button"
                                 className="btn btn-secondary"
@@ -131,10 +171,13 @@ function EmployeeAdd() {
                             >
                                 Vazgeç
                             </button>
-                            <button type="button" className="btn btn-primary">
+                            <button type="submit" className="btn btn-primary">
                                 Kaydet
                             </button>
                         </div>
+                            </form>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

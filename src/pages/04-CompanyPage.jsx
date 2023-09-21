@@ -4,6 +4,7 @@ import { useState } from "react";
 import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
+import { AllExpenses } from "../components/AllExpenses";
 
 
 
@@ -89,9 +90,7 @@ function WelcomeToDashboard() {
 function AllCompanyLoss() {
 
     return (
-        <>
-            <h1>Hello Losses</h1>
-        </>
+       <AllExpenses/>
     )
 }
 

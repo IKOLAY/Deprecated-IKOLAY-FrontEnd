@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 
 
@@ -12,33 +14,42 @@ export function AllExpenses(){
 
 function ExpenseList(){
     let total = 0
-    const denemeList = [{name:"Expenses1",totalCost:-10000},{name:"Expenses2",totalCost:-10000},{name:"Expenses3",totalCost:-10000},]
+    const companyId=1;
+    //const denemeList = [{name:"Expenses1",totalCost:-10000},{name:"Expenses2",totalCost:-10000},{name:"Expenses3",totalCost:-10000},]
+    const[expenseList,setExpenseList] = useState([]);
     
+    useEffect(()=>{
+        fetch(`http://localhost:80/transaction/test?companyId=${companyId}`).then(resp => {
+            if (!resp.ok)
+                throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+            
+           setExpenseList(data);
+        }).catch(err => console.log(err))
+    },[]);
     return (
-        <>
-        <div className="contaier ">
-            <div className="row my-5">
-                <div className="col-8 mx-auto">
-                <ul className="list-group mx-auto">
+    
+            <div className="col-12">
+                <div className="col-12">
+                {expenseList == null ? "Yükleniyor...":<ul className="list-group mx-auto">
                 <li className="list-group-item active text-center" aria-current="true">Harcamalar:</li>
-                    {denemeList.map(x=>{
+                    {expenseList.map(x=>{
                         total= total+x.totalCost
                         return <ExpenseDetails name={x.name} totalCost={x.totalCost}/>
                     })}
                   
                     <li className="list-group-item active text-end" aria-current="true"> Total: {total}</li>
-                    </ul>
+                    </ul>}
                 </div>
             </div>
-        </div>
-        </>
     )
 }
 
 function ExpenseDetails({name,totalCost}) {
 
 return <>
-  <li className="list-group-item d-flex justify-content-center gap-5"><span className="border">{name}:</span> <span>{totalCost}</span></li>
+  <li className="list-group-item d-flex justify-content-center gap-5"><span className="">{name}:</span> <span>{totalCost}</span></li>
 </>
 
 }

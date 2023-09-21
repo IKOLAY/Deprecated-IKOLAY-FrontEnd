@@ -5,7 +5,7 @@ import "../assets/styles/HomePage.css"
 
 
 export function HomePage() {
-
+    
 
     return (
         <>

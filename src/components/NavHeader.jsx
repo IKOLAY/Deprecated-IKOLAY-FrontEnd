@@ -1,4 +1,11 @@
 export default function NavHeader (){
+
+    function handleClick(e){
+        e.preventDefault()
+        window.localStorage.clear("token")
+        window.localStorage.clear("user")
+    }
+
     return (
         <header>
                 <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light px-5 row">
@@ -31,7 +38,7 @@ export default function NavHeader (){
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link" href="#contact">
+                                    <a onClick={handleClick} className="nav-link" href="#contact">
                                         Bize Ulaşın
                                     </a>
                                 </li>
