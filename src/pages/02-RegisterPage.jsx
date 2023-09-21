@@ -24,7 +24,7 @@ function SelectRole({ setRole }) {
 
             <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center">
                 <NavLink to="/">
-                    <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />
+                    <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                 </NavLink>
                 <form className="d-flex flex-column justify-content-center align-items-center gap-2">
                     <label >Hangi seçenek sizi daha iyi tanımlıyor?</label>
@@ -88,9 +88,9 @@ function RegisterCompanyManager() {
 
             </section>
 
-            <section className="section-two w-50 d-flex flex-column justify-content-center p-4">
+            <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center p-4">
 
-                <form action="" className="d-flex flex-column gap-2 align-items-center px-5"onSubmit={handleSubmit}>
+                <form action="" className="d-flex flex-column gap-2 px-5 align-items-center"onSubmit={handleSubmit}>
                     <NavLink to="/">
                         <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                     </NavLink>
@@ -122,11 +122,11 @@ function RegisterCompanyManager() {
                         Şifre Onayı
                         <input className={`${user.password != user.passwordControl && "border-danger"} px-3`}  value={user.passwordControl} id="passwordControl" type="password" name="passwordControl" onChange={handleChange} />
                     </label>
-                    <div className="d-flex mt-2">
-                        <button className="btn btn-lg btn-outline-primary me-2" disabled={user.email==""&&true}  type="submit">GÖNDER</button>
+                    <div className="d-flex flex-row justify-content-between gap-4">
                         <a href="http://localhost:5173/register">
                             <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                         </a>
+                        <button className="btn btn-lg btn-outline-primary" disabled={user.email==""&&true}  type="submit">GÖNDER</button>
                     </div>
                 </form>
 
@@ -176,13 +176,13 @@ function RegisterGuest() {
     }
    
     return (
-        <div className="guest d-flex flex-row justify-content-center align-items-center">
+        <div className="guest d-flex flex-row">
 
-            <section className="section-two w-50 d-flex flex-column justify-content-center p-4" style={{ borderRight: "1px solid #003C6B" }}>
+            <section className="section-two w-50 d-flex flex-column align-items-center justify-content-center p-4" style={{ borderRight: "1px solid #003C6B" }}>
 
                 <form action="" className="d-flex flex-column align-items-center gap-2 px-5" onSubmit={handleSubmit}>
                     <NavLink to="/">
-                        <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />
+                        <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                     </NavLink>
                     <label className="d-flex flex-column" htmlFor="firstname">
                         Ad
@@ -204,11 +204,11 @@ function RegisterGuest() {
                         Şifre Onayı
                         <input className={`${user.password != user.passwordControl && "border-danger"} px-3`} id="passwordControl" value={user.passwordControl} type="password" name="passwordControl" onChange={handleChange} />
                     </label>
-                    <div className="d-flex mt-2">
-                        <button className="btn btn-lg btn-outline-primary me-2" disabled={user.email==""&&true}  type="submit">GÖNDER</button>
+                    <div className="d-flex flex-row justify-content-between gap-4">
                         <a href="http://localhost:5173/register">
                             <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                         </a>
+                        <button className="btn btn-lg btn-outline-primary" disabled={user.email==""&&true}  type="submit">GÖNDER</button>
                     </div>
                 </form>
 

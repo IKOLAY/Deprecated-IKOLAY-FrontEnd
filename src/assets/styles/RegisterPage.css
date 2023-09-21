@@ -12,10 +12,6 @@
     color: var(--default--color);
 }
 
-.section-one img {
-    width: max(40vw,1vw);
-}
-
 .section-two {
     background-color: var(--default--color);
     height: 100vh;
@@ -28,10 +24,6 @@
 
 .company-heading {
     color: var(--base--primary--color);
-}
-
-.guest img {
-    width: max(25vw,1vw);
 }
 
 
