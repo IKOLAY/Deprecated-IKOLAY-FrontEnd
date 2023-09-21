@@ -111,13 +111,13 @@ function EmployeeLeave() {
                     className="btn btn-lg btn-outline-primary w-50"
                     data-bs-toggle="modal"
                     data-bs-target="#modalHoliday"
-                >Resmi Tatil</button>
+                >+ Resmi Tatil</button>
                 <button
                     type="button"
                     className="btn btn-lg btn-outline-primary w-50"
                     data-bs-toggle="modal"
                     data-bs-target="#modalLeave"
-                >İzin</button>
+                >+ İzin</button>
             </section>
             <section
                 className="modal fade"
