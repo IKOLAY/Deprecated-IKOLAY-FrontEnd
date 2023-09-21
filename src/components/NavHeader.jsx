@@ -1,7 +1,7 @@
 export default function NavHeader (){
     return (
         <header>
-                <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light px-5">
+                <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light px-5 row">
 
                     <div className="container-fluid">
                         <a href="/">
