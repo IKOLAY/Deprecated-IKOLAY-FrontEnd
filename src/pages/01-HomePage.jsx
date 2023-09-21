@@ -20,7 +20,9 @@ export function HomePage() {
                             <NavLink to="/register">
                                 <button type="button" className="btn btn-lg btn-outline-primary me-2">KAYIT OL!</button>
                             </NavLink>
+                            <NavLink to="/login">
                             <button type="button" className="btn btn-lg btn-outline-secondary">GİRİŞ YAP</button>
+                            </NavLink>
                         </div>
                     </div>
                     <div className="row-md">

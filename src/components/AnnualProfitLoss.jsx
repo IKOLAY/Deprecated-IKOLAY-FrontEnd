@@ -5,19 +5,16 @@ export function AnnualProfitLoss() {
     )
 }
 
-
-function PeriodSelection() { 
+function PeriodSelection() {
     //companyId için => const defUser = window.localStorage.getItem("user"); dan user çekilip localstorage kaydedilecek.
     const [cardList, setCardList] = useState([]);
     const [status, setStatus] = useState("active");
     const [period, setPeriod] = useState({ start: "", end: "" })
-    
-
     function handleChange(e) {
         setPeriod({ ...period, [e.target.name]: e.target.value });
     }
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault();
         setStatus("pending")
         setPeriod({ ...period, companyId: 1 });
@@ -28,16 +25,15 @@ function PeriodSelection() {
             },
             body: JSON.stringify(period)
         }).then(resp => {
-            if(!resp.ok)
-           throw new Error("Hata initiate");
+            if (!resp.ok)
+                throw new Error("Hata initiate");
             return resp.json();
         }).then(data => {
             setCardList(data)
-           setStatus("success")
-        }).catch(err =>setStatus("error"))
- 
-    }
+            setStatus("success")
+        }).catch(err => setStatus("error"))
 
+    }
 
     return (
         <>
@@ -66,16 +62,17 @@ function PeriodSelection() {
                     </div>
                 </div>
 
-               { status=="success" && <div className="row d-flex justify-content-center gap-3 p-1">
-                    {cardList.map(content => <AnnualCard year={content.year} yearsTotal={content.yearsTotal}/>)}
-                    {cardList.length==0 && <div className="row border border-danger rounded text-center text-danger">
+
+                {status == "success" && <div className="row d-flex justify-content-center gap-3 p-1">
+                    {cardList.map(content => <AnnualCard year={content.year} yearsTotal={content.yearsTotal} />)}
+                    {cardList.length == 0 && <div className="row border border-danger rounded text-center text-danger">
                         <span>Girilen aralık değerleri için herhangi bir Kar/Zarar bilgisi bulunmamaktadır!</span>
                     </div>}
                 </div>}
-                { status =="pending" && <div className="text-center">Yükleniyor...</div>}
-                {  status =="error" && <div className="row border border-danger rounded text-center text-danger">
-                        <span>Hata meydana geldi lütfen istenilen türde giriş yapın.</span>
-                    </div>}
+                {status == "pending" && <div className="text-center">Yükleniyor...</div>}
+                {status == "error" && <div className="row border border-danger rounded text-center text-danger">
+                    <span>Hata meydana geldi lütfen istenilen türde giriş yapın.</span>
+                </div>}
             </div>
 
         </>
