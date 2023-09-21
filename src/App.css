@@ -79,6 +79,7 @@ label {
 }
 
 input {
+    width: 100%;
     border-radius: 7px;
     border: 1px solid var(--base--primary--color);
 }
