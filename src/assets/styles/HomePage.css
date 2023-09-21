@@ -9,11 +9,7 @@ h1 {
 }
 
 .hero img {
-    width: max(30vw, 1vw);
-}
-
-.row-md img {
-    width: max(30vw, 1vw);
+    width: min(30vw, 150px);
 }
 
 .btn {
@@ -62,7 +58,6 @@ h1 {
 
 .services p {
     color: var(--brand--pink);
-    font-size: 1.7vw;
 }
 
 
@@ -74,7 +69,6 @@ h1 {
 
 .services-container ul {
     width: fit-content;
-    font-size: 1.2vw;
 
 }
 
@@ -94,5 +88,5 @@ h1 {
 }
 
 .contact img {
-    width: max(25vw, 1vw);
+    width: min(25vw, 150px);
 }
