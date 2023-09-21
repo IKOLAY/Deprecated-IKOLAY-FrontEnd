@@ -1,6 +1,8 @@
-main {
+.company {
   background-color: var(--base--primary--color);
+  
 }
+
 .fs-2 {
   color: var(--base--primary--color);
 }
@@ -13,16 +15,4 @@ main {
   width: 350px;
   background-color: var(--base--primary--color);
 }
-@media (max-width: 1050px) {
-  .nav-link {
-    font-size: 15px;
-  }
-  .col-4 {
-    display: flex;
-    width: 50%;
-  }
-  .col-8 {
-    display: flex;
-    width: 50%;
-  }
-}
+
