@@ -34,12 +34,12 @@ export default function NavHeader (){
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" href="#services">
-                                        Hizmetlerimiz
+                                        Giriş
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a onClick={handleClick} className="nav-link" href="#contact">
-                                        Bize Ulaşın
+                                    <a onClick={handleClick} className="nav-link" href="#">
+                                        Çıkış
                                     </a>
                                 </li>
                             </ul>
