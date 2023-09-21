@@ -18,16 +18,16 @@ export function CompanyPage() {
         <>
             <main className="company d-flex flex-row w-100">
                 <div
-                    className="sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle "
+                    className="sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle"
                 >
                     <a
                         href="/company"
-                        className="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+                        className="d-flex justify-content-center link-body-emphasis text-decoration-none mb-3 p-1"
                     >
-                        <img src="img/ikolay-logo.svg" alt="logo" /><span> | Yönetici</span>
+                        <img src="img/ikolay-companyManager.svg" alt="logo" />
 
                     </a>
-                    <div className="d-flex flex-column justify-content-center align-items-center p-5" style={{border:"1px solid black", borderRadius:"7px"}}>
+                    <div className="d-flex flex-column  align-items-center p-5 mb-3" style={{border:"1px solid black", borderRadius:"7px", backgroundColor:"#04182d"}}>
                         <img src="/img/ikolay-adminpp.svg" width={50} alt="" style={{borderRadius:"50%"}}/>
                         <hr />
                         <p>ŞİRKET ADI</p>

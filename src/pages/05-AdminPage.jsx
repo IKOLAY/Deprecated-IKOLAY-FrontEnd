@@ -31,7 +31,7 @@ export default function AdminPage() {
                                 height={32}
                                 className="rounded-circle me-2"
                             />
-                            <strong>UserName</strong>
+                            <strong>KullanıcıAdı</strong>
                         </a>
                         <ul
                             className="dropdown-menu text-small shadow"
@@ -39,12 +39,12 @@ export default function AdminPage() {
                         >
                             <li>
                                 <a className="dropdown-item" href="#">
-                                    Settings
+                                    Ayarlar
                                 </a>
                             </li>
                             <li>
                                 <a className="dropdown-item" href="#">
-                                    Profile
+                                    Profil
                                 </a>
                             </li>
                             <li>
@@ -52,14 +52,14 @@ export default function AdminPage() {
                             </li>
                             <li>
                                 <a className="dropdown-item" href="#">
-                                    Sign out
+                                    Çıkış
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </nav>
             </header>
-            <main>
+            <main style={{height:"80vh"}}>
                 <div className="d-flex justify-content-between align-items-start">
                     <div className="adminbar d-flex flex-column flex-shrink-0 p-3" style={{ height: "85vh"}}>
                         <ul className="nav flex-column mb-auto">
@@ -86,7 +86,7 @@ export default function AdminPage() {
 
 function RegisterRequest(){
     return (
-        <div className="border border-primary rounded p-3 w-50 d-flex justify-content-between">
+        <div className="border border-primary rounded p-3 w-100 d-flex justify-content-between align-items-center">
             <span style={{color:"black"}}>Kayıt İsteği-1</span>
             <div className="d-flex gap-2">
             <button className="btn btn-outline-primary">Onayla</button>

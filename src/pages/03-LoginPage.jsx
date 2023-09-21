@@ -48,7 +48,7 @@ export default function LoginPage() {
         <div className="page d-flex flex-column justify-content-center align-items-center">
             <div className="content p-5 d-flex flex-column align-items-center gap-2">
                 <NavLink to="/">
-                    <img className="logo" src="/img/ikolay-logo.svg" alt="ikolay logo" />
+                    <img src="/img/ikolay-logo-dark.svg" alt="ikolay logo" />
                 </NavLink>
                 <form action="" onSubmit={handleSubmit} className="d-flex flex-column justify-content-around gap-2">
                     <label htmlFor="email">
