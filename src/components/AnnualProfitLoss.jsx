@@ -1,20 +1,15 @@
 import { useState } from "react"
 export function AnnualProfitLoss() {
     return (
-
-        <PeriodSelection />
-
+            <PeriodSelection />
     )
 }
-
 
 function PeriodSelection() {
     //companyId için => const defUser = window.localStorage.getItem("user"); dan user çekilip localstorage kaydedilecek.
     const [cardList, setCardList] = useState([]);
     const [status, setStatus] = useState("active");
     const [period, setPeriod] = useState({ start: "", end: "" })
-
-
     function handleChange(e) {
         setPeriod({ ...period, [e.target.name]: e.target.value });
     }
@@ -43,7 +38,7 @@ function PeriodSelection() {
     return (
         <>
             <div className="container">
-                <div className="row ">
+                <div className="row">
                     <div className="col-12">
                         <div className="col-8 m-auto my-4">
                             <form action="" className="border p-5" onSubmit={handleSubmit}>
@@ -66,6 +61,7 @@ function PeriodSelection() {
                         </div>
                     </div>
                 </div>
+
 
                 {status == "success" && <div className="row d-flex justify-content-center gap-3 p-1">
                     {cardList.map(content => <AnnualCard year={content.year} yearsTotal={content.yearsTotal} />)}
@@ -91,10 +87,10 @@ function AnnualCard({ year, yearsTotal }) {
 
     return (
         <>
-            <div className="card text-center" style={style}>
+            <div className="card text-center shadow" style={style}>
                 <div className="card-body">
                     <h5 className="card-title">{year}</h5>
-                    <p className={`${yearsTotal > 0 ? "text-success" : "text-danger"} card-text`}>{yearsTotal}</p>
+                    <p className={`${yearsTotal > 0 ? "text-success" : "text-danger"} card-text shadow`}>{yearsTotal}</p>
                 </div>
             </div>
         </>
