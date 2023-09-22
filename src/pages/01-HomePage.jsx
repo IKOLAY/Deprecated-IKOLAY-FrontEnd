@@ -63,7 +63,7 @@ export function HomePage() {
                                     <img src="/img/icons/shift.svg" alt="el sıkışma ikonu" />
                                 </li>
                                 <li className="d-flex justify-content-between align-items-center text-start mb-2">
-                                    ŞİRKET DEĞERLENDİRMELERİ
+                                    ŞİRKET PUANLAMA
                                     <img src="/img/icons/rating.svg" alt="el sıkışma ikonu" />
                                 </li>
                                 <li className="d-flex justify-content-between align-items-center text-start">
@@ -82,11 +82,11 @@ export function HomePage() {
                         <ul className="me-5">
                             <li>
                                 <h4>PHONE</h4>
-                                <p>(123)456-7890</p>
+                                <p><small>(123)456-7890</small></p>
                             </li>
                             <li>
                                 <h4>EMAIL</h4>
-                                <p>ikolayhrmanagement@gmail.com</p>
+                                <p><small>info@ikolay.com</small></p>
                             </li>
                         </ul>
                     </div>

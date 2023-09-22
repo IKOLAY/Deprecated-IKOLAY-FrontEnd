@@ -9,7 +9,7 @@ h1 {
 }
 
 .hero img {
-    width: min(30vw, 150px);
+    width: min(30vw, 400px);
 }
 
 .btn {
@@ -74,12 +74,10 @@ h1 {
 
 .services-container ul li img {
     width: 15%;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
-.services-general {
-    width: max-content;
-}
+
 
 /* ----- CONTACT(BIZE ULASIN) SECTION ----- */
 
