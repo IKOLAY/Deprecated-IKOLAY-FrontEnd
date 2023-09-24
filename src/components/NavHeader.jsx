@@ -15,8 +15,8 @@ export default function NavHeader() {
                 <button
                     className="navbar-toggler"
                     type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
@@ -43,9 +43,6 @@ export default function NavHeader() {
                     </ul>
                 </div>
             </nav>
-
-
-
         </header>
     )
 }
