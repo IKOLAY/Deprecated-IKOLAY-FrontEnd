@@ -45,7 +45,6 @@ function ListEmployeeAndAddEmployee({ companyId }) {
                     {employeeList.map(emp => <EmployeeRow key={emp.email} {...emp} />)}
                 </tbody>
             </table>
-
         </div>
     )
 }
@@ -55,16 +54,10 @@ function EmployeeRow({ firstname, lastname, email, phone }) {
     return (
         <>
             <tr>
-                <td>{firstname}</td>
-                <td>{lastname}</td>
-                <td>{email}</td>
-                <td>{phone}</td>
-            </tr>
-            <tr>
                 <td>
                     <div className="d-flex align-items-center">
                         <img
-                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                            src={`https://mdbootstrap.com/img/new/avatars/${Math.ceil(Math.random()*7)}.jpg`}
                             alt=""
                             style={{ width: 45, height: 45 }}
                             className="rounded-circle"
