@@ -20,13 +20,14 @@ useEffect( ()=>{
 },[]);
 
     return (
-        <div className="d-flex flex-column justify-content-center align-items-center ">
-            <table className="table table-hover table-striped table-responsive border border-5 border-primary">
-                <thead>
+        <div className="d-flex flex-column justify-content-center align-items-center bg-white">
+            <h3 className="text-center p-2">YAKLAŞAN ÖDEMELER</h3>
+            <table className="table align-middle mb-0 bg-white">
+                <thead className="bg-light">
                     <tr>
-                        <th scope="col">Tarih</th>
-                        <th scope="col">Ödeme Tipi</th>
-                        <th scope="col">Ödeme Miktarı</th>
+                        <th>Tarih</th>
+                        <th>Ödeme Tipi</th>
+                        <th>Ödeme Miktarı</th>
 
                     </tr>
                 </thead>

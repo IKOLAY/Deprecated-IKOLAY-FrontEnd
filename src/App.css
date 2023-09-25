@@ -14,22 +14,15 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--base--primary--color);
     color: var(--default--color);
-    width: 100%;
-    height: 100vh;
-
 }
 
-a {
+a, .nav-link {
     color: inherit;
     text-decoration: none;
 }
 
-.nav-link {
-    border-radius: 7px;
-}
-
-.nav-link:hover {
-    background-color: var(--base--third--color);
+th {
+    font-weight: 700;
 }
 
 .limited-width {
@@ -38,8 +31,12 @@ a {
 
 /* ----- HEADINGS ----- */
 
-h2 {
+h1, h2, h3, h4, h5, h6 {
+    padding: 8px 0;
+}
 
+
+h2 {
     color: var(--brand--pink);
 }
 
@@ -54,10 +51,19 @@ button {
     min-width: max-content;
 }
 
+.btn-primary {
+    background-color: var(--base--secondary--color);
+    transition: 0.5s;
+}
+
+.btn-primary:hover {
+    background-color: var(--brand--blue);
+}
+
 .btn-outline-primary {
     color: var(--brand--blue);
     border-color: var(--brand--blue);
-    transition: 1.5s;
+    transition: 0.5s;
 }
 
 .btn-outline-primary:hover {
@@ -69,7 +75,7 @@ button {
 .btn-outline-secondary {
     color: var(--brand--yellow);
     border-color: var(--brand--yellow);
-    transition: 1.5s;
+    transition: 1s;
 }
 
 .btn-outline-secondary:hover {
@@ -77,10 +83,11 @@ button {
     color: var(--base---primary--color);
 }
 
+
 .btn-outline-danger {
     color: var(--brand--pink);
     border-color: var(--brand--pink);
-    transition: 1.5s;
+    transition: 1s;
 }
 
 .btn-outline-danger:hover {

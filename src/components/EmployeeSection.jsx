@@ -29,10 +29,9 @@ function ListEmployeeAndAddEmployee({ companyId }) {
 
     return (
         <div className="d-flex flex-column gap-1">
-            <section className="d-flex flex-row gap-2">
-                <EmployeeAdd companyId={companyId} />
-                <EmployeeDelete />
-            </section>
+
+            <EmployeeAdd companyId={companyId} />
+            
             <table className="table align-middle mb-0 bg-white">
                 <thead className="bg-light">
                     <tr>
@@ -72,9 +71,7 @@ function EmployeeRow({ firstname, lastname, email, phone }) {
                     <p className="fw-normal mb-1">{phone}</p>
                 </td>
                 <td>
-                    <button type="button" className="btn btn-link btn-sm btn-rounded">
-                        Edit
-                    </button>
+                    <EmployeeDelete />
                 </td>
             </tr>
         </>
@@ -114,11 +111,11 @@ function EmployeeAdd({ companyId }) {
         <>
             <button
                 type="button"
-                className="btn btn-outline-primary"
+                className="btn btn-outline-primary w-100"
                 data-bs-toggle="modal"
                 data-bs-target="#modalAdd"
             >
-                Personel Ekle
+                +Personel Ekle
             </button>
 
             <div
@@ -207,7 +204,7 @@ function EmployeeDelete() {
         <>
             <button
                 type="button"
-                className="btn btn-outline-danger"
+                className="btn btn-sm btn-outline-danger"
                 data-bs-toggle="modal"
                 data-bs-target="#modalDelete"
             >
@@ -236,7 +233,10 @@ function EmployeeDelete() {
                         <div className="modal-body">
                             <form typeof="submit">
                                 <div className="form-group">
-                                    <label htmlFor="exampleInputEmail1">Personel Kisisel Email Giriniz</label>
+                                    <div className="border rounded p-1 m-2 mb-4" style={{ color: "#FF99BF", borderColor: "#FF99BF" }}>
+                                        <small>Lütfen silme işlemini onaylamak için personel kişisel emailini giriniz. <br /> <b>BU İŞLEM GERİ ALINAMAZ!</b></small>
+                                    </div>
+                                    <label htmlFor="exampleInputEmail1">Personel Kisisel Email</label>
                                     <input
                                         type="email"
                                         className="form-control"
@@ -253,8 +253,8 @@ function EmployeeDelete() {
                                     >
                                         Vazgeç
                                     </button>
-                                    <button type="button" className="btn btn-primary">
-                                        Kaydet
+                                    <button type="button" className="btn btn-outline-danger">
+                                        Silmeyi Onayla
                                     </button>
                                 </div>
                             </form>
