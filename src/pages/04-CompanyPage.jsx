@@ -13,84 +13,95 @@ export function CompanyPage() {
     }
 
     return (
-        <>
-            <main className="company d-flex flex-row w-100">
-                <div
-                    className="sidebar d-flex flex-column flex-shrink-0 p-1 bg-light bg-opacity-50"
-                >
-                    <a
-                        href="/company"
-                        className="d-flex justify-content-center link-body-emphasis text-decoration-none mb-3 p-1"
-                    >
-                        <img src="img/ikolay-companyManager.svg" alt="logo" />
+        <main className="company d-flex flex-row h-100">
 
-                    </a>
-                    <div className="d-flex flex-column align-items-center p-5 m-3  bg-dark-subtle bg-opacity-50" style={{borderRadius:"7px"}}>
-                        <img src="/img/ikolay-companypp.svg" width={50} alt="" style={{borderRadius:"50%"}}/>
-                        <hr />
-                        <p>ŞİRKET ADI</p>
-                        <p>Yönetici Adı</p>
-                        <p>Yönetici Email</p>
-                        <p></p>
-                    </div>
-                    <ul className="nav nav-pills flex-column mb-auto col-md align-items-center">
-                        <li className="nav-item">
-                            <a href="#" name="employees" className="nav-link link-body-emphasis " onClick={handleClick} >
-                                Personel Listesi
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" name="yearly-profit-and-loss" className="nav-link link-body-emphasis" onClick={handleClick} >
-                                Kar & Zarar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" name="all-company-loss" className="nav-link link-body-emphasis" onClick={handleClick}>
-                                Toplam Gider
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" name="incoming-payment" className="nav-link link-body-emphasis" onClick={handleClick}>
-                                Yaklaşan Ödemeler
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" name="employee-leave" className="nav-link link-body-emphasis" onClick={handleClick}>
-                                Personel İzin Ekle
-                            </a>
-                        </li>
-                    </ul>
+            <div className=" sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle bg-opacity-70">
+                <a href="/company" className="d-flex justify-content-center link-body-emphasis text-decoration-none mb-3 p-1">
+                    <img className="shadow-sm rounded bg-light p-2" src="img/ikolay-companyManager.svg" alt="logo" />
+                </a>
+                <hr />
+                <div className="d-flex flex-column align-items-center p-5 m-3 bg-light bg-opacity-50 shadow-lg rounded">
+                    <img className="rounded-circle" src="/img/ikolay-companypp.svg" width={50} alt="" />
                     <hr />
+                    <p>ŞİRKET ADI</p>
+                    <p>Yönetici Adı</p>
+                    <p>Yönetici Email</p>
+                    <p></p>
                 </div>
-                <div className="w-100 d-flex align-items-center justify-content-center text-center p-5">
-                    {method === null && <WelcomeToDashboard />}
-                    {method === "employees" && <EmployeeSection />}
-                    {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
-                    {method === "all-company-loss" && <AllExpenses />}
-                    {method === "incoming-payment" && <IncomingPayments />}
-                    {method === "employee-leave" && <EmployeeLeave />}
+                <ul className="nav nav-pills flex-column mb-auto col-md align-items-center">
+                    <li className="nav-item">
+                        <a href="#" name="employees" className="nav-link link-body-emphasis " onClick={handleClick} >
+                            Personel Listesi
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" name="yearly-profit-and-loss" className="nav-link link-body-emphasis" onClick={handleClick} >
+                            Kar & Zarar
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" name="all-company-loss" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Toplam Gider
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" name="incoming-payment" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Yaklaşan Ödemeler
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" name="employee-leave" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Personel İzin Ekle
+                        </a>
+                    </li>
+                </ul>
+                <hr />
+            </div>
+
+            <div className="d-flex flex-column h-100 w-100">
+
+                <ul className="d-flex nav nav-tabs border-0 w-100 h-25">
+                    <li className="nav-item  border border-bottom-0 rounded w-50">
+                        <a className="nav-link text-white" href="/company">
+                            Şirket Sayfası
+                        </a>
+                    </li>
+                    <li className="nav-item border rounded w-50">
+                        <a className="nav-link text-white" href="#">
+                            Personel Sayfası
+                        </a>
+                    </li>
+                </ul>
+
+                <div className="tab-content w-100 d-flex justify-content-center pt-5">
+                    <div className="w-75">
+                        {method === null && <WelcomeToDashboard />}
+                        {method === "employees" && <EmployeeSection />}
+                        {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
+                        {method === "all-company-loss" && <AllExpenses />}
+                        {method === "incoming-payment" && <IncomingPayments />}
+                        {method === "employee-leave" && <EmployeeLeave />}
+                    </div>
                 </div>
+            </div>
 
-            </main>
-
-        </>
-
+        </main>
     )
 }
 
 function WelcomeToDashboard() {
     return (
-        <div>
+        <>
             <h1 className="text-white">ŞİRKET YÖNETİM SAYFASINA HOŞGELDİNİZ </h1>
             <h2>Bugün sizin için ne yapmamızı istersiniz?</h2>
-        </div>
+        </>
     )
 }
 
 function EmployeeLeave() {
     return (
         <div className="d-flex flex-column gap-2">
-            <section className="d-flex flex-row gap-3 w-100">
+            <section className="d-flex flex-row gap-3">
                 <button
                     type="button"
                     className="btn btn-lg btn-outline-primary w-50"
@@ -240,33 +251,36 @@ function EmployeeLeave() {
                 </div>
             </section>
 
-            <table className="table table-hover table-striped table-responsive ">
-                <thead>
-                    <tr>
-                        <th scope="col">İzin Adı</th>
-                        <th scope="col">İzin Tipi</th>
-                        <th scope="col">Başlangıç Tarihi</th>
-                        <th scope="col">Bitiş Tarihi</th>
-                        <th scope="col">Kişi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Ramazan Bayramı</td>
-                        <td>Resmi Tatil</td>
-                        <td>10/04/2024</td>
-                        <td>12/04/2024</td>
-                        <td>Tüm personel</td>
-                    </tr>
-                    <tr>
-                        <td>Babalık İzni</td>
-                        <td>İzin</td>
-                        <td>21/09/2023</td>
-                        <td>28/09/2023</td>
-                        <td>Doruk Tokinan</td>
-                    </tr>
-                </tbody>
-            </table>
+            <section className="mb-0 bg-white text-center">
+                <h1>İZİN LİSTESİ</h1>
+                <table className="table align-middle">
+                    <thead className="bg-light">
+                        <tr>
+                            <th className="font-weight-bold" scope="col">İzin Adı</th>
+                            <th scope="col">İzin Tipi</th>
+                            <th scope="col">Başlangıç Tarihi</th>
+                            <th scope="col">Bitiş Tarihi</th>
+                            <th scope="col">Kişi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ramazan Bayramı</td>
+                            <td>Resmi Tatil</td>
+                            <td>10/04/2024</td>
+                            <td>12/04/2024</td>
+                            <td>Tüm personel</td>
+                        </tr>
+                        <tr>
+                            <td>Babalık İzni</td>
+                            <td>İzin</td>
+                            <td>21/09/2023</td>
+                            <td>28/09/2023</td>
+                            <td>Doruk Tokinan</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
         </div>
     )
 }

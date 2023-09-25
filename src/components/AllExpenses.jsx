@@ -28,9 +28,9 @@ function ExpenseList(){
         }).catch(err => console.log(err))
     },[]);
     return (
-                <div className="col-8">
+                <div>
                 {expenseList == null ? "Yükleniyor...":<ul className="list-group mx-auto">
-                <li className="list-group-item text-center" aria-current="true">Harcamalar:</li>
+                <li className="list-group-item text-center" aria-current="true"><h3>HARCAMALAR</h3></li>
                     {expenseList.map(x=>{
                         total= total+x.totalCost
                         return <ExpenseDetails name={x.name} totalCost={x.totalCost}/>

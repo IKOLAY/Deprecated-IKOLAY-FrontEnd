@@ -1,7 +1,7 @@
 import { useState } from "react"
 export function AnnualProfitLoss() {
     return (
-            <PeriodSelection />
+        <PeriodSelection />
     )
 }
 
@@ -37,43 +37,39 @@ function PeriodSelection() {
 
     return (
         <>
-            <div className="container">
-                <div className="row">
-                    <div className="col-12">
-                        <div className="col-8 m-auto my-4">
-                            <form typeof="submit" className="text-start border rounded p-5 bg-light" onSubmit={handleSubmit}>
-                                <div className="row mb-3">
-                                    <label htmlFor="start" className="col-6">
-                                        Başlangıç Tarihi
-                                    </label>
-                                    <input type="date" className="col-6" name="start" id="start" onChange={handleChange} value={period.start} />
-                                </div>
-                                <div className="row mb-3">
-                                    <label htmlFor="end" className="col-6">
-                                        Bitiş Tarihi
-                                    </label>
-                                    <input type="date" className=" col-6" name="end" id="end" onChange={handleChange} value={period.end} />
-                                </div>
-                                <div className="row text-right">
-                                    <button type="submit" className="btn btn-outline-primary">Sorgula</button>
-                                </div>
-                            </form>
-                        </div>
+            <form typeof="submit" className="bg-light text-start border rounded p-4" onSubmit={handleSubmit}>
+                <h3 className="text-center pb-2">YILLIK KAR/ZARAR BİLGİLERİ</h3>
+                <div className="border rounded p-4 mb-4 shadow-sm ">
+                    <div className="row mb-3">
+                        <label htmlFor="start" className="col-6">
+                            Başlangıç Tarihi
+                        </label>
+                        <input type="date" className="col-6" name="start" id="start" onChange={handleChange} value={period.start} />
+                    </div>
+                    <div className="row mb-3">
+                        <label htmlFor="end" className="col-6">
+                            Bitiş Tarihi
+                        </label>
+                        <input type="date" className=" col-6" name="end" id="end" onChange={handleChange} value={period.end} />
                     </div>
                 </div>
+                <div className="row">
+                    <button type="submit" className="btn btn-primary">Sorgula</button>
+                </div>
+            </form>
 
 
-                {status == "success" && <div className="row d-flex justify-content-center gap-3 p-1">
-                    {cardList.map(content => <AnnualCard year={content.year} yearsTotal={content.yearsTotal} />)}
-                    {cardList.length == 0 && <div className="row border border-danger rounded text-center text-danger">
-                        <span>Girilen aralık değerleri için herhangi bir Kar/Zarar bilgisi bulunmamaktadır!</span>
-                    </div>}
+            {status == "success" && <div className="row d-flex justify-content-center gap-3 p-1">
+                {cardList.map(content => <AnnualCard year={content.year} yearsTotal={content.yearsTotal} />)}
+                {cardList.length == 0 && <div className="row border border-danger rounded text-center text-danger">
+                    <span>Girilen aralık değerleri için herhangi bir Kar/Zarar bilgisi bulunmamaktadır!</span>
                 </div>}
-                {status == "pending" && <div className="text-center">Yükleniyor...</div>}
-                {status == "error" && <div className="row border border-danger rounded text-center text-danger">
-                    <span>Hata meydana geldi lütfen istenilen türde giriş yapın.</span>
-                </div>}
-            </div>
+            </div>}
+            {status == "pending" && <div className="text-center">Yükleniyor...</div>}
+            {status == "error" && <div className="row border border-danger rounded text-center text-danger">
+                <span>Hata meydana geldi lütfen istenilen türde giriş yapın.</span>
+            </div>}
+
 
         </>
     )
