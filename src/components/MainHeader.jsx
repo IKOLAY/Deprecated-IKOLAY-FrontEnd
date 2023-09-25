@@ -1,4 +1,4 @@
-export default function NavHeader() {
+export default function MainHeader() {
 
     function handleClick(e) {
         e.preventDefault()

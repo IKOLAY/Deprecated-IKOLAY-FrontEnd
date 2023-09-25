@@ -2,30 +2,30 @@ import { useState, useEffect } from "react";
 
 export function EmployeeSection() {
     const user = JSON.parse(localStorage.getItem("user"));
- 
+
     return (
-       <>
-     
-       <ListEmployeeAndAddEmployee {...user} />
-       </>
+        <>
+
+            <ListEmployeeAndAddEmployee {...user} />
+        </>
     )
 }
 
-function ListEmployeeAndAddEmployee({companyId}) {
-   
-    const [employeeList,setEmployeeList] = useState([]);
+function ListEmployeeAndAddEmployee({ companyId }) {
 
-    useEffect(()=>{
+    const [employeeList, setEmployeeList] = useState([]);
+
+    useEffect(() => {
         fetch(`http://localhost:80/user/getallpersonelwithcompanyid?companyId=${companyId}`).then(resp => {
             if (!resp.ok)
                 throw new Error("Hata initiate");
             return resp.json();
         }).then(data => {
-           setEmployeeList(data);
+            setEmployeeList(data);
         }).catch(err => console.log(err))
-    },[]);
+    }, []);
 
-    
+
 
     return (
         <div className="d-flex flex-column gap-1">
@@ -33,18 +33,16 @@ function ListEmployeeAndAddEmployee({companyId}) {
                 <EmployeeAdd companyId={companyId} />
                 <EmployeeDelete />
             </section>
-            <table className="table table-hover table-striped table-responsive">
-                <thead>
+            <table className="table align-middle mb-0 bg-white">
+                <thead className="bg-light">
                     <tr>
-                        
-                        <th scope="col">İsim</th>
-                        <th scope="col">Soyisim</th>
-                        <th scope="col">E-Mail</th>
-                        <th scope="col">Telefon</th>
+                        <th>Personel</th>
+                        <th>Telefon</th>
+                        <th>İşlem</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {employeeList.map(emp => <EmployeeRow key={emp.email} {...emp}/>)}
+                    {employeeList.map(emp => <EmployeeRow key={emp.email} {...emp} />)}
                 </tbody>
             </table>
 
@@ -52,25 +50,51 @@ function ListEmployeeAndAddEmployee({companyId}) {
     )
 }
 
-function EmployeeRow({firstname,lastname,email,phone}){
+function EmployeeRow({ firstname, lastname, email, phone }) {
 
-    return(
-        <tr>            
-        <td>{firstname}</td>
-        <td>{lastname}</td>
-        <td>{email}</td>
-        <td>{phone}</td>
-    </tr>
+    return (
+        <>
+            <tr>
+                <td>{firstname}</td>
+                <td>{lastname}</td>
+                <td>{email}</td>
+                <td>{phone}</td>
+            </tr>
+            <tr>
+                <td>
+                    <div className="d-flex align-items-center">
+                        <img
+                            src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                            alt=""
+                            style={{ width: 45, height: 45 }}
+                            className="rounded-circle"
+                        />
+                        <div className="ms-3">
+                            <p className="fw-bold mb-1">{firstname} {lastname}</p>
+                            <p className="text-muted mb-0">{email}</p>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p className="fw-normal mb-1">{phone}</p>
+                </td>
+                <td>
+                    <button type="button" className="btn btn-link btn-sm btn-rounded">
+                        Edit
+                    </button>
+                </td>
+            </tr>
+        </>
     )
 }
 
-function EmployeeAdd({companyId}) {
-    const defUser ={firstname:"",lastname:"",email:""};
-    const[newEmployee,setNewEmployee] = useState({...defUser})
+function EmployeeAdd({ companyId }) {
+    const defUser = { firstname: "", lastname: "", email: "" };
+    const [newEmployee, setNewEmployee] = useState({ ...defUser })
 
-    function handleSubmit(e){
+    function handleSubmit(e) {
         e.preventDefault()
-        setNewEmployee({...newEmployee, password:"random",role:"EMPLOYEE",companyId:companyId})
+        setNewEmployee({ ...newEmployee, password: "random", role: "EMPLOYEE", companyId: companyId })
         fetch("http://localhost:80/auth/register", {
             method: "POST",
             headers: {
@@ -78,17 +102,17 @@ function EmployeeAdd({companyId}) {
             },
             body: JSON.stringify(newEmployee)
         }).then(resp => {
-            if(!resp.ok)
-           throw new Error("Hata initiate");
+            if (!resp.ok)
+                throw new Error("Hata initiate");
             return resp.json();
         }).then(data => {
-             setNewEmployee({...defUser})
+            setNewEmployee({ ...defUser })
             console.log(data);
         }).catch(err => console.log(err))
     }
 
-    function handleChange(e){
-        setNewEmployee({...newEmployee,[e.target.name]:e.target.value})
+    function handleChange(e) {
+        setNewEmployee({ ...newEmployee, [e.target.name]: e.target.value })
     }
 
 
@@ -97,7 +121,7 @@ function EmployeeAdd({companyId}) {
         <>
             <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-outline-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#modalAdd"
             >
@@ -125,7 +149,7 @@ function EmployeeAdd({companyId}) {
                             />
                         </div>
                         <div className="modal-body">
-                            <form onSubmit={handleSubmit}>
+                            <form typeof="submit" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="email">Email address</label>
                                     <input
@@ -164,20 +188,20 @@ function EmployeeAdd({companyId}) {
                                     />
                                 </div>
                                 <div className="modal-footer justify-content-between">
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                            >
-                                Vazgeç
-                            </button>
-                            <button type="submit" className="btn btn-primary">
-                                Kaydet
-                            </button>
-                        </div>
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Vazgeç
+                                    </button>
+                                    <button type="submit" className="btn btn-primary">
+                                        Kaydet
+                                    </button>
+                                </div>
                             </form>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -190,7 +214,7 @@ function EmployeeDelete() {
         <>
             <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-outline-danger"
                 data-bs-toggle="modal"
                 data-bs-target="#modalDelete"
             >
@@ -217,7 +241,7 @@ function EmployeeDelete() {
                             />
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form typeof="submit">
                                 <div className="form-group">
                                     <label htmlFor="exampleInputEmail1">Personel Kisisel Email Giriniz</label>
                                     <input
@@ -228,20 +252,21 @@ function EmployeeDelete() {
                                         placeholder="Enter email"
                                     />
                                 </div>
+                                <div className="modal-footer justify-content-between">
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Vazgeç
+                                    </button>
+                                    <button type="button" className="btn btn-primary">
+                                        Kaydet
+                                    </button>
+                                </div>
                             </form>
                         </div>
-                        <div className="modal-footer justify-content-between">
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                            >
-                                Vazgeç
-                            </button>
-                            <button type="button" className="btn btn-primary">
-                                Kaydet
-                            </button>
-                        </div>
+
                     </div>
                 </div>
             </div>

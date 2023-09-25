@@ -1,9 +1,5 @@
 /* ----- GENERAL PROPERTIES ----- */
 
-* {
-    box-sizing: border-box;
-}
-
 :root {
     --base--primary--color: #04182d;
     --default--color: #FFFFFF;
@@ -12,44 +8,90 @@
     --brand--yellow: #FFDE59;
     --base--secondary--color: #003C6B;
     --base--third--color: #156CAD;
-
-    --font--xl: 40px;
-    --font--lg: 32px;
-    --font--md: 24px;
-    --font--sm: 16px;
-
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--base--primary--color);
     color: var(--default--color);
-    font-size: var(--font--sm);
+    width: 100%;
+    height: 100vh;
+
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.nav-link {
+    border-radius: 7px;
+}
+
+.nav-link:hover {
+    background-color: var(--base--third--color);
+}
+
+.limited-width {
+    max-width: 80%;
 }
 
 /* ----- HEADINGS ----- */
 
-h1 {
-    font-size: var(--font--xl);
-}
-
 h2 {
-    font-size: var(--font--lg);
+
     color: var(--brand--pink);
 }
 
-h3 {
-    font-size: var(--font--md);
-}
-
 h4 {
-    font-size: var(--font--sm);
+
+    color: var(--brand--pink);
 }
 
 /* ----- BUTTONS ----- */
 
 button {
     min-width: max-content;
+}
+
+.btn-outline-primary {
+    color: var(--brand--blue);
+    border-color: var(--brand--blue);
+    transition: 1.5s;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--brand--blue);
+    color: var(--base--primary--color);
+
+}
+
+.btn-outline-secondary {
+    color: var(--brand--yellow);
+    border-color: var(--brand--yellow);
+    transition: 1.5s;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--brand--yellow);
+    color: var(--base---primary--color);
+}
+
+.btn-outline-danger {
+    color: var(--brand--pink);
+    border-color: var(--brand--pink);
+    transition: 1.5s;
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--brand--pink);
+    color: var(--base---primary--color);
+}
+
+/* ----- TABLES ----- */
+
+thead {
+    background-color: var(--base--primary--color);
 }
 
 /* ----- FORM COMPONENTS ----- */
@@ -59,16 +101,12 @@ select {
     border-color: var(--base--primary--color);
     border-radius: 7px;
     min-width: 100%;
-    font-size: var(--font--sm);
-}
 
-option {
-    font-size: var(--font--sm);
 }
 
 label {
     color: var(--base--primary--color);
-    font-size: var(--font--sm);
+
     font-weight: 600;
     width: max(100%, 100px)
 }

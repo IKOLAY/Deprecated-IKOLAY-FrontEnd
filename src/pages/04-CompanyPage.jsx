@@ -5,8 +5,6 @@ import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
 import { AllExpenses } from "../components/AllExpenses";
 
-
-
 export function CompanyPage() {
     const [method, setMethods] = useState(null);
     function handleClick(e) {
@@ -18,7 +16,7 @@ export function CompanyPage() {
         <>
             <main className="company d-flex flex-row w-100">
                 <div
-                    className="sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle"
+                    className="sidebar d-flex flex-column flex-shrink-0 p-1 bg-light bg-opacity-50"
                 >
                     <a
                         href="/company"
@@ -27,7 +25,7 @@ export function CompanyPage() {
                         <img src="img/ikolay-companyManager.svg" alt="logo" />
 
                     </a>
-                    <div className="d-flex flex-column  align-items-center p-5 mb-3" style={{border:"1px solid black", borderRadius:"7px", backgroundColor:"#04182d"}}>
+                    <div className="d-flex flex-column align-items-center p-5 m-3  bg-dark-subtle bg-opacity-50" style={{borderRadius:"7px"}}>
                         <img src="/img/ikolay-companypp.svg" width={50} alt="" style={{borderRadius:"50%"}}/>
                         <hr />
                         <p>ŞİRKET ADI</p>
@@ -35,7 +33,7 @@ export function CompanyPage() {
                         <p>Yönetici Email</p>
                         <p></p>
                     </div>
-                    <ul className="nav nav-pills flex-column mb-auto col-md ">
+                    <ul className="nav nav-pills flex-column mb-auto col-md align-items-center">
                         <li className="nav-item">
                             <a href="#" name="employees" className="nav-link link-body-emphasis " onClick={handleClick} >
                                 Personel Listesi
@@ -68,7 +66,7 @@ export function CompanyPage() {
                     {method === null && <WelcomeToDashboard />}
                     {method === "employees" && <EmployeeSection />}
                     {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
-                    {method === "all-company-loss" && <AllCompanyLoss />}
+                    {method === "all-company-loss" && <AllExpenses />}
                     {method === "incoming-payment" && <IncomingPayments />}
                     {method === "employee-leave" && <EmployeeLeave />}
                 </div>
@@ -82,26 +80,14 @@ export function CompanyPage() {
 
 function WelcomeToDashboard() {
     return (
-        <div style={{ display: "block" }}>
-            <h1>HOŞGELDİNİZ </h1>
-
-            <h2>BUGÜN SİZİN İÇİN NE YAPALIM?</h2>
+        <div>
+            <h1>ŞİRKET YÖNETİM SAYFASINA HOŞGELDİNİZ </h1>
+            <h2>Bugün sizin için ne yapmamızı istersiniz?</h2>
         </div>
     )
 }
 
-
-function AllCompanyLoss() {
-
-    return (
-       <AllExpenses/>
-    )
-}
-
-
 function EmployeeLeave() {
-
-
     return (
         <div className="d-flex flex-column gap-2">
             <section className="d-flex flex-row gap-3 w-100">
@@ -284,4 +270,3 @@ function EmployeeLeave() {
         </div>
     )
 }
-
