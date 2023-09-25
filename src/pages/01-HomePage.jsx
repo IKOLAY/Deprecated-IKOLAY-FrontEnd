@@ -1,27 +1,26 @@
 import { NavLink } from "react-router-dom";
-import NavHeader from "../components/NavHeader";
+import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 import "../assets/styles/HomePage.css"
 
 
 export function HomePage() {
-    
+
 
     return (
         <>
-            <NavHeader />
-            <main>
-
-                <section className="hero d-flex flex-row justify-content-around align-items-center">
+            <MainHeader />
+            <main className="d-flex flex-column justify-content-center align-items-center">
+                <section className="hero limited-width d-flex justify-content-center align-items-center px-4 pb-4 gap-5">
                     <div>
                         <h1>İnsan Kaynakları yönetimi artık çok kolay!</h1>
                         <h2>Siz de aramıza katılın</h2>
-                        <div className="buttons d-flex flex-row justify-content-left">
+                        <div className="buttons d-flex flex-row">
                             <NavLink to="/register">
                                 <button type="button" className="btn btn-lg btn-outline-primary me-2">KAYIT OL!</button>
                             </NavLink>
                             <NavLink to="/login">
-                            <button type="button" className="btn btn-lg btn-outline-secondary">GİRİŞ YAP</button>
+                                <button type="button" className="btn btn-lg btn-outline-secondary">GİRİŞ YAP</button>
                             </NavLink>
                         </div>
                     </div>
@@ -30,68 +29,45 @@ export function HomePage() {
                     </div>
                 </section>
 
-                <section className="about d-flex flex-column justify-content-center align-items-center text-center">
-                    <div className="d-flex flex-column justify-content-center align-items-center text-center ">
-                        <h3 id="services">Vizyonumuz</h3>
-
-                        <p>Vizyonumuz, insan kaynakları yönetimini daha kolay, verimli ve etkili hale getirerek dünya genelinde şirketlerin ve çalışanların başarısını artırmak ve iş dünyasına olumlu bir etki yapmaktır. İşimizi daha iyi hale getirmek için sürekli çaba gösterir, yenilikçi çözümler sunarız ve müşteri memnuniyetini en üst düzeye çıkarmak için çalışırız.</p>
-                    </div>
+                <section className="secondary-container d-flex flex-column justify-content-center align-items-center p-4 text-center">
+                    <h3>Vizyonumuz</h3>
+                    <p className="limited-width">Vizyonumuz, insan kaynakları yönetimini daha kolay, verimli ve etkili hale getirerek dünya genelinde şirketlerin ve çalışanların başarısını artırmak ve iş dünyasına olumlu bir etki yapmaktır. İşimizi daha iyi hale getirmek için sürekli çaba gösterir, yenilikçi çözümler sunarız ve müşteri memnuniyetini en üst düzeye çıkarmak için çalışırız.</p>
                 </section>
 
-                <section className="services d-flex flex-column justify-content-center align-items-center text-center">
-                    <div className="services-general">
+                <section className="services limited-width d-flex flex-row justify-content-center align-items-center text-center p-4 gap-5">
+                    <div className="w-50">
                         <h3>Hizmetlerimiz</h3>
-                        <p>İnsan Kaynakları’na dair her şeyi tek bir yerden yönetin!</p>
-                        <div className="services-container d-flex flex-row justify-content-between mb-2 align-items-center gap-4">
-                            <ul className="d-flex flex-column align-items-left">
-                                <li className="d-flex justify-content-between align-items-center text-start mb-2">
-                                    PERSONEL ONBOARDING
-                                    <img src="/img/icons/onboarding.svg" alt="el sıkışma ikonu" />
-                                </li>
-                                <li className="d-flex justify-content-between align-items-center mb-2">
-                                    PERSONEL YÖNETİMİ
-                                    <img src="/img/icons/management.svg" alt="el sıkışma ikonu" />
-                                </li>
-                                <li className="d-flex justify-content-between align-items-center text-start">
-                                    MAAŞ VE ÜCRET YÖNETİMİ
-                                    <img src="/img/icons/wage.svg" alt="el sıkışma ikonu" />
-                                </li>
-                            </ul>
-                            <ul className="d-flex flex-column align-items-left">
-                                <li className="d-flex justify-content-between align-items-center text-start mb-2">
-                                    VARDİYA YÖNETİMİ
-                                    <img src="/img/icons/shift.svg" alt="el sıkışma ikonu" />
-                                </li>
-                                <li className="d-flex justify-content-between align-items-center text-start mb-2">
-                                    ŞİRKET PUANLAMA
-                                    <img src="/img/icons/rating.svg" alt="el sıkışma ikonu" />
-                                </li>
-                                <li className="d-flex justify-content-between align-items-center text-start">
-                                    7/24 DESTEK
-                                    <img src="/img/icons/support.svg" alt="el sıkışma ikonu" />
-                                </li>
-                            </ul>
-                        </div>
+                        <h4>İnsan Kaynakları’na dair her şeyi tek bir yerden yönetin!</h4>
                     </div>
-                </section>
-
-                <section id="contact" className="contact text-center ">
-                    <h3 className="py-4">Bize Ulaşın</h3>
-                    <div className="contact-container d-flex justify-content-center align-items-center pb-4 gap-4">
-                        <img className="ms-5" src="/img/ikolay-contact-img.svg" alt="laptop başında otururken telefon eden kadın illüstrasyon" />
-                        <ul className="me-5">
-                            <li>
-                                <h4>PHONE</h4>
-                                <p><small>(123)456-7890</small></p>
+                    <div className="d-flex flex-row  justify-content-center align-items-center w-50">
+                        <ul className="services-container d-flex flex-column align-items-left">
+                            <li className="d-flex justify-content-between align-items-center text-end mb-3">
+                                PERSONEL ONBOARDING
+                                <img src="/img/icons/onboarding.svg" alt="el sıkışma ikonu" />
                             </li>
-                            <li>
-                                <h4>EMAIL</h4>
-                                <p><small>info@ikolay.com</small></p>
+                            <li className="d-flex justify-content-between align-items-center text-end mb-3">
+                                PERSONEL YÖNETİMİ
+                                <img src="/img/icons/management.svg" alt="el sıkışma ikonu" />
+                            </li>
+                            <li className="d-flex justify-content-between align-items-center text-end mb-3">
+                                MAAŞ VE ÜCRET YÖNETİMİ
+                                <img src="/img/icons/wage.svg" alt="el sıkışma ikonu" />
+                            </li>
+                            <li className="d-flex justify-content-between align-items-center text-end mb-3">
+                                VARDİYA YÖNETİMİ
+                                <img src="/img/icons/shift.svg" alt="el sıkışma ikonu" />
+                            </li>
+                            <li className="d-flex justify-content-between align-items-center text-end mb-3">
+                                ŞİRKET DEĞERLENDİRME
+                                <img src="/img/icons/rating.svg" alt="el sıkışma ikonu" />
+                            </li>
+                            <li className="d-flex justify-content-between align-items-center text-end">
+                                7/24 DESTEK
+                                <img src="/img/icons/support.svg" alt="el sıkışma ikonu" />
                             </li>
                         </ul>
                     </div>
                 </section>
-
             </main>
 
             <MainFooter />

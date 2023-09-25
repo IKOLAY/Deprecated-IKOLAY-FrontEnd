@@ -2,10 +2,6 @@
   background-color: var(--base--primary--color);
 }
 
-.fs-2 {
-  color: var(--base--primary--color);
-}
-
 .sidebar {
   height: 100vh;
 
