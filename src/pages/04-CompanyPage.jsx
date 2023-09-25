@@ -28,7 +28,7 @@ export function CompanyPage() {
 
                     </a>
                     <div className="d-flex flex-column  align-items-center p-5 mb-3" style={{border:"1px solid black", borderRadius:"7px", backgroundColor:"#04182d"}}>
-                        <img src="/img/ikolay-adminpp.svg" width={50} alt="" style={{borderRadius:"50%"}}/>
+                        <img src="/img/ikolay-companypp.svg" width={50} alt="" style={{borderRadius:"50%"}}/>
                         <hr />
                         <p>ŞİRKET ADI</p>
                         <p>Yönetici Adı</p>
