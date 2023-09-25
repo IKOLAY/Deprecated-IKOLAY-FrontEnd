@@ -50,7 +50,7 @@ export default function LoginPage() {
                 <NavLink to="/">
                     <img src="/img/ikolay-logo-dark.svg" alt="ikolay logo" />
                 </NavLink>
-                <form action="" onSubmit={handleSubmit} className="d-flex flex-column justify-content-around gap-2">
+                <form typeof="submit" action="" onSubmit={handleSubmit} className="d-flex flex-column justify-content-around gap-2">
                     <label htmlFor="email">
                         Email
                         <input name="email" id="email" type="text" className="px-3" value={loginInfo.email} onChange={handleChange}/>
