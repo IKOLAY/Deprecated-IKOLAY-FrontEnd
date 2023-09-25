@@ -39,19 +39,6 @@ export default function AdminPage() {
                         >
                             <li>
                                 <a className="dropdown-item" href="#">
-                                    Ayarlar
-                                </a>
-                            </li>
-                            <li>
-                                <a className="dropdown-item" href="#">
-                                    Profil
-                                </a>
-                            </li>
-                            <li>
-                                <hr className="dropdown-divider" />
-                            </li>
-                            <li>
-                                <a className="dropdown-item" href="#">
                                     Çıkış
                                 </a>
                             </li>
