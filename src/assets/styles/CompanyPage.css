@@ -1,4 +1,5 @@
 .company {
+  color: var(--base--primary--color);
   background-color: var(--base--primary--color);
 }
 

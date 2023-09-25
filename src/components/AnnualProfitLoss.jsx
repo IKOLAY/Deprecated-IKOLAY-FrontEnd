@@ -41,21 +41,21 @@ function PeriodSelection() {
                 <div className="row">
                     <div className="col-12">
                         <div className="col-8 m-auto my-4">
-                            <form action="" className="border p-5" onSubmit={handleSubmit}>
+                            <form typeof="submit" className="text-start border rounded p-5 bg-light" onSubmit={handleSubmit}>
                                 <div className="row mb-3">
-                                    <label htmlFor="start" className="text-light col-6">
+                                    <label htmlFor="start" className="col-6">
                                         Başlangıç Tarihi
                                     </label>
                                     <input type="date" className="col-6" name="start" id="start" onChange={handleChange} value={period.start} />
                                 </div>
                                 <div className="row mb-3">
-                                    <label htmlFor="end" className="text-light col-6">
+                                    <label htmlFor="end" className="col-6">
                                         Bitiş Tarihi
                                     </label>
                                     <input type="date" className=" col-6" name="end" id="end" onChange={handleChange} value={period.end} />
                                 </div>
                                 <div className="row text-right">
-                                    <button type="submit" className="btn btn-primary">Sorgula</button>
+                                    <button type="submit" className="btn btn-outline-primary">Sorgula</button>
                                 </div>
                             </form>
                         </div>

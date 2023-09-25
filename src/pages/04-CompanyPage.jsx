@@ -62,7 +62,7 @@ export function CompanyPage() {
                     </ul>
                     <hr />
                 </div>
-                <div className="w-100 d-flex align-items-center justify-content-center p-5">
+                <div className="w-100 d-flex align-items-center justify-content-center text-center p-5">
                     {method === null && <WelcomeToDashboard />}
                     {method === "employees" && <EmployeeSection />}
                     {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
@@ -81,7 +81,7 @@ export function CompanyPage() {
 function WelcomeToDashboard() {
     return (
         <div>
-            <h1>ŞİRKET YÖNETİM SAYFASINA HOŞGELDİNİZ </h1>
+            <h1 className="text-white">ŞİRKET YÖNETİM SAYFASINA HOŞGELDİNİZ </h1>
             <h2>Bugün sizin için ne yapmamızı istersiniz?</h2>
         </div>
     )

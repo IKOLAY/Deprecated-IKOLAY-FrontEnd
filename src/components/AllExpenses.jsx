@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useEffect } from "react";
-import { useRef } from "react";
 
 
 export function AllExpenses(){
@@ -29,20 +28,17 @@ function ExpenseList(){
         }).catch(err => console.log(err))
     },[]);
     return (
-    
-            <div className="col-12">
-                <div className="col-12">
+                <div className="col-8">
                 {expenseList == null ? "Yükleniyor...":<ul className="list-group mx-auto">
-                <li className="list-group-item active text-center" aria-current="true">Harcamalar:</li>
+                <li className="list-group-item text-center" aria-current="true">Harcamalar:</li>
                     {expenseList.map(x=>{
                         total= total+x.totalCost
                         return <ExpenseDetails name={x.name} totalCost={x.totalCost}/>
                     })}
                   
-                    <li className="list-group-item active text-end" aria-current="true"> Total: {total}</li>
+                    <li className="list-group-item text-end" aria-current="true"> Total: {total}</li>
                     </ul>}
                 </div>
-            </div>
     )
 }
 

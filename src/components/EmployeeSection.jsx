@@ -28,7 +28,7 @@ function ListEmployeeAndAddEmployee({ companyId }) {
 
 
     return (
-        <div className="d-flex flex-column gap-1">
+        <div className="d-flex flex-column gap-1 col-8">
             <section className="d-flex flex-row gap-2">
                 <EmployeeAdd companyId={companyId} />
                 <EmployeeDelete />
@@ -54,12 +54,6 @@ function EmployeeRow({ firstname, lastname, email, phone }) {
 
     return (
         <>
-            <tr>
-                <td>{firstname}</td>
-                <td>{lastname}</td>
-                <td>{email}</td>
-                <td>{phone}</td>
-            </tr>
             <tr>
                 <td>
                     <div className="d-flex align-items-center">
