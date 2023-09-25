@@ -26,7 +26,7 @@ function SelectRole({ setRole }) {
                 <NavLink to="/">
                     <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                 </NavLink>
-                <form className="d-flex flex-column justify-content-center align-items-center gap-2">
+                <form typeof="submit" className="d-flex flex-column justify-content-center align-items-center gap-2">
                     <label >Hangi seçenek sizi daha iyi tanımlıyor?</label>
                     <select name="role" id="role" onChange={(e) => setRole(e.target.value)}>
                         <option value="null" defaultValue={null}>Seçiniz</option>
@@ -90,7 +90,7 @@ function RegisterCompanyManager() {
 
             <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center p-4">
 
-                <form action="" className="d-flex flex-column gap-2 px-5 align-items-center"onSubmit={handleSubmit}>
+                <form typeof="submit" className="d-flex flex-column gap-2 px-5 align-items-center"onSubmit={handleSubmit}>
                     <NavLink to="/">
                         <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                     </NavLink>
@@ -126,7 +126,7 @@ function RegisterCompanyManager() {
                         <a href="http://localhost:5173/register">
                             <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                         </a>
-                        <button className="btn btn-lg btn-outline-primary" disabled={user.email==""&&true}  type="submit">GÖNDER</button>
+                        <button className="btn btn-lg btn-outline-primary" disabled={user.email==""&&true} type="submit">GÖNDER</button>
                     </div>
                 </form>
 
@@ -180,7 +180,7 @@ function RegisterGuest() {
 
             <section className="section-two w-50 d-flex flex-column align-items-center justify-content-center p-4" style={{ borderRight: "1px solid #003C6B" }}>
 
-                <form action="" className="d-flex flex-column align-items-center gap-2 px-5" onSubmit={handleSubmit}>
+                <form typeof="submit" className="d-flex flex-column align-items-center gap-2 px-5" onSubmit={handleSubmit}>
                     <NavLink to="/">
                         <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                     </NavLink>

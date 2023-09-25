@@ -136,7 +136,7 @@ function EmployeeLeave() {
                             />
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form typeof="submit">
                                 <div className="form-group">
                                     <label htmlFor="holidayName">Resmi Tatil Adı</label>
                                     <input
@@ -199,7 +199,7 @@ function EmployeeLeave() {
                             />
                         </div>
                         <div className="modal-body">
-                            <form>
+                            <form typeof="submit">
                                 <div className="form-group">
                                     <label htmlFor="holidayName">İzin Tipi</label>
                                     <input
