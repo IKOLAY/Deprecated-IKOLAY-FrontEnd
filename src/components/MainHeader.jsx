@@ -1,9 +1,11 @@
-export default function MainHeader() {
+export default function MainHeader() {   
 
     function handleClick(e) {
         e.preventDefault()
         window.localStorage.clear("token")
         window.localStorage.clear("user")
+        window.location.reload();
+
     }
 
     return (
@@ -36,7 +38,7 @@ export default function MainHeader() {
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/login" onClick={handleClick}>
+                            <a className="nav-link" href="#" onClick={handleClick}>
                                 Çıkış
                             </a>
                         </li>

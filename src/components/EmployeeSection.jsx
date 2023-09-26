@@ -25,8 +25,6 @@ function ListEmployeeAndAddEmployee({ companyId }) {
         }).catch(err => console.log(err))
     }, []);
 
-
-
     return (
         <div className="d-flex flex-column gap-1">
 
