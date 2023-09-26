@@ -1,33 +1,43 @@
 /* ----- HERO SECTION ----- */
 
 .hero {
-    padding-top: 110px;
+  padding-top: 110px;
 }
 
 .hero img {
-    width: min(30vw, 500px);
+  width: min(30vw, 500px);
 }
 
 .hero .btn {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 /* ----- BG SECONDARY----- */
 
 .secondary-container {
-    background-color: var(--base--secondary--color);
+  background-color: var(--base--secondary--color);
 }
-
 
 /* ----- SERVICES(HIZMETLERIMIZ) SECTION ----- */
 
 .services-container {
-    background-color: var(--base--third--color);
-    padding: 20px;
-    border-radius: 7px;
+  background-color: var(--base--third--color);
+  padding: 20px;
+  border-radius: 7px;
 }
 
 .services-container img {
-    margin-left: 15px;
+  margin-left: 15px;
 }
 
+/* Companies gösterilen section ve div */
+.companies {
+  background-color: #003c6b;
+}
+.list-group-item {
+  border: 1px solid var(--base--secondary--color);
+}
+.list-group-item:hover {
+  background-color: #04182d;
+  color: whitesmoke;
+}
