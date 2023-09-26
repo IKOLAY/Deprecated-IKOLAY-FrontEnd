@@ -18,7 +18,7 @@ function ExpenseList(){
     const[expenseList,setExpenseList] = useState([]);
     
     useEffect(()=>{
-        fetch(`http://localhost:80/transaction/test?companyId=${companyId}`).then(resp => {
+        fetch(`http://localhost:80/transaction/allexpenses?companyId=${companyId}`).then(resp => {
             if (!resp.ok)
                 throw new Error("Hata initiate");
             return resp.json();
