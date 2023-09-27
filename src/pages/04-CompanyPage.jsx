@@ -104,18 +104,19 @@ export function CompanyPage() {
                             Personel Sayfası
                         </a>
                     </li>
-                </ul>  
+                </ul>
 
                 <div className="tab-content w-100 d-flex justify-content-center align-items-center">
-                        <div className="conditional-render pt-2 mt-5">
-                            {method === null && <WelcomeToDashboard />}
-                            {method === "employee-page" && <EmployeePage />}
-                            {method === "employees" && <EmployeeSection />}
-                            {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
-                            {method === "all-company-loss" && <AllExpenses />}
-                            {method === "incoming-payment" && <IncomingPayments />}
-                            {method === "income-outcome-input" && <IncomeOutcomeMethod />}
-                            {method === "company-review" && <CompanyReviewForGuest />}
+                    <div className="conditional-render pt-2 mt-5">
+                        {method === null && <WelcomeToDashboard />}
+                        {method === "employee-page" && <EmployeePage />}
+                        {method === "employees" && <EmployeeSection />}
+                        {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
+                        {method === "all-company-loss" && <AllExpenses />}
+                        {method === "incoming-payment" && <IncomingPayments />}
+                        {method === "employee-leave" && <EmployeeLeave />}
+                        {method === "income-outcome-input" && <IncomeOutcomeMethod />}
+                        {method === "company-review" && <CompanyReviewForGuest />}
                     </div>
                 </div>
             </div>

@@ -4,6 +4,8 @@ export default function MainHeader() {
         e.preventDefault()
         window.localStorage.clear("token")
         window.localStorage.clear("user")
+        window.localStorage.clear("company")
+        window.localStorage.clear("shift")
         window.location.reload();
 
     }
@@ -28,17 +30,17 @@ export default function MainHeader() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
                         <li className="nav-item active">
-                            <a className="nav-link" href="/">
+                            <a className="nav-link text-info" href="/">
                                 Ana Sayfa
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/login">
+                            <a className="nav-link text-info" href="/login">
                                 Giriş
                             </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#" onClick={handleClick}>
+                            <a className="nav-link text-info" href="#" onClick={handleClick}>
                                 Çıkış
                             </a>
                         </li>

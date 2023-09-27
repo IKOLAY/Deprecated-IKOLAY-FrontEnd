@@ -51,20 +51,22 @@ export default function LoginPage() {
                             })
                     }
                     return userInfo;
+                }).then(userInfo => {
+                    const data = window.localStorage.getItem("role");
+             
+                        if (data == "MANAGER")
+                            navigate("/company")
+                        else if (data == "ADMIN")
+                            navigate("/admin")
+                        else if (data == "EMPLOYEE")
+                            navigate("/employee")
+                        else
+                            navigate("/")
+            
                 })
-        })
+        }).catch(err => console.log(err))
 
-            .then(userInfo => {
-                const data = window.localStorage.getItem("role");
-                if (data == "MANAGER")
-                    navigate("/company")
-                else if (data == "ADMIN")
-                    navigate("/admin")
-                else if (data == "EMPLOYEE")
-                    navigate("/employee")
-                else
-                    navigate("/")
-            }).catch(err => console.log(err))
+
 
     }
 
