@@ -17,13 +17,14 @@ function PeriodSelection() {
     function handleSubmit(e) {
         e.preventDefault();
         setStatus("pending")
-        setPeriod({ ...period, companyId: 1 });
+        const annuals = { ...period, companyId: 1 }
+        setPeriod(annuals);
         fetch("http://localhost:80/transaction/annualprofitloss", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(period)
+            body: JSON.stringify(annuals)
         }).then(resp => {
             if (!resp.ok)
                 throw new Error("Hata initiate");
@@ -60,7 +61,7 @@ function PeriodSelection() {
 
 
             {status == "success" && <div className="row d-flex justify-content-center gap-3 p-1">
-                {cardList.map(content => <AnnualCard year={content.year} yearsTotal={content.yearsTotal} />)}
+                {cardList.map(content => <AnnualCard key={content.year} year={content.year} yearsTotal={content.yearsTotal} />)}
                 {cardList.length == 0 && <div className="row border border-danger rounded text-center text-danger">
                     <span>Girilen aralık değerleri için herhangi bir Kar/Zarar bilgisi bulunmamaktadır!</span>
                 </div>}
@@ -70,7 +71,7 @@ function PeriodSelection() {
                 <span>Hata meydana geldi lütfen istenilen türde giriş yapın.</span>
             </div>}
 
-
+            
         </>
     )
 }

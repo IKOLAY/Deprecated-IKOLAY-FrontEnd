@@ -4,8 +4,17 @@ import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
 import { AllExpenses } from "../components/AllExpenses";
+import { IncomeOutcomeMethod } from "../components/IncomeOutcomeMethod";
+import { CompanyReviewForGuest } from "../components/CompanyReviewForGuest";
+import { useSearchParams } from "react-router-dom";
+
 
 export function CompanyPage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParams.get("companyName"));
+    console.log(searchParams.get("logo"));
+    console.log(searchParams.get("about"));
+    console.log(searchParams.get("address"));
     const [method, setMethods] = useState(null);
     function handleClick(e) {
         e.preventDefault();
@@ -54,6 +63,16 @@ export function CompanyPage() {
                             Personel İzin Ekle
                         </a>
                     </li>
+                    <li>
+                        <a href="#" name="income-outcome-input" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Harcama Ekle
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" name="company-review" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Şirket Yorum TEST
+                        </a>
+                    </li>
                 </ul>
                 <hr />
             </div>
@@ -81,6 +100,8 @@ export function CompanyPage() {
                         {method === "all-company-loss" && <AllExpenses />}
                         {method === "incoming-payment" && <IncomingPayments />}
                         {method === "employee-leave" && <EmployeeLeave />}
+                        {method === "income-outcome-input" && <IncomeOutcomeMethod />}
+                        {method === "company-review" && <CompanyReviewForGuest />}
                     </div>
                 </div>
             </div>
