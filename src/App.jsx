@@ -3,11 +3,10 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import { HomePage } from './pages/01-HomePage'
 import { RegisterPage } from './pages/02-RegisterPage'
-import { AnnualProfitLoss } from './components/AnnualProfitLoss'
-import { AllExpenses } from './components/AllExpenses'
 import { CompanyPage } from './pages/04-CompanyPage'
 import LoginPage from './pages/03-LoginPage'
 import AdminPage from './pages/05-AdminPage'
+import EmployeePage from './pages/06-EmployeePage'
 
 
 function App() {
@@ -18,6 +17,7 @@ function App() {
             <Route path="/company" element={<CompanyPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/employee" element={<EmployeePage/>} />
         </Routes>
 
     )

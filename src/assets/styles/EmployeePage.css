@@ -1,0 +1,12 @@
+.employee {
+    color: var(--base--primary--color);
+    background-color: var(--base--primary--color);
+}
+
+#wrapper {
+    height: 100vh;
+}
+
+#sidebar-wrapper {
+    height: 100vh;
+}
