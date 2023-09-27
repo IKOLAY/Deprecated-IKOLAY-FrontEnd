@@ -1,13 +1,13 @@
 import "../assets/styles/LoginPage.css"
-import { NavLink,useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function LoginPage() {
-    const defLogInfo = {email:"",password:""}
-    const [loginInfo,setLoginInfo] = useState({...defLogInfo});
+    const defLogInfo = { email: "", password: "" }
+    const [loginInfo, setLoginInfo] = useState({ ...defLogInfo });
     const navigate = useNavigate();
-    function handleSubmit(e){
-        
+    function handleSubmit(e) {
+
         e.preventDefault()
         console.log(loginInfo)
         fetch("http://localhost:80/auth/login", {
@@ -17,30 +17,59 @@ export default function LoginPage() {
             },
             body: JSON.stringify(loginInfo)
         }).then(resp => {
-            if(!resp.ok)
-           throw new Error("Hata initiate");
+            if (!resp.ok)
+                throw new Error("Hata initiate");
             return resp.json();
         }).then(data => {
-            window.localStorage.setItem("token",data.token)
-            console.log(data.token);
+            window.localStorage.setItem("token", data.token);
+            window.localStorage.setItem("role", data.role);
             fetch(`http://localhost:80/user/loggeduser?token=${data.token}`)
-            .then(resp=>resp.json())
-            .then(data2=>{
-                console.log(data2);
-                window.localStorage.setItem("user",JSON.stringify(data2));
-                if(data.role=="MANAGER")
-                navigate("/company")
-                else if(data.role=="ADMIN")
-                navigate("/admin")
+                .then(resp => resp.json())
+                .then(data2 => {
+                    console.log(data2);
+                    window.localStorage.setItem("user", JSON.stringify(data2));
+                    return data2
+                }).then(userInfo => {
+                    if (userInfo.companyId == null) {
+                        window.localStorage.setItem("company", null);
+                    } else {
+                        fetch(`http://localhost:80/company/companyinformation?id=${userInfo.companyId}`)
+                            .then(resp => resp.json())
+                            .then(data3 => {
+                                console.log(data3);
+                                window.localStorage.setItem("company", JSON.stringify(data3));
+                            });
+                    }
+                    if (userInfo.shiftId == null)
+                        window.localStorage.setItem("shift", null);
+                    else {
+                        fetch(`http://localhost:80/shift/findshift/${userInfo.shiftId}`)
+                            .then(resp => resp.json())
+                            .then(data4 => {
+                                console.log(data4);
+                                window.localStorage.setItem("shift", JSON.stringify(data4));
+                            })
+                    }
+                    return userInfo;
+                })
+        })
+
+            .then(userInfo => {
+                const data = window.localStorage.getItem("role");
+                if (data == "MANAGER")
+                    navigate("/company")
+                else if (data == "ADMIN")
+                    navigate("/admin")
+                else if (data == "EMPLOYEE")
+                    navigate("/employee")
                 else
-                navigate("/")
-            })
-        }).catch(err => console.log(err))
-        
+                    navigate("/")
+            }).catch(err => console.log(err))
+
     }
 
-    function handleChange(e){
-        setLoginInfo({...loginInfo,[e.target.name]:e.target.value})
+    function handleChange(e) {
+        setLoginInfo({ ...loginInfo, [e.target.name]: e.target.value })
     }
 
     return (
@@ -52,11 +81,11 @@ export default function LoginPage() {
                 <form typeof="submit" action="" onSubmit={handleSubmit} className="d-flex flex-column justify-content-around gap-2">
                     <label htmlFor="email">
                         Email
-                        <input name="email" id="email" type="text" className="px-3" value={loginInfo.email} onChange={handleChange}/>
+                        <input name="email" id="email" type="text" className="px-3" value={loginInfo.email} onChange={handleChange} />
                     </label>
                     <label htmlFor="password">
                         Password
-                        <input name="password" id="password" type="password" className="px-3" value={loginInfo.password} onChange={handleChange}/>
+                        <input name="password" id="password" type="password" className="px-3" value={loginInfo.password} onChange={handleChange} />
                     </label>
                     <button className="btn btn-lg btn-outline-primary w-100" type="submit">GİRİŞ YAP</button>
                 </form>
