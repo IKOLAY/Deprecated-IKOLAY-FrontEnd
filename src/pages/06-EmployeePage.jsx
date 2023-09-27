@@ -11,10 +11,8 @@ export default function EmployeePage() {
     }
 
     function handleLogout(e) {
-        e.preventDefault()
         window.localStorage.clear("token")
         window.localStorage.clear("user")
-        window.location.reload();
     }
 
 
@@ -180,9 +178,9 @@ export default function EmployeePage() {
                                             </a>
                                         </li>
                                         <li>
-                                            <a className="dropdown-item" href="#" onClick={handleLogout}>
+                                            <NavLink className="dropdown-item" to="/" onClick={handleLogout}>
                                                 Çıkış
-                                            </a>
+                                            </NavLink>
                                         </li>
                                     </ul>
                                 </li>

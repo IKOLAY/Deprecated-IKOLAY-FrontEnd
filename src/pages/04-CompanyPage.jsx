@@ -4,13 +4,27 @@ import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
 import { AllExpenses } from "../components/AllExpenses";
+import EmployeePage from "./06-EmployeePage";
+import { NavLink } from "react-router-dom";
 
 export function CompanyPage() {
-    const [method, setMethods] = useState(null);
+    const [method, setMethod] = useState(null);
+
     function handleClick(e) {
         e.preventDefault();
-        setMethods(e.target.name)
+        setMethod(e.target.name)
     }
+
+    function handlePageChange(e) {
+        e.preventDefault();
+        setMethod(e.target.name)
+    }
+
+    function handleLogout(e) {
+        window.localStorage.clear("token")
+        window.localStorage.clear("user")
+    }
+
 
     return (
         <main className="company d-flex flex-row h-100">
@@ -55,6 +69,7 @@ export function CompanyPage() {
                         </a>
                     </li>
                 </ul>
+                <NavLink className="text-center btn btn-warning" to="/" onClick={handleLogout}>ÇIKIŞ YAP</NavLink>
                 <hr />
             </div>
 
@@ -62,25 +77,25 @@ export function CompanyPage() {
 
                 <ul className="d-flex nav nav-tabs border-0 w-100 h-25">
                     <li className="nav-item  border border-bottom-0 rounded w-50">
-                        <a className="nav-link text-white" href="/company">
+                        <a className="nav-link text-white" name="company-page" href="/company" >
                             Şirket Sayfası
                         </a>
                     </li>
                     <li className="nav-item border rounded w-50">
-                        <a className="nav-link text-white" href="/employee">
+                        <a className="nav-link text-white" name="employee-page" href="#" onClick={handlePageChange}>
                             Personel Sayfası
                         </a>
                     </li>
                 </ul>
 
-                <div className="tab-content w-100 d-flex justify-content-center pt-5">
-                    <div className="w-75">
-                        {method === null && <WelcomeToDashboard />}
-                        {method === "employees" && <EmployeeSection />}
-                        {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
-                        {method === "all-company-loss" && <AllExpenses />}
-                        {method === "incoming-payment" && <IncomingPayments />}
-                        {method === "employee-leave" && <EmployeeLeave />}
+                <div className="tab-content w-100 d-flex justify-content-center align-items-center">
+                        <div className="conditional-render pt-2 mt-5">
+                            {method === null && <WelcomeToDashboard />}
+                            {method === "employee-page" && <EmployeePage />}
+                            {method === "employees" && <EmployeeSection />}
+                            {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
+                            {method === "all-company-loss" && <AllExpenses />}
+                            {method === "incoming-payment" && <IncomingPayments />}
                     </div>
                 </div>
             </div>
