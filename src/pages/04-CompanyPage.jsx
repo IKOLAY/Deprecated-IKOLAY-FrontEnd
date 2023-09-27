@@ -67,7 +67,7 @@ export function CompanyPage() {
                         </a>
                     </li>
                     <li className="nav-item border rounded w-50">
-                        <a className="nav-link text-white" href="#">
+                        <a className="nav-link text-white" href="/employee">
                             Personel Sayfası
                         </a>
                     </li>
