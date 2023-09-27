@@ -76,7 +76,7 @@ export default function EmployeePage() {
                                                     <p style={{ color: "orange" }} className="py-2 mb-0 fw-bold" >
                                                         Değerlendirme/Yorum Kuralları
                                                     </p>
-                                                    <ul className="pe-2" style={{listStyleType:"circle"}}>
+                                                    <ul className="pe-2" style={{ listStyleType: "circle" }}>
                                                         <li className="mb-2">Kişisel Bilgilerin Gizliliği:
 
                                                             Çalışanlar, yorumlarında kişisel bilgilerini (örneğin, tam ad, telefon numarası, e-posta adresi) paylaşmamalıdır.</li>
@@ -105,14 +105,14 @@ export default function EmployeePage() {
 
                                                             Yorum yapanların kimliklerini doğrulamak ve gerektiğinde izleme yapmak için gereken önlemleri alabilirsiniz.</li>
                                                     </ul>
-                                                    <p style={{color:"orange"}}>
+                                                    <p style={{ color: "orange" }}>
                                                         Her çalışanın çalıştığı şirkete tek bir yorum yapma hakkı bulunmaktadır. Değerlendirme yaparken yukarıdaki kurallara uyulmazsa yorumunuz şirketin değerlendirme sayfasında yayınlanmayacaktır.
                                                     </p>
 
                                                 </div>
                                                 <div className="form-group py-3  border-top">
                                                     <label htmlFor="comment">Yorumunuz</label>
-                                                    <textarea className="w-100" style={{minHeight:"150px"}} name="comment" id="comment" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz..."></textarea>
+                                                    <textarea className="w-100" style={{ minHeight: "150px" }} name="comment" id="comment" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz..."></textarea>
                                                 </div>
                                             </form>
                                         </div>
@@ -371,6 +371,19 @@ function EmployeeProfile({ setOperation }) {
                                 />
                                 <h5 className="my-3">{user.firstname} {user.lastname}</h5>
 
+                            </div>
+                        </div>
+                        <div className="card mb-4">
+                            <div className="card-body text-center">
+                            <div className="row">
+                                    <div className="col-sm-12 fw-bold">
+                                        <p className="mb-0">Maaş Bilgisi</p>
+                                    </div>
+                                    <div className="col-sm-12">
+                                    <hr />
+                                        <p className="mb-0">35000 ₺ / ay</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
