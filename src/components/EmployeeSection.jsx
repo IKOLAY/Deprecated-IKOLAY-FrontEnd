@@ -104,7 +104,6 @@ function EmployeeAdd({ companyId }) {
     }
 
 
-
     return (
         <>
             <button

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import MainHeader from "../components/MainHeader";
 import MainFooter from "../components/MainFooter";
 import "../assets/styles/HomePage.css"
@@ -84,9 +84,13 @@ function MainIndex() {
         </main>
     )
 }
-function CompanyListComponent({ companyName, logo, address }) {
+function CompanyListComponent({ companyName, logo, address, about, id }) {
+    const navigate = useNavigate();
+    function handleClick(){        
+        navigate(`/company?companyName=${companyName}&logo=${logo}&address=${address}&about=${about}&companyId=${id}`)
+    }
     return (
-        <button type="button" className="list-group-item list-group-item-action bg-bg-black d-flex align-items-center justify-content-center w-50">{logo}-Şirket Adı:{companyName}-Adres:{address}</button>
+        <button type="button" className="list-group-item list-group-item-action bg-bg-black d-flex align-items-center justify-content-center w-50" onClick={handleClick}>{logo}-Şirket Adı:{companyName}-Adres:{address}</button>
     )
 }
 
@@ -98,6 +102,7 @@ function MainGuestIndex() {
         fetch(`http://localhost/company/findbycompanynametopfive`)
             .then
             (response => {
+                console.log(response);
                 if (!response.ok)
                     throw new Error("Hata olustu")
                 return response.json();

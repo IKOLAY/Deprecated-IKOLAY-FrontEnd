@@ -63,14 +63,14 @@ function RegisterCompanyManager() {
         e.preventDefault();
         const saveManager = { ...user, role: "MANAGER" }
         setUser(saveManager);
-        
+        //POST METHODLARINDA PORT BİLGİSİ BELLİ EDİLMELİDİR VEYA localhost yerine 127.0.0.1 tercih edilmelidir !! Yoksa resp ve data 405 hatası döndürür !!
         fetch("http://localhost:80/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(saveManager)
-        }).then(resp => {
+        }).then(resp => {            
             if(!resp.ok)
            throw new Error("Hata initiate");
             return resp.json();

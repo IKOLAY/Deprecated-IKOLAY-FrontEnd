@@ -4,10 +4,18 @@ import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
 import { AllExpenses } from "../components/AllExpenses";
+import { IncomeOutcomeMethod } from "../components/IncomeOutcomeMethod";
+import { CompanyReviewForGuest } from "../components/CompanyReviewForGuest";
+import { useSearchParams } from "react-router-dom";
 import EmployeePage from "./06-EmployeePage";
 import { NavLink } from "react-router-dom";
 
 export function CompanyPage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParams.get("companyName"));
+    console.log(searchParams.get("logo"));
+    console.log(searchParams.get("about"));
+    console.log(searchParams.get("address"));
     const [method, setMethod] = useState(null);
 
     function handleClick(e) {
@@ -68,6 +76,16 @@ export function CompanyPage() {
                             Personel İzin Ekle
                         </a>
                     </li>
+                    <li>
+                        <a href="#" name="income-outcome-input" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Harcama Ekle
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" name="company-review" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Şirket Yorum TEST
+                        </a>
+                    </li>
                 </ul>
                 <NavLink className="text-center btn btn-warning" to="/" onClick={handleLogout}>ÇIKIŞ YAP</NavLink>
                 <hr />
@@ -86,7 +104,7 @@ export function CompanyPage() {
                             Personel Sayfası
                         </a>
                     </li>
-                </ul>
+                </ul>  
 
                 <div className="tab-content w-100 d-flex justify-content-center align-items-center">
                         <div className="conditional-render pt-2 mt-5">
@@ -96,10 +114,11 @@ export function CompanyPage() {
                             {method === "yearly-profit-and-loss" && <AnnualProfitLoss />}
                             {method === "all-company-loss" && <AllExpenses />}
                             {method === "incoming-payment" && <IncomingPayments />}
+                            {method === "income-outcome-input" && <IncomeOutcomeMethod />}
+                            {method === "company-review" && <CompanyReviewForGuest />}
                     </div>
                 </div>
             </div>
-
         </main>
     )
 }
