@@ -54,7 +54,7 @@ function PeriodSelection() {
                     </div>
                 </div>
                 <div className="row">
-                    <button type="submit" className="btn btn-primary">Sorgula</button>
+                    <button type="submit" className="btn btn-info">Sorgula</button>
                 </div>
             </form>
 
