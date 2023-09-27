@@ -61,14 +61,15 @@ function RegisterCompanyManager() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setUser({ ...user, role: "MANAGER" });
-        console.log(user)
+        const saveManager = { ...user, role: "MANAGER" }
+        setUser(saveManager);
+        
         fetch("http://localhost:80/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(saveManager)
         }).then(resp => {
             if(!resp.ok)
            throw new Error("Hata initiate");
@@ -159,14 +160,15 @@ function RegisterGuest() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        setUser({ ...user, role: "VISITOR" });
+        const saveVisitor = { ...user, role: "VISITOR" }
+        setUser(saveVisitor);
         console.log(user)
         fetch("http://localhost:80/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(saveVisitor)
         }).then(resp => {
             if(resp.ok)
             setUser({...defUser});
