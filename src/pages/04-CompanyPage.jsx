@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import EmployeePage from "./06-EmployeePage";
 import { NavLink } from "react-router-dom";
 import { PublicHoliday } from "../components/PublicHoliday";
+import { ShiftSystem } from "../components/ShiftSystem";
 
 export function CompanyPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -83,6 +84,11 @@ export function CompanyPage() {
                         </a>
                     </li>
                     <li>
+                        <a href="#" name="shift-system" className="nav-link link-body-emphasis" onClick={handleClick}>
+                            Vardiya Ekle / Ata
+                        </a>
+                    </li>
+                    <li>
                         <a href="#" name="company-review" className="nav-link link-body-emphasis" onClick={handleClick}>
                             Şirket Yorum TEST
                         </a>
@@ -117,6 +123,7 @@ export function CompanyPage() {
                         {method === "incoming-payment" && <IncomingPayments />}
                         {method === "employee-leave" && <EmployeeLeave />}
                         {method === "income-outcome-input" && <IncomeOutcomeMethod />}
+                        {method === "shift-system" && <ShiftSystem />}
                         {method === "company-review" && <CompanyReviewForGuest />}
                     </div>
                 </div>
@@ -145,7 +152,7 @@ function EmployeeLeave() {
     }
 
     const [newLeave, setNewLeave] = useState({ ...defLeave });
-    
+
 
 
     function handleChange(e) {
@@ -239,7 +246,7 @@ function EmployeeLeave() {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="duration">Süre</label>
+                                    <label htmlFor="duration">Gün</label>
                                     <input
                                         type="number"
                                         className="form-control"

@@ -5,14 +5,14 @@ import { PublicHoliday } from "../components/PublicHoliday";
 
 export default function EmployeePage() {
     let defUser = JSON.parse(window.localStorage.getItem("user"));
-    const defMessage = {userId:defUser.id,companyId:defUser.companyId,content:""};
+    const defMessage = { userId: defUser.id, companyId: defUser.companyId, content: "" };
     const [operation, setOperation] = useState(null);
-    const [message, setMessage] = useState({...defMessage})
-    function handleMessageChange(e){
-        setMessage({...message,[e.target.name]:e.target.value})
+    const [message, setMessage] = useState({ ...defMessage })
+    function handleMessageChange(e) {
+        setMessage({ ...message, [e.target.name]: e.target.value })
     }
 
-    function handleSendMessage(e){
+    function handleSendMessage(e) {
         fetch("http://localhost:80/comment/addcomment", {
             method: "POST",
             headers: {
@@ -25,10 +25,10 @@ export default function EmployeePage() {
                 return response.json();
             }).then(data => {
                 console.log(data);
-                if (data.hasOwnProperty("field")){
+                if (data.hasOwnProperty("field")) {
                     throw new Error(data.message)
                 }
-                setMessage({...defMessage})
+                setMessage({ ...defMessage })
             }).catch(err => {
                 console.log(err);
             });
@@ -63,16 +63,16 @@ export default function EmployeePage() {
 
                         <ul className="m-0 p-0">
                             <li className="fw-bold border-bottom mb-2">
-                               <div> Şirket İsmi</div>
-                               {company.companyName}
-                          
+                                <div> Şirket İsmi</div>
+                                {company.companyName}
+
                             </li>
                             <li className="mb-1">
                                 <div>Şirket İK Telefonu:</div>
                                 {company.phone}
                             </li>
                             <li>
-                               <div> Şirket Adresi:</div>
+                                <div> Şirket Adresi:</div>
                                 {company.address}
                             </li>
 
@@ -256,10 +256,10 @@ function EmployeeProfile({ setOperation }) {
     let defUser = JSON.parse(window.localStorage.getItem("user"));
     let userShiftDetails = JSON.parse(window.localStorage.getItem("shift"));
 
-    const [user, setUser] = useState({ ...defUser})
-    
-    function handleCancel(e){
-        setUser({...defUser})
+    const [user, setUser] = useState({ ...defUser })
+
+    function handleCancel(e) {
+        setUser({ ...defUser })
     }
 
     function handleChange(e) {
@@ -279,15 +279,15 @@ function EmployeeProfile({ setOperation }) {
                 return response.json();
             }).then(data => {
                 console.log(data);
-                if (data.message){
-                   
+                if (data.message) {
+
                     throw new Error(data.message)
                 }
-                defUser={...data};
-                localStorage.setItem("user",JSON.stringify(data))
-                setUser({...defUser})
+                defUser = { ...data };
+                localStorage.setItem("user", JSON.stringify(data))
+                setUser({ ...defUser })
             }).catch(err => {
-                setUser({...defUser}) 
+                setUser({ ...defUser })
                 console.log(err);
             });
     }
@@ -435,12 +435,12 @@ function EmployeeProfile({ setOperation }) {
                         </div>
                         <div className="card mb-4">
                             <div className="card-body text-center">
-                            <div className="row">
+                                <div className="row">
                                     <div className="col-sm-12 fw-bold">
                                         <p className="mb-0">Maaş Bilgisi</p>
                                     </div>
                                     <div className="col-sm-12">
-                                    <hr />
+                                        <hr />
                                         <p className="mb-0">{user.salary} ₺ / ay</p>
                                     </div>
                                 </div>
@@ -623,7 +623,7 @@ function Leave() {
                     </section>
                 </div>
             </section>
-            <PublicHoliday/>
+            <PublicHoliday />
 
             <section className="mb-0 bg-white text-center">
                 <h1>İZİN TALEPLERİ</h1>
