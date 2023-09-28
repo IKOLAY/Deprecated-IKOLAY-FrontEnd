@@ -40,8 +40,10 @@ export default function LoginPage() {
                             .then(data3 => {
                                 console.log(data3);
                                 window.localStorage.setItem("company", JSON.stringify(data3));
-                                if (data2.shiftId == null)
+                                if (data2.shiftId == null) {
                                     window.localStorage.setItem("shift", null);
+                                    roleCheck(data.role)
+                                }
                                 else {
                                     fetch(`http://localhost:80/shift/findshift/${data2.shiftId}`)
                                         .then(resp => resp.json())
@@ -55,22 +57,22 @@ export default function LoginPage() {
                     }
                 })
 
-        }).catch(err => { 
+        }).catch(err => {
             console.log(err);
             setWarningMessage("Eposta veya şifre hatalı!");
         }).catch(err => console.log(err))
     }
 
 
-    function roleCheck(role){
+    function roleCheck(role) {
         if (role == "MANAGER")
-        navigate("/company")
-    else if (role == "ADMIN")
-        navigate("/admin")
-    else if (role == "EMPLOYEE")
-        navigate("/employee")
-    else
-        navigate("/")
+            navigate("/company")
+        else if (role == "ADMIN")
+            navigate("/admin")
+        else if (role == "EMPLOYEE")
+            navigate("/employee")
+        else
+            navigate("/")
     }
 
     function handleChange(e) {
@@ -87,13 +89,13 @@ export default function LoginPage() {
                     <label htmlFor="email">
                         Email
                         <input name="email" id="email" type="text" className="px-3" value={loginInfo.email} onChange={handleChange} required onInvalid={(e) => {
-                                if(e.target.value == ""){
+                            if (e.target.value == "") {
                                 e.target.setCustomValidity('Eposta boş olamaz!')
-                                } else {
-                                    e.target.setCustomValidity('Eposta @ içermeli! Örnek: ornek@ornek.com')
-                                }
-                            }}
-                                onInput={e => e.target.setCustomValidity('')} title="Eposta @ içermeli! Örnek: ornek@ornek.com"/>
+                            } else {
+                                e.target.setCustomValidity('Eposta @ içermeli! Örnek: ornek@ornek.com')
+                            }
+                        }}
+                            onInput={e => e.target.setCustomValidity('')} title="Eposta @ içermeli! Örnek: ornek@ornek.com" />
                     </label>
                     <label htmlFor="password">
                         Password

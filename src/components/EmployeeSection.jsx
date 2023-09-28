@@ -28,7 +28,7 @@ function ListEmployeeAndAddEmployee({ companyId }) {
     return (
         <div className="d-flex flex-column gap-1">
 
-            <EmployeeAdd companyId={companyId} />
+            <EmployeeAdd employeeList={employeeList} setEmployeeList={setEmployeeList} companyId={companyId} />
             
             <table className="table align-middle mb-0 bg-white">
                 <thead className="bg-light">
@@ -76,19 +76,20 @@ function EmployeeRow({ firstname, lastname, email, phone }) {
     )
 }
 
-function EmployeeAdd({ companyId }) {
-    const defUser = { firstname: "", lastname: "", email: "" };
+function EmployeeAdd({ companyId,employeeList,setEmployeeList }) {
+    const defUser = { firstname: "", lastname: "", email: "",salary:"" };
     const [newEmployee, setNewEmployee] = useState({ ...defUser })
 
     function handleSubmit(e) {
         e.preventDefault()
-        setNewEmployee({ ...newEmployee, password: "random", role: "EMPLOYEE", companyId: companyId })
+        const saveEmployee = { ...newEmployee, password: "random", role: "EMPLOYEE", companyId: companyId }
+        setNewEmployee(saveEmployee)
         fetch("http://localhost:80/auth/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newEmployee)
+            body: JSON.stringify(saveEmployee)
         }).then(resp => {
             if (!resp.ok)
                 throw new Error("Hata initiate");
@@ -96,6 +97,8 @@ function EmployeeAdd({ companyId }) {
         }).then(data => {
             setNewEmployee({ ...defUser })
             console.log(data);
+            const newList = [...employeeList,saveEmployee];
+            setEmployeeList(newList);
         }).catch(err => console.log(err))
     }
 
@@ -174,6 +177,18 @@ function EmployeeAdd({ companyId }) {
                                         onChange={handleChange}
                                     />
                                 </div>
+                                <div className="form-group">
+                                    <label htmlFor="salary">Maaş</label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        id="salary"
+                                        name="salary"
+                                        placeholder="Personelin maaşını giriniz."
+                                        value={newEmployee.salary}
+                                        onChange={handleChange}
+                                    />
+                                </div>
                                 <div className="modal-footer justify-content-between">
                                     <button
                                         type="button"
@@ -182,7 +197,7 @@ function EmployeeAdd({ companyId }) {
                                     >
                                         Vazgeç
                                     </button>
-                                    <button type="submit" className="btn btn-primary">
+                                    <button type="submit" className="btn btn-primary" data-bs-dismiss="modal">
                                         Kaydet
                                     </button>
                                 </div>
