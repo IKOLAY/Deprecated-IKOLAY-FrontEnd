@@ -4,7 +4,7 @@ import { useEffect } from "react"
 
 
 export function IncomingPayments() {
-    const user = localStroage.getItem("user")
+    const user = JSON.parse(window.localStorage.getItem("user"));
     const companyId = user.companyId;
     const [incomingPayments, setIncomingPayments] = useState([]);
 

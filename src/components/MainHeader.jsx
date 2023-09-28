@@ -34,16 +34,17 @@ export default function MainHeader() {
                                 Ana Sayfa
                             </a>
                         </li>
-                        <li className="nav-item">
-                            <a className="nav-link text-info" href="/login">
-                                Giriş
-                            </a>
-                        </li>
-                        <li className="nav-item">
+                        {localStorage.getItem("user") ? <li className="nav-item">
                             <a className="nav-link text-info" href="#" onClick={handleClick}>
                                 Çıkış
                             </a>
-                        </li>
+                        </li>:<li className="nav-item">
+                            <a className="nav-link text-info" href="/login">
+                                Giriş
+                            </a>
+                        </li>}
+                        
+                        
                     </ul>
                     <form typeof="submit" className="form-inline my-2 my-lg-0 d-flex">
                         <input
