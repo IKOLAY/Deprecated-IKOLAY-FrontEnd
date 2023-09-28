@@ -154,7 +154,6 @@ function RegisterCompanyManager({ warningMessage, setWarningMessage }) {
                     </div>
                 </form>
                 {warningMessage !== null && <WarningMessage warningMessage={warningMessage} />}
-�😔😍
 
             </section>
 
