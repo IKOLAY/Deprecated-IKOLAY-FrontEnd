@@ -51,6 +51,10 @@ button {
     min-width: max-content;
 }
 
+.hr-dark {
+    color: var(--base--primary--color);
+}
+
 .btn-primary {
     background-color: var(--base--secondary--color);
     transition: 0.5s;
