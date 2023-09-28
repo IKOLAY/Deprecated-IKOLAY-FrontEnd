@@ -98,19 +98,20 @@ function MainGuestIndex() {
     const user = JSON.parse(window.localStorage.getItem("user"));
     const [guest, setGuest] = useState(user);
     const [companyList, setCompanyList] = useState([])
-    useEffect(() => {
-        fetch(`http://localhost/company/findbycompanynametopfive`)
-            .then
-            (response => {
-                console.log(response);
-                if (!response.ok)
-                    throw new Error("Hata olustu")
-                return response.json();
-            }).then(data => {
-                console.log(data);
-                setCompanyList(data)
-            }).catch(err => console.log(err));
-    }, [])
+   if(localStorage.getItem("user")!=null){
+   useEffect(() => {
+    fetch(`http://localhost/company/findbycompanynametopfive`)
+        .then
+        (response => {
+            console.log(response);
+            if (!response.ok)
+                throw new Error("Hata olustu")
+            return response.json();
+        }).then(data => {
+            console.log(data);
+            setCompanyList(data)
+        }).catch(err => console.log(err));
+}, [])}
     return (
         <main className="d-flex flex-column justify-content-center align-items-center">
             <section className="hero limited-width d-flex justify-content-center align-items-center px-4 pb-4 gap-5">

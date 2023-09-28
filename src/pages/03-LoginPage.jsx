@@ -31,6 +31,7 @@ export default function LoginPage() {
                     if (data2.companyId == null) {
                         window.localStorage.setItem("company", null);
                         window.localStorage.setItem("shift", null)
+                        roleCheck(data.role)
                     } else {
                         fetch(`http://localhost:80/company/companyinformation?id=${data2.companyId}`)
                             .then(resp => resp.json())
@@ -45,20 +46,24 @@ export default function LoginPage() {
                                         .then(data4 => {
                                             console.log(data4);
                                             window.localStorage.setItem("shift", JSON.stringify(data4));
-                                            if (data.role == "MANAGER")
-                                                navigate("/company")
-                                            else if (data.role == "ADMIN")
-                                                navigate("/admin")
-                                            else if (data.role == "EMPLOYEE")
-                                                navigate("/employee")
-                                            else
-                                                navigate("/")
+                                            roleCheck(data.role)
                                         })
                                 }
                             });
                     }
                 })
         }).catch(err => console.log(err))
+    }
+
+    function roleCheck(role){
+        if (role == "MANAGER")
+        navigate("/company")
+    else if (role == "ADMIN")
+        navigate("/admin")
+    else if (role == "EMPLOYEE")
+        navigate("/employee")
+    else
+        navigate("/")
     }
 
     function handleChange(e) {
