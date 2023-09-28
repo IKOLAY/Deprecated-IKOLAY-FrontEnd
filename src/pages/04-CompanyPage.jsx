@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import EmployeePage from "./06-EmployeePage";
 import { NavLink } from "react-router-dom";
 import { PublicHoliday } from "../components/PublicHoliday";
+import { WarningMessage } from "../components/InfoMessages";
 
 export function CompanyPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -18,6 +19,7 @@ export function CompanyPage() {
     console.log(searchParams.get("about"));
     console.log(searchParams.get("address"));
     const [method, setMethod] = useState(null);
+    
 
     function handleClick(e) {
         e.preventDefault();
@@ -135,6 +137,7 @@ function WelcomeToDashboard() {
 }
 
 function EmployeeLeave() {
+    const [warningMessage, setWarningMessage] = useState(null);
     const user = JSON.parse(window.localStorage.getItem("user"));
     const defLeave = {
         leaveName: "",
@@ -150,6 +153,7 @@ function EmployeeLeave() {
 
     function handleChange(e) {
         setNewLeave({ ...newLeave, [e.target.name]: e.target.value })
+        setWarningMessage(null)
 
     }
 
@@ -169,13 +173,17 @@ function EmployeeLeave() {
         }).then
             (response => {
                 console.log(response);
+                setWarningMessage("İzin başarıyla kaydedilmiştir!")
                 return response.json();
             }).then(data => {
                 console.log(data);
                 if (data.message)
                     throw new Error(data.message)
                 setNewLeave({ ...defLeave })
-            }).catch(err => console.log(err));
+            }).catch(err => {
+                console.log(err)
+                setWarningMessage(err.message)
+            });
     }
 
     return (
@@ -333,6 +341,7 @@ function EmployeeLeave() {
                                         placeholder="Personelin kişisel emailini giriniz..."
                                     />
                                 </div>
+                                {warningMessage !== null && <WarningMessage warningMessage={warningMessage} />}
                             </form>
                         </div>
                         <div className="modal-footer justify-content-between">
