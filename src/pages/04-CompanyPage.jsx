@@ -93,12 +93,12 @@ export function CompanyPage() {
                 <div className="d-flex flex-column align-items-center p-3 m-1 bg-light bg-opacity-50 shadow-lg rounded small">
                     <img className="rounded-circle" src="/img/ikolay-companypp.svg" width={50} alt="" />
                     <hr />
-                    <p><span className="fw-bold">Şirket Adı: </span>{defCompany.companyName}</p>
-                    <p><span className="fw-bold">Adres: </span>{defCompany.address}</p>
-                    <p><span className="fw-bold">Hakkında: </span>{defCompany.about}</p>
-                    <p className="border-bottom border-dark pb-3 w-100 text-center"><span className="fw-bold">Tel: </span>{defCompany.phone}</p>
-                    <p><span className="fw-bold">Yönetici: </span>{managerFirstName} {managerLastName}</p>
-                    <p><span className="fw-bold">Yönetici Email: </span>{managerMail}</p>
+                    <p><span className="fw-bold">Şirket Adı: </span>{defCompany==null?"Belirlenmedi":defCompany.companyName}</p>
+                    <p><span className="fw-bold">Adres: </span>{defCompany==null?"Belirlenmedi":defCompany.address}</p>
+                    <p><span className="fw-bold">Hakkında: </span>{defCompany==null?"Belirlenmedi":defCompany.about}</p>
+                    <p className="border-bottom border-dark pb-3 w-100 text-center"><span className="fw-bold">Tel: </span>{defCompany==null?"Belirlenmedi":defCompany.phone}</p>
+                  { defCompany!=null && <><p><span className="fw-bold">Yönetici: </span>{managerFirstName} {managerLastName}</p>
+                    <p><span className="fw-bold">Yönetici Email: </span>{managerMail}</p></>}
                     <button
                         className="btn btn-info btn-sm"
                         type="button"
