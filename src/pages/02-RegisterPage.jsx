@@ -6,13 +6,13 @@ import { ModalTitle, OffcanvasTitle } from "react-bootstrap";
 
 export function RegisterPage() {
     const [role, setRole] = useState(null);
-    const [warningMessage, setwarningMessage] = useState(null);
+    const [warningMessage, setWarningMessage] = useState(null);
 
     return (
         <>
             {role === null && <SelectRole setRole={setRole} />}
-            {role === "company" && <RegisterCompanyManager warningMessage={warningMessage} setwarningMessage={setwarningMessage} />}
-            {role === "guest" && <RegisterGuest warningMessage={warningMessage} setwarningMessage={setwarningMessage} />}
+            {role === "company" && <RegisterCompanyManager warningMessage={warningMessage} setWarningMessage={setWarningMessage} />}
+            {role === "guest" && <RegisterGuest warningMessage={warningMessage} setWarningMessage={setWarningMessage} />}
         </>
     )
 }
@@ -44,7 +44,7 @@ function SelectRole({ setRole }) {
 
 }
 
-function RegisterCompanyManager({ warningMessage, setwarningMessage }) {
+function RegisterCompanyManager({ warningMessage, setWarningMessage }) {
     const defUser = {
 
         firstname: "",
@@ -80,10 +80,10 @@ function RegisterCompanyManager({ warningMessage, setwarningMessage }) {
         }).then(data => {
             setUser({ ...defUser })
             console.log(data);
-            setwarningMessage(data.message);
+            setWarningMessage(data.message);
         }).catch(err => {
             console.log(err)
-            setwarningMessage(err.message)
+            setWarningMessage(err.message)
         })
 
     }
@@ -154,6 +154,7 @@ function RegisterCompanyManager({ warningMessage, setwarningMessage }) {
                     </div>
                 </form>
                 {warningMessage !== null && <WarningMessage warningMessage={warningMessage} />}
+�😔😍
 
             </section>
 
@@ -166,7 +167,7 @@ function RegisterCompanyManager({ warningMessage, setwarningMessage }) {
 
 
 
-function RegisterGuest({ warningMessage, setwarningMessage }) {
+function RegisterGuest({ warningMessage, setWarningMessage }) {
     const defUser = {
 
         firstname: "",
@@ -199,10 +200,10 @@ function RegisterGuest({ warningMessage, setwarningMessage }) {
             return resp.json();
         }).then(data => {
             console.log(data);
-            setwarningMessage(data.message);
+            setWarningMessage(data.message);
         }).catch(err => {
             console.log(err);
-            setwarningMessage(err.message);
+            setWarningMessage(err.message);
         })
 
     }
