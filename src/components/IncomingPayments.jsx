@@ -4,8 +4,8 @@ import { useEffect } from "react"
 
 
 export function IncomingPayments() {
-    //localStroage.getItem("user").companyId'den gelicek.
-    const companyId = 1;
+    const user = localStroage.getItem("user")
+    const companyId = user.companyId;
     const [incomingPayments, setIncomingPayments] = useState([]);
 
 useEffect( ()=>{

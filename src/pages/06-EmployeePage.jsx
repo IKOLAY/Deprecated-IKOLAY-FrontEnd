@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom"
 import "../assets/styles/EmployeePage.css";
 import { useState } from "react";
+import { PublicHoliday } from "../components/PublicHoliday";
 
 export default function EmployeePage() {
     const [operation, setOperation] = useState(null);
@@ -561,31 +562,7 @@ function Leave() {
                     </section>
                 </div>
             </section>
-            <section className="mb-0 bg-white text-center">
-                <h1>RESMİ TATİLLER</h1>
-                <table className="table align-middle">
-                    <thead className="bg-light">
-                        <tr>
-                            <th scope="col">Tatil Adı</th>
-                            <th scope="col">Başlangıç Tarihi</th>
-                            <th scope="col">Bitiş Tarihi</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ramazan Bayramı</td>
-                            <td>10/04/2024</td>
-                            <td>12/04/2024</td>
-                        </tr>
-                        <tr>
-                            <td>Cumhuriyet Bayramı</td>
-                            <td>29/10/2023</td>
-                            <td>29/10/2023</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+            <PublicHoliday/>
 
             <section className="mb-0 bg-white text-center">
                 <h1>İZİN TALEPLERİ</h1>

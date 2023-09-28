@@ -13,7 +13,8 @@ export function AllExpenses(){
 
 function ExpenseList(){
     let total = 0
-    const companyId=1;
+    const user = JSON.parse(window.localStorage.getItem("user"))
+    const companyId = user.companyId
     //const denemeList = [{name:"Expenses1",totalCost:-10000},{name:"Expenses2",totalCost:-10000},{name:"Expenses3",totalCost:-10000},]
     const[expenseList,setExpenseList] = useState([]);
     
