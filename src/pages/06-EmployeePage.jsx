@@ -409,7 +409,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="phone"
                                                         name="phone"
-                                                        value={user.phone}
+                                                        value={user.phone==null?"":user.phone}
                                                         onChange={handleChange}
 
                                                     />
@@ -421,7 +421,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="address"
                                                         name="address"
-                                                        value={user.address}
+                                                        value={user.address==null?"":user.address}
                                                         onChange={handleChange}
 
                                                     />
@@ -503,7 +503,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Telefon</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{defUser.phone}</p>
+                                        <p className="text-muted mb-0">{defUser.phone==null?"Belirlenmedi.":defUser.phone}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -512,7 +512,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Adres</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{defUser.address}</p>
+                                        <p className="text-muted mb-0">{defUser.address==null?"Belirlenmedi.":defUser.address}</p>
                                     </div>
                                 </div>
                             </div>
@@ -530,7 +530,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Vardiya Adı</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{userShiftDetails.shiftName}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD" :userShiftDetails.shiftName}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -539,7 +539,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Başlangıç Saati</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">{userShiftDetails.startTime}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD":userShiftDetails.startTime}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -548,7 +548,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Bitiş Saati</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">{userShiftDetails.endTime}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD":userShiftDetails.endTime}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -557,7 +557,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Mola Hakkı</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">{userShiftDetails.breakTime}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD":userShiftDetails.breakTime}</p>
                                     </div>
                                 </div>
                             </div>
