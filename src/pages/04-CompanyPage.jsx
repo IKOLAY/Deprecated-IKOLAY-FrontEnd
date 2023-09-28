@@ -20,8 +20,51 @@ export function CompanyPage() {
     console.log(searchParams.get("logo"));
     console.log(searchParams.get("about"));
     console.log(searchParams.get("address"));
-    const [method, setMethod] = useState(null);
     
+    let defCompany = JSON.parse(window.localStorage.getItem("company"));
+    const [company, setCompany] = useState({ ...defCompany })
+
+    let user = JSON.parse(window.localStorage.getItem("user"))
+
+    const [method, setMethod] = useState(null);
+    const managerFirstName = user.firstname;
+    const managerLastName = user.lastname;
+    const managerMail = user.email;
+
+    function handleCancel(e) {
+        setCompany({ ...defCompany })
+    }
+
+    function handleChange(e) {
+        console.log(company)
+        setCompany({ ...company, [e.target.name]: e.target.value })
+    }
+
+    function handleSave() {
+        fetch("http://localhost:80/company/update", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(company)
+        }).then
+            (response => {
+                console.log(response);
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                if (data.message) {
+
+                    throw new Error(data.message)
+                }
+                localStorage.setItem("company", JSON.stringify(data))
+                setCompany({ ...data })
+            }).catch(err => {
+                setCompany({ ...defCompany })
+                console.log(err);
+            });
+    }
+
 
     function handleClick(e) {
         e.preventDefault();
@@ -42,18 +85,116 @@ export function CompanyPage() {
     return (
         <main className="company d-flex flex-row h-100">
 
-            <div className=" sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle bg-opacity-70">
+            <div className=" sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle bg-opacity-70 h-100">
                 <a href="/company" className="d-flex justify-content-center link-body-emphasis text-decoration-none mb-3 p-1">
                     <img className="shadow-sm rounded bg-light p-2" src="img/ikolay-companyManager.svg" alt="logo" />
                 </a>
                 <hr />
-                <div className="d-flex flex-column align-items-center p-5 m-3 bg-light bg-opacity-50 shadow-lg rounded">
+                <div className="d-flex flex-column align-items-center p-3 m-1 bg-light bg-opacity-50 shadow-lg rounded small">
                     <img className="rounded-circle" src="/img/ikolay-companypp.svg" width={50} alt="" />
                     <hr />
-                    <p>ŞİRKET ADI</p>
-                    <p>Yönetici Adı</p>
-                    <p>Yönetici Email</p>
-                    <p></p>
+                    <p><span className="fw-bold">Şirket Adı: </span>{defCompany.companyName}</p>
+                    <p><span className="fw-bold">Adres: </span>{defCompany.address}</p>
+                    <p><span className="fw-bold">Hakkında: </span>{defCompany.about}</p>
+                    <p className="border-bottom border-dark pb-3 w-100 text-center"><span className="fw-bold">Tel: </span>{defCompany.phone}</p>
+                    <p><span className="fw-bold">Yönetici: </span>{managerFirstName} {managerLastName}</p>
+                    <p><span className="fw-bold">Yönetici Email: </span>{managerMail}</p>
+                    <button
+                        className="btn btn-info btn-sm"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalEditCompany"
+                    >Şirket Bilgilerini Düzenle</button>
+
+                    <section
+                        className="modal fade"
+                        id="modalEditCompany"
+                        tabIndex={-1}
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                    >
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h1 style={{ color: "black" }} className="modal-title fs-5" id="exampleModalLabel">
+                                        Şirket Bilgilerini Düzenle
+                                    </h1>
+                                    <button
+                                        type="button"
+                                        className="btn-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    />
+                                </div>
+                                <div className="modal-body">
+                                    <form typeof="submit" >
+                                        <div className="form-group">
+                                            <label htmlFor="companyName">Şirket Adı</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="companyName"
+                                                name="companyName"
+                                                value={company.companyName}
+                                                onChange={handleChange}
+
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="companyAddress">Adres</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="address"
+                                                name="address"
+                                                value={company.address}
+                                                onChange={handleChange}
+
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="companyAbout">Hakkında</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="about"
+                                                name="about"
+                                                value={company.about}
+                                                onChange={handleChange}
+
+                                            />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="companyTel">Telefon</label>
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id="phone"
+                                                name="phone"
+                                                value={company.phone}
+                                                onChange={handleChange}
+
+                                            />
+                                        </div>
+                                        <div className="modal-footer justify-content-between">
+                                            <button
+                                                type="button"
+                                                className="btn btn-secondary"
+                                                data-bs-dismiss="modal"
+                                                onClick={handleCancel}
+                                            >
+                                                Vazgeç
+                                            </button>
+                                            <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleSave}>
+                                                Kaydet
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
                 </div>
                 <ul className="nav nav-pills flex-column mb-auto col-md align-items-center">
                     <li className="nav-item">
