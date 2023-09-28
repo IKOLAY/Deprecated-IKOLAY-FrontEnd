@@ -58,8 +58,6 @@ export default function LoginPage() {
         }).catch(err => { 
             console.log(err);
             setWarningMessage("Eposta veya şifre hatalı!");
-        })
-
         }).catch(err => console.log(err))
     }
 
