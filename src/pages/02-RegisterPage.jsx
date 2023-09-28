@@ -4,12 +4,13 @@ import { NavLink } from "react-router-dom";
 
 export function RegisterPage() {
     const [role, setRole] = useState(null);
+    const [warningMessage, setwarningMessage] = useState(null);
 
     return (
         <>
             {role === null && <SelectRole setRole={setRole} />}
-            {role === "company" && <RegisterCompanyManager />}
-            {role === "guest" && <RegisterGuest />}
+            {role === "company" && <RegisterCompanyManager warningMessage={warningMessage} setwarningMessage={setwarningMessage} />}
+            {role === "guest" && <RegisterGuest warningMessage={warningMessage} setwarningMessage={setwarningMessage}/>}
         </>
     )
 }
@@ -41,7 +42,7 @@ function SelectRole({ setRole }) {
 
 }
 
-function RegisterCompanyManager() {
+function RegisterCompanyManager({warningMessage, setwarningMessage}) {
     const defUser = {
 
         firstname: "",
@@ -53,7 +54,7 @@ function RegisterCompanyManager() {
         taxNo: ""
 
     }
-    const [user, setUser] = useState({...defUser});
+    const [user, setUser] = useState({ ...defUser });
 
     function handleChange(e) {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -70,14 +71,18 @@ function RegisterCompanyManager() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(saveManager)
-        }).then(resp => {            
-            if(!resp.ok)
-           throw new Error("Hata initiate");
+        }).then(resp => {
+            if (!resp.ok)
+                throw new Error("Üzgünüz bir hata oluştu!");
             return resp.json();
         }).then(data => {
-             setUser({...defUser})
+            setUser({ ...defUser })
             console.log(data);
-        }).catch(err => console.log(err))
+            setwarningMessage(data.message);
+        }).catch(err => {
+            console.log(err)
+            setwarningMessage(err.message)
+        })
 
     }
     return (
@@ -91,46 +96,47 @@ function RegisterCompanyManager() {
 
             <section className="section-two w-50 d-flex flex-column justify-content-center align-items-center p-4">
 
-                <form typeof="submit" className="d-flex flex-column gap-2 px-5 align-items-center"onSubmit={handleSubmit}>
+                <form typeof="submit" className="d-flex flex-column gap-2 px-5 align-items-center" onSubmit={handleSubmit}>
                     <NavLink to="/">
                         <img src="/img/ikolay-logo-light.svg" alt="ikolay logo" />
                     </NavLink>
                     <label className="d-flex flex-column" htmlFor="companyName">
                         Şirket Adı
-                        <input className="px-3" id="companyName" type="text" name="companyName" onChange={handleChange} value={user.companyName}/>
+                        <input className="px-3" id="companyName" type="text" name="companyName" onChange={handleChange} value={user.companyName} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="taxNo">
                         Vergi No
-                        <input className="px-3"  value={user.taxNo} id="taxNo" type="number" name="taxNo" onChange={handleChange} />
+                        <input className="px-3" value={user.taxNo} id="taxNo" type="number" name="taxNo" onChange={handleChange} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="firstname">
                         Yetkili Adı
-                        <input className="px-3"  value={user.firstname} id="firstname" type="text" name="firstname" onChange={handleChange} />
+                        <input className="px-3" value={user.firstname} id="firstname" type="text" name="firstname" onChange={handleChange} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="lastname">
                         Yetkili Soyadı
-                        <input className="px-3"   value={user.lastname} id="lastname" type="text" name="lastname" onChange={handleChange} />
+                        <input className="px-3" value={user.lastname} id="lastname" type="text" name="lastname" onChange={handleChange} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="email">
                         Şirket Eposta
-                        <input className="px-3"   value={user.email}id="email" type="email" name="email" onChange={handleChange} />
+                        <input className="px-3" value={user.email} id="email" type="email" name="email" onChange={handleChange} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="password">
                         Şifre
-                        <input className={`${user.password != user.passwordControl && "border-danger"} px-3`}  value={user.password} id="password" type="password" name="password" onChange={handleChange} />
+                        <input className={`${user.password != user.passwordControl && "border-danger"} px-3`} value={user.password} id="password" type="password" name="password" onChange={handleChange} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="passwordControl">
                         Şifre Onayı
-                        <input className={`${user.password != user.passwordControl && "border-danger"} px-3`}  value={user.passwordControl} id="passwordControl" type="password" name="passwordControl" onChange={handleChange} />
+                        <input className={`${user.password != user.passwordControl && "border-danger"} px-3`} value={user.passwordControl} id="passwordControl" type="password" name="passwordControl" onChange={handleChange} />
                     </label>
                     <div className="d-flex flex-row justify-content-between gap-4">
                         <a href="http://localhost:5173/register">
                             <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                         </a>
-                        <button className="btn btn-lg btn-outline-primary" disabled={user.email==""&&true} type="submit">GÖNDER</button>
+                        <button className="btn btn-lg btn-outline-primary" disabled={user.email == "" && true} type="submit">GÖNDER</button>
                     </div>
                 </form>
-
+                {warningMessage !== null && <WarningMessage warningMessage={warningMessage} />}
+                
             </section>
 
         </div>
@@ -138,22 +144,37 @@ function RegisterCompanyManager() {
 
 }
 
+function WarningMessage({ warningMessage }) {
+    return (
+        <div className="alert alert-primary alert-dismissible fade show mt-4" role="alert">
+            {warningMessage}
+            <NavLink to="/">
+            <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+            >
+            </button>
+            </NavLink>
+        </div>
+    )
+}
 
 
 
-
-function RegisterGuest() {
+function RegisterGuest({warningMessage, setwarningMessage}) {
     const defUser = {
 
         firstname: "",
         lastname: "",
         password: "",
-        passwordControl:"",
+        passwordControl: "",
         email: ""
 
     }
-    const [user, setUser] = useState({...defUser});
-   
+    const [user, setUser] = useState({ ...defUser });
+
     function handleChange(e) {
         setUser({ ...user, [e.target.name]: e.target.value });
     }
@@ -170,14 +191,21 @@ function RegisterGuest() {
             },
             body: JSON.stringify(saveVisitor)
         }).then(resp => {
-            if(resp.ok)
-            setUser({...defUser});
+            if (resp.ok)
+                setUser({ ...defUser });
             return resp.json();
-        }).then(data => console.log(data)).catch(err => console.log(err))
-        
+        }).then(data => {
+            console.log(data);
+            setwarningMessage(data.message);
+        }).catch(err => {
+            console.log(err);
+            setwarningMessage(err.message);
+        })
+
     }
-   
+
     return (
+        <main>
         <div className="guest d-flex flex-row">
 
             <section className="section-two w-50 d-flex flex-column align-items-center justify-content-center p-4" style={{ borderRight: "1px solid #003C6B" }}>
@@ -196,7 +224,7 @@ function RegisterGuest() {
                     </label>
                     <label className="d-flex flex-column" htmlFor="email">
                         Eposta
-                        <input className="px-3"  id="email" type="email" value={user.email} name="email" onChange={handleChange} />
+                        <input className="px-3" id="email" type="email" value={user.email} name="email" onChange={handleChange} />
                     </label>
                     <label className="d-flex flex-column" htmlFor="password">
                         Şifre
@@ -210,20 +238,21 @@ function RegisterGuest() {
                         <a href="http://localhost:5173/register">
                             <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                         </a>
-                        <button className="btn btn-lg btn-outline-primary" disabled={user.email==""&&true}  type="submit">GÖNDER</button>
+                        <button className="btn btn-lg btn-outline-primary" disabled={user.email == "" && true} type="submit">GÖNDER</button>
                     </div>
                 </form>
-
+                {warningMessage !== null && <WarningMessage warningMessage={warningMessage} />}
             </section>
 
-            <section className="section-one w-50 d-flex flex-column justify-content-center align-items-center text-center  p-2 gap-5">
+            <section className="section-one w-50 d-flex flex-column justify-content-center align-items-center text-center p-2 gap-5">
                 <img src="/img/ikolay-guest.svg" alt="beş yıldız değerlendirmesi yapan kadın" />
                 <h1>Üye şirketlerimizin çalışan değerlendirmelerini inceleyin.</h1>
 
             </section>
-
+            
 
         </div>
+        </main>
     )
 
 }
