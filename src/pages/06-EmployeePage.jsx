@@ -1,18 +1,35 @@
 import { NavLink } from "react-router-dom"
 import "../assets/styles/EmployeePage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PublicHoliday } from "../components/PublicHoliday";
 
 export default function EmployeePage() {
+    const [status, setStatus] = useState(); //success, pending, error
     let defUser = JSON.parse(window.localStorage.getItem("user"));
-    const defMessage = {userId:defUser.id,companyId:defUser.companyId,content:""};
+    const defMessage = { userId: defUser.id, companyId: defUser.companyId, content: "" };
     const [operation, setOperation] = useState(null);
-    const [message, setMessage] = useState({...defMessage})
-    function handleMessageChange(e){
-        setMessage({...message,[e.target.name]:e.target.value})
+    const [message, setMessage] = useState({ ...defMessage })
+    function handleMessageChange(e) {
+        setMessage({ ...message, [e.target.name]: e.target.value })
+    }
+    function handleCommentClick(e) {
+      
+        fetch(`http://localhost:80/comment/finduserscomment/${defUser.id}`)
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data);
+                if (data.message)
+                    throw new Error(data.message)
+                setMessage(data)
+            }).catch(err => {
+                console.log(err);
+                setMessage({ ...defMessage })})
     }
 
-    function handleSendMessage(e){
+    function handleSendMessage(e) {
+        console.log(message);
+        e.preventDefault();
+        setStatus("pending")
         fetch("http://localhost:80/comment/addcomment", {
             method: "POST",
             headers: {
@@ -25,14 +42,16 @@ export default function EmployeePage() {
                 return response.json();
             }).then(data => {
                 console.log(data);
-                if (data.hasOwnProperty("field")){
+                if (data.hasOwnProperty("field")) {
                     throw new Error(data.message)
                 }
-                setMessage({...defMessage})
+                setStatus("success")
             }).catch(err => {
+                setStatus("error")
                 console.log(err);
             });
     }
+
 
     function handleClick(e) {
         e.preventDefault();
@@ -63,16 +82,16 @@ export default function EmployeePage() {
 
                         <ul className="m-0 p-0">
                             <li className="fw-bold border-bottom mb-2">
-                               <div> Şirket İsmi</div>
-                               {company.companyName}
-                          
+                                <div> Şirket İsmi</div>
+                                {company.companyName}
+
                             </li>
                             <li className="mb-1">
                                 <div>Şirket İK Telefonu:</div>
                                 {company.phone}
                             </li>
                             <li>
-                               <div> Şirket Adresi:</div>
+                                <div> Şirket Adresi:</div>
                                 {company.address}
                             </li>
 
@@ -81,6 +100,7 @@ export default function EmployeePage() {
                                 className="btn btn-sm btn-info m-2 text-center"
                                 data-bs-toggle="modal"
                                 data-bs-target="#modalRating"
+                                onClick={handleCommentClick}
                             >Şirket Değerlendir</button>
 
                             <section
@@ -104,7 +124,7 @@ export default function EmployeePage() {
                                             />
                                         </div>
                                         <div className="modal-body">
-                                            <form typeof="submit">
+                                            <form typeof="submit" onSubmit={handleSendMessage}>
                                                 <div className="border border-warning rounded mb-4 small">
                                                     <p style={{ color: "orange" }} className="py-2 mb-0 fw-bold" >
                                                         Değerlendirme/Yorum Kuralları
@@ -145,9 +165,14 @@ export default function EmployeePage() {
                                                 </div>
                                                 <div className="form-group py-3  border-top">
                                                     <label htmlFor="content">Yorumunuz</label>
-                                                    <textarea className="w-100" style={{ minHeight: "150px" }} name="content" id="content" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz..." onChange={handleMessageChange} value={message.content}></textarea>
+                                                    <textarea className="w-100" style={{ minHeight: "150px" }} name="content" id="content" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz...(Boş bırakılamaz!)" onChange={handleMessageChange} required value={message.content}></textarea>
                                                 </div>
-                                            </form>
+                                                <div className={`mb-3 mx-5 rounded ${message.commentType == "REJECTED" && "bg-danger"} ${message.commentType == "PENDING" && "bg-warning"} ${message.commentType == "ACCEPTED" && "bg-success"}`}>
+                                            {message.commentType == "PENDING" && <label>Önceki gönderiniz karar aşamasındadır. Yorumunuz onaylanana veya reddedilene kadar yorumunuzu yenileyemezsiniz!</label>}
+                                            {message.commentType == "ACCEPTED" && <label>Yorumunuz onaylanmıştır! Yorumunuzu güncelleyebilirsiniz!</label>}
+                                            {message.commentType == "REJECTED" && <label >Yorumunuz reddedilmiştir! Lütfen yorumunuzu güncelleyiniz!</label>}
+                                            {message.commentType == null && <label>Daha önce yorum yapmadınız!</label>}
+
                                         </div>
                                         <div className="modal-footer justify-content-between">
                                             <button
@@ -157,10 +182,16 @@ export default function EmployeePage() {
                                             >
                                                 Vazgeç
                                             </button>
-                                            <button type="button" data-bs-dismiss="modal" className="btn btn-info" onClick={handleSendMessage}>
+                                            <button type="submit" data-bs-dismiss="modal"
+                                                className={`btn btn-info ${status == "error" && "btn-danger"} ${status == "success" && "btn-success"}`}
+                                                disabled={(status == "pending" || message.commentType == "PENDING" || message.content=="") && true}>
                                                 Gönder
+                                                {status == "pending" && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
                                             </button>
                                         </div>
+                                            </form>
+                                        </div>
+                                       
                                     </div>
                                 </div>
                             </section>
@@ -256,10 +287,10 @@ function EmployeeProfile({ setOperation }) {
     let defUser = JSON.parse(window.localStorage.getItem("user"));
     let userShiftDetails = JSON.parse(window.localStorage.getItem("shift"));
 
-    const [user, setUser] = useState({ ...defUser})
-    
-    function handleCancel(e){
-        setUser({...defUser})
+    const [user, setUser] = useState({ ...defUser })
+
+    function handleCancel(e) {
+        setUser({ ...defUser })
     }
 
     function handleChange(e) {
@@ -279,15 +310,15 @@ function EmployeeProfile({ setOperation }) {
                 return response.json();
             }).then(data => {
                 console.log(data);
-                if (data.message){
-                   
+                if (data.message) {
+
                     throw new Error(data.message)
                 }
-                defUser={...data};
-                localStorage.setItem("user",JSON.stringify(data))
-                setUser({...defUser})
+
+                localStorage.setItem("user", JSON.stringify(data))
+                setUser({ ...data })
             }).catch(err => {
-                setUser({...defUser}) 
+                setUser({ ...defUser })
                 console.log(err);
             });
     }
@@ -429,19 +460,19 @@ function EmployeeProfile({ setOperation }) {
                                     className="rounded-circle img-fluid"
                                     style={{ width: 150 }}
                                 />
-                                <h5 className="my-3">{user.firstname} {user.lastname}</h5>
+                                <h5 className="my-3">{defUser.firstname} {defUser.lastname}</h5>
 
                             </div>
                         </div>
                         <div className="card mb-4">
                             <div className="card-body text-center">
-                            <div className="row">
+                                <div className="row">
                                     <div className="col-sm-12 fw-bold">
                                         <p className="mb-0">Maaş Bilgisi</p>
                                     </div>
                                     <div className="col-sm-12">
-                                    <hr />
-                                        <p className="mb-0">{user.salary} ₺ / ay</p>
+                                        <hr />
+                                        <p className="mb-0">{defUser.salary} ₺ / ay</p>
                                     </div>
                                 </div>
                             </div>
@@ -455,7 +486,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Tam Ad</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{user.firstname} {user.lastname}</p>
+                                        <p className="text-muted mb-0">{defUser.firstname} {defUser.lastname}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -464,7 +495,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Kişisel Eposta</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{user.email}</p>
+                                        <p className="text-muted mb-0">{defUser.email}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -473,7 +504,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Telefon</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{user.phone}</p>
+                                        <p className="text-muted mb-0">{defUser.phone}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -482,7 +513,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Adres</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{user.address}</p>
+                                        <p className="text-muted mb-0">{defUser.address}</p>
                                     </div>
                                 </div>
                             </div>
@@ -623,7 +654,7 @@ function Leave() {
                     </section>
                 </div>
             </section>
-            <PublicHoliday/>
+            <PublicHoliday />
 
             <section className="mb-0 bg-white text-center">
                 <h1>İZİN TALEPLERİ</h1>
