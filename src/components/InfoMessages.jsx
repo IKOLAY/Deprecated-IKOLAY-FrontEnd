@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom"
 
 export function WarningMessage({ warningMessage }) {
     return (
-        <div className="alert alert-primary alert-dismissible fade show mt-4" role="alert">
+        <div className="alert alert-primary alert-dismissible fade show mt-4 w-100 text-center" role="alert">
             {warningMessage}
             <NavLink to="/">
                 <button
@@ -19,7 +19,7 @@ export function WarningMessage({ warningMessage }) {
 
 export function FormValidationMessage({ message }) {
     return (
-        <div className="alert alert-danger" role="alert">
+        <div className="alert alert-danger text-center w-100" role="alert">
             {message}
         </div>
     )
