@@ -314,7 +314,6 @@ function EmployeeProfile({ setOperation }) {
 
                     throw new Error(data.message)
                 }
-
                 localStorage.setItem("user", JSON.stringify(data))
                 setUser({ ...data })
             }).catch(err => {

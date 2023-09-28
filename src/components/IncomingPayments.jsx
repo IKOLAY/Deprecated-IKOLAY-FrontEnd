@@ -4,20 +4,20 @@ import { useEffect } from "react"
 
 
 export function IncomingPayments() {
-    const user = JSON.parse(window.localStorage.getItem("user"));
+    const user = JSON.parse(window.localStorage.getItem("user"))
     const companyId = user.companyId;
     const [incomingPayments, setIncomingPayments] = useState([]);
 
-useEffect( ()=>{
-    fetch(`http://localhost:80/transaction/payments?companyId=${companyId}`).then(resp => {
-    if (!resp.ok)
-        throw new Error("Hata initiate");
-    return resp.json();
-}).then(data => {
-    setIncomingPayments(data);
-    console.log(incomingPayments);
-}).catch(err => console.log(err))
-},[]);
+    useEffect(() => {
+        fetch(`http://localhost:80/transaction/payments?companyId=${companyId}`).then(resp => {
+            if (!resp.ok)
+                throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+            setIncomingPayments(data);
+            console.log(incomingPayments);
+        }).catch(err => console.log(err))
+    }, []);
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center bg-white">
@@ -32,8 +32,8 @@ useEffect( ()=>{
                     </tr>
                 </thead>
                 <tbody className="table-group-divider">
-                    {incomingPayments.length!=0 && incomingPayments.map(payment=>{
-                       return <IncomingExpensesRow key={payment.name} {...payment}/>
+                    {incomingPayments.length != 0 && incomingPayments.map(payment => {
+                        return <IncomingExpensesRow key={payment.name} {...payment} />
                     })}
                 </tbody>
             </table>
