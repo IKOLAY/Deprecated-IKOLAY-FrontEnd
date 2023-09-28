@@ -1,5 +1,5 @@
 import "../assets/styles/CompanyPage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
@@ -9,6 +9,7 @@ import { CompanyReviewForGuest } from "../components/CompanyReviewForGuest";
 import { useSearchParams } from "react-router-dom";
 import EmployeePage from "./06-EmployeePage";
 import { NavLink } from "react-router-dom";
+import { PublicHoliday } from "../components/PublicHoliday";
 
 export function CompanyPage() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -134,6 +135,49 @@ function WelcomeToDashboard() {
 }
 
 function EmployeeLeave() {
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    const defLeave = {
+        leaveName: "",
+        startingDate: "",
+        duration: "",
+        email: "",
+        companyId: user.companyId,
+    }
+
+    const [newLeave, setNewLeave] = useState({ ...defLeave });
+    
+
+
+    function handleChange(e) {
+        setNewLeave({ ...newLeave, [e.target.name]: e.target.value })
+
+    }
+
+    function handleSubmit() {
+        const leaves = { ...newLeave }
+        console.log(newLeave);
+        console.log(leaves);
+        if (newLeave.email == "") {
+            leaves.email = null;
+        }
+        fetch(`http://localhost:80/leave/create`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(leaves)
+        }).then
+            (response => {
+                console.log(response);
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                if (data.message)
+                    throw new Error(data.message)
+                setNewLeave({ ...defLeave })
+            }).catch(err => console.log(err));
+    }
+
     return (
         <div className="d-flex flex-column gap-2">
             <section className="d-flex flex-row gap-3">
@@ -171,13 +215,16 @@ function EmployeeLeave() {
                             />
                         </div>
                         <div className="modal-body">
-                            <form typeof="submit">
+                            <form typeof="submit" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="holidayName">Resmi Tatil Adı</label>
                                     <input
                                         type="text"
                                         className="form-control"
                                         id="holidayName"
+                                        name="leaveName"
+                                        value={newLeave.leaveName}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -186,6 +233,9 @@ function EmployeeLeave() {
                                         type="date"
                                         className="form-control"
                                         id="startDate"
+                                        name="startingDate"
+                                        value={newLeave.startingDate}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -194,6 +244,9 @@ function EmployeeLeave() {
                                         type="number"
                                         className="form-control"
                                         id="duration"
+                                        name="duration"
+                                        value={newLeave.duration}
+                                        onChange={handleChange}
                                     />
                                 </div>
                             </form>
@@ -206,7 +259,7 @@ function EmployeeLeave() {
                             >
                                 Vazgeç
                             </button>
-                            <button type="button" className="btn btn-outline-primary">
+                            <button type="button" className="btn btn-outline-primary" onClick={handleSubmit}>
                                 Kaydet
                             </button>
                         </div>
@@ -234,13 +287,16 @@ function EmployeeLeave() {
                             />
                         </div>
                         <div className="modal-body">
-                            <form typeof="submit">
+                            <form typeof="submit" onSubmit={handleSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="holidayName">İzin Tipi</label>
                                     <input
                                         type="text"
                                         className="form-control"
                                         id="holidayName"
+                                        name="leaveName"
+                                        value={newLeave.leaveName}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -249,6 +305,9 @@ function EmployeeLeave() {
                                         type="date"
                                         className="form-control"
                                         id="startDate"
+                                        name="startingDate"
+                                        value={newLeave.startingDate}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -257,6 +316,9 @@ function EmployeeLeave() {
                                         type="number"
                                         className="form-control"
                                         id="duration"
+                                        name="duration"
+                                        value={newLeave.duration}
+                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -265,6 +327,9 @@ function EmployeeLeave() {
                                         type="email"
                                         className="form-control"
                                         id="personel-email"
+                                        name="email"
+                                        value={newLeave.email}
+                                        onChange={handleChange}
                                         placeholder="Personelin kişisel emailini giriniz..."
                                     />
                                 </div>
@@ -278,44 +343,16 @@ function EmployeeLeave() {
                             >
                                 Vazgeç
                             </button>
-                            <button type="button" className="btn btn-outline-primary">
+                            <button type="button" className="btn btn-outline-primary" onClick={handleSubmit}>
                                 Kaydet
                             </button>
                         </div>
                     </div>
                 </div>
             </section>
+            <PublicHoliday />
 
-            <section className="mb-0 bg-white text-center">
-                <h1>İZİN LİSTESİ</h1>
-                <table className="table align-middle">
-                    <thead className="bg-light">
-                        <tr>
-                            <th className="font-weight-bold" scope="col">İzin Adı</th>
-                            <th scope="col">İzin Tipi</th>
-                            <th scope="col">Başlangıç Tarihi</th>
-                            <th scope="col">Bitiş Tarihi</th>
-                            <th scope="col">Kişi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ramazan Bayramı</td>
-                            <td>Resmi Tatil</td>
-                            <td>10/04/2024</td>
-                            <td>12/04/2024</td>
-                            <td>Tüm personel</td>
-                        </tr>
-                        <tr>
-                            <td>Babalık İzni</td>
-                            <td>İzin</td>
-                            <td>21/09/2023</td>
-                            <td>28/09/2023</td>
-                            <td>Doruk Tokinan</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
         </div>
     )
 }
+
