@@ -1,9 +1,38 @@
 import { NavLink } from "react-router-dom"
 import "../assets/styles/EmployeePage.css";
 import { useState } from "react";
+import { PublicHoliday } from "../components/PublicHoliday";
 
 export default function EmployeePage() {
+    let defUser = JSON.parse(window.localStorage.getItem("user"));
+    const defMessage = {userId:defUser.id,companyId:defUser.companyId,content:""};
     const [operation, setOperation] = useState(null);
+    const [message, setMessage] = useState({...defMessage})
+    function handleMessageChange(e){
+        setMessage({...message,[e.target.name]:e.target.value})
+    }
+
+    function handleSendMessage(e){
+        fetch("http://localhost:80/comment/addcomment", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(message)
+        }).then
+            (response => {
+                console.log(response);
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                if (data.hasOwnProperty("field")){
+                    throw new Error(data.message)
+                }
+                setMessage({...defMessage})
+            }).catch(err => {
+                console.log(err);
+            });
+    }
 
     function handleClick(e) {
         e.preventDefault();
@@ -13,9 +42,11 @@ export default function EmployeePage() {
     function handleLogout(e) {
         window.localStorage.clear("token")
         window.localStorage.clear("user")
+        window.localStorage.clear("company")
+        window.localStorage.clear("shift")
     }
 
-
+    const company = JSON.parse(localStorage.getItem("company"));
     return (
         <main className="d-flex justify-content-lg-start employee h-100">
             <div className="d-flex w-100" id="wrapper">
@@ -31,14 +62,18 @@ export default function EmployeePage() {
                         <img width={40} className="rounded-circle" src="/img/ikolay-companypp.svg" alt="şirket logo" />
 
                         <ul className="m-0 p-0">
-                            <li className="fw-bold">
-                                Şirket İsmi
+                            <li className="fw-bold border-bottom mb-2">
+                               <div> Şirket İsmi</div>
+                               {company.companyName}
+                          
+                            </li>
+                            <li className="mb-1">
+                                <div>Şirket İK Telefonu:</div>
+                                {company.phone}
                             </li>
                             <li>
-                                Şirket İK Telefon
-                            </li>
-                            <li>
-                                Şirket Adres
+                               <div> Şirket Adresi:</div>
+                                {company.address}
                             </li>
 
                             <button
@@ -109,8 +144,8 @@ export default function EmployeePage() {
 
                                                 </div>
                                                 <div className="form-group py-3  border-top">
-                                                    <label htmlFor="comment">Yorumunuz</label>
-                                                    <textarea className="w-100" style={{ minHeight: "150px" }} name="comment" id="comment" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz..."></textarea>
+                                                    <label htmlFor="content">Yorumunuz</label>
+                                                    <textarea className="w-100" style={{ minHeight: "150px" }} name="content" id="content" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz..." onChange={handleMessageChange} value={message.content}></textarea>
                                                 </div>
                                             </form>
                                         </div>
@@ -122,7 +157,7 @@ export default function EmployeePage() {
                                             >
                                                 Vazgeç
                                             </button>
-                                            <button type="button" data-bs-dismiss="modal" className="btn btn-info">
+                                            <button type="button" data-bs-dismiss="modal" className="btn btn-info" onClick={handleSendMessage}>
                                                 Gönder
                                             </button>
                                         </div>
@@ -210,25 +245,51 @@ function Welcome() {
 
 function EmployeeProfile({ setOperation }) {
 
-    const defUser = {
-        firstname: "",
-        lastname: "",
-        email: "",
-        phone: "",
-        address: ""
+    // const defUser = {
+    //     firstname: "",
+    //     lastname: "",
+    //     email: "",
+    //     phone: "",
+    //     address: ""
+    // }
+
+    let defUser = JSON.parse(window.localStorage.getItem("user"));
+    let userShiftDetails = JSON.parse(window.localStorage.getItem("shift"));
+
+    const [user, setUser] = useState({ ...defUser})
+    
+    function handleCancel(e){
+        setUser({...defUser})
     }
 
-    const loggedUser = JSON.parse(window.localStorage.getItem("user"));
-
-    const [user, setUser] = useState({ ...defUser, ...loggedUser })
-    const [updatedUser, setUpdatedUser] = useState({ ...defUser })
-
     function handleChange(e) {
-        setUpdatedUser({ ...updatedUser, [e.target.name]: e.target.value })
+        setUser({ ...user, [e.target.name]: e.target.value })
     }
 
     function handleSave() {
-        setUser({ ...user, ...updatedUser })
+        fetch("http://localhost:80/user/update", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user)
+        }).then
+            (response => {
+                console.log(response);
+                return response.json();
+            }).then(data => {
+                console.log(data);
+                if (data.message){
+                   
+                    throw new Error(data.message)
+                }
+                defUser={...data};
+                localStorage.setItem("user",JSON.stringify(data))
+                setUser({...defUser})
+            }).catch(err => {
+                setUser({...defUser}) 
+                console.log(err);
+            });
     }
 
     return (
@@ -282,7 +343,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="firstname"
                                                         name="firstname"
-                                                        value={updatedUser.firstname}
+                                                        value={user.firstname}
                                                         onChange={handleChange}
 
                                                     />
@@ -294,7 +355,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="lastname"
                                                         name="lastname"
-                                                        value={updatedUser.lastname}
+                                                        value={user.lastname}
                                                         onChange={handleChange}
 
                                                     />
@@ -306,7 +367,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="email"
                                                         name="email"
-                                                        value={updatedUser.email}
+                                                        value={user.email}
                                                         onChange={handleChange}
 
                                                     />
@@ -318,7 +379,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="phone"
                                                         name="phone"
-                                                        value={updatedUser.phone}
+                                                        value={user.phone}
                                                         onChange={handleChange}
 
                                                     />
@@ -330,7 +391,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="address"
                                                         name="address"
-                                                        value={updatedUser.address}
+                                                        value={user.address}
                                                         onChange={handleChange}
 
                                                     />
@@ -342,6 +403,7 @@ function EmployeeProfile({ setOperation }) {
                                                 type="button"
                                                 className="btn btn-secondary"
                                                 data-bs-dismiss="modal"
+                                                onClick={handleCancel}
                                             >
                                                 Vazgeç
                                             </button>
@@ -379,7 +441,7 @@ function EmployeeProfile({ setOperation }) {
                                     </div>
                                     <div className="col-sm-12">
                                     <hr />
-                                        <p className="mb-0">35000 ₺ / ay</p>
+                                        <p className="mb-0">{user.salary} ₺ / ay</p>
                                     </div>
                                 </div>
                             </div>
@@ -438,7 +500,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Vardiya Adı</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">Gündüz Vardiyası</p>
+                                        <p className="text-muted mb-0">{userShiftDetails.shiftName}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -447,7 +509,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Başlangıç Saati</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">09:00</p>
+                                        <p className="text-muted mb-0">{userShiftDetails.startTime}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -456,7 +518,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Bitiş Saati</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">17:00</p>
+                                        <p className="text-muted mb-0">{userShiftDetails.endTime}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -465,7 +527,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Mola Hakkı</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">2 saat</p>
+                                        <p className="text-muted mb-0">{userShiftDetails.breakTime}</p>
                                     </div>
                                 </div>
                             </div>
@@ -561,31 +623,7 @@ function Leave() {
                     </section>
                 </div>
             </section>
-            <section className="mb-0 bg-white text-center">
-                <h1>RESMİ TATİLLER</h1>
-                <table className="table align-middle">
-                    <thead className="bg-light">
-                        <tr>
-                            <th scope="col">Tatil Adı</th>
-                            <th scope="col">Başlangıç Tarihi</th>
-                            <th scope="col">Bitiş Tarihi</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ramazan Bayramı</td>
-                            <td>10/04/2024</td>
-                            <td>12/04/2024</td>
-                        </tr>
-                        <tr>
-                            <td>Cumhuriyet Bayramı</td>
-                            <td>29/10/2023</td>
-                            <td>29/10/2023</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+            <PublicHoliday/>
 
             <section className="mb-0 bg-white text-center">
                 <h1>İZİN TALEPLERİ</h1>

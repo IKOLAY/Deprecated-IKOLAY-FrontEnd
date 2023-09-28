@@ -30,49 +30,49 @@ export default function LoginPage() {
                 .then(data2 => {
                     console.log(data2);
                     window.localStorage.setItem("user", JSON.stringify(data2));
-                    return data2
-                }).then(userInfo => {
-                    if (userInfo.companyId == null) {
+                    if (data2.companyId == null) {
                         window.localStorage.setItem("company", null);
+                        window.localStorage.setItem("shift", null)
+                        roleCheck(data.role)
                     } else {
-                        fetch(`http://localhost:80/company/companyinformation?id=${userInfo.companyId}`)
+                        fetch(`http://localhost:80/company/companyinformation?id=${data2.companyId}`)
                             .then(resp => resp.json())
                             .then(data3 => {
                                 console.log(data3);
                                 window.localStorage.setItem("company", JSON.stringify(data3));
+                                if (data2.shiftId == null)
+                                    window.localStorage.setItem("shift", null);
+                                else {
+                                    fetch(`http://localhost:80/shift/findshift/${data2.shiftId}`)
+                                        .then(resp => resp.json())
+                                        .then(data4 => {
+                                            console.log(data4);
+                                            window.localStorage.setItem("shift", JSON.stringify(data4));
+                                            roleCheck(data.role)
+                                        })
+                                }
                             });
                     }
-                    if (userInfo.shiftId == null)
-                        window.localStorage.setItem("shift", null);
-                    else {
-                        fetch(`http://localhost:80/shift/findshift/${userInfo.shiftId}`)
-                            .then(resp => resp.json())
-                            .then(data4 => {
-                                console.log(data4);
-                                window.localStorage.setItem("shift", JSON.stringify(data4));
-                            })
-                    }
-                    return userInfo;
-                }).then(userInfo => {
-                    const data = window.localStorage.getItem("role");
-             
-                        if (data == "MANAGER")
-                            navigate("/company")
-                        else if (data == "ADMIN")
-                            navigate("/admin")
-                        else if (data == "EMPLOYEE")
-                            navigate("/employee")
-                        else
-                            navigate("/")
-            
                 })
+
         }).catch(err => { 
             console.log(err);
             setWarningMessage("Eposta veya şifre hatalı!");
         })
 
+        }).catch(err => console.log(err))
+    }
 
 
+    function roleCheck(role){
+        if (role == "MANAGER")
+        navigate("/company")
+    else if (role == "ADMIN")
+        navigate("/admin")
+    else if (role == "EMPLOYEE")
+        navigate("/employee")
+    else
+        navigate("/")
     }
 
     function handleChange(e) {
