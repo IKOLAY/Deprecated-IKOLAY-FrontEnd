@@ -137,7 +137,6 @@ export function CompanyPage() {
                                                 name="companyName"
                                                 value={company.companyName}
                                                 onChange={handleChange}
-
                                             />
                                         </div>
                                         <div className="form-group">
@@ -185,7 +184,7 @@ export function CompanyPage() {
                                             >
                                                 Vazgeç
                                             </button>
-                                            <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleSave}>
+                                            <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleSave} disabled={company.companyName==""&&true}>
                                                 Kaydet
                                             </button>
                                         </div>

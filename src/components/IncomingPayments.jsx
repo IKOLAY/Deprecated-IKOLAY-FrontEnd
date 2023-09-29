@@ -21,7 +21,7 @@ export function IncomingPayments() {
 
     return (
         <div className="d-flex flex-column justify-content-center align-items-center bg-white">
-            <h3 className="text-center p-2">YAKLAŞAN ÖDEMELER</h3>
+            <h3 className="text-center p-2">15 GÜN İÇERİSİNDEKİ ÖDEMELER </h3>
             <table className="table align-middle mb-0 bg-white">
                 <thead className="bg-light">
                     <tr>
