@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 export function ShiftSystem() {
     const user = JSON.parse(window.localStorage.getItem("user"))
     const companyId = user.companyId
+    const [shiftsList, setShiftsList] = useState([]);
     const defShift = {
         companyId: companyId,
         shiftName: "",
@@ -15,8 +16,10 @@ export function ShiftSystem() {
     function handleChange(e) {
         setNewShift({ ...newShift, [e.target.name]: e.target.value });
     }
-    function handleSubmit() {
+    function handleSubmit(e) {
+        e.preventDefault();
         const shifts = { ...newShift }
+
 
         fetch(`http://localhost:80/shift/add`, {
             method: "POST",
@@ -33,8 +36,9 @@ export function ShiftSystem() {
                 if (data.message)
                     throw new Error(data.message)
                 setNewShift({ ...defShift })
-            }).catch(err => console.log(err));            
-        
+                setShiftsList([...shiftsList, shifts]);
+            }).catch(err => console.log(err));
+
     }
     return (
         <>
@@ -53,23 +57,27 @@ export function ShiftSystem() {
                     <div className="">
                         <input type="number" className="form-control mt-1" name="breakTime" placeholder="Mola Süresi Giriniz" onChange={handleChange} value={newShift.breakTime} />
                     </div>
+                    <button type="submit" className="btn btn-primary mt-2 d-flex justify-content-center align-items-center">
+                        Vardiya Ekle
+                    </button>
                 </form>
-                <button type="button" className="btn btn-primary mt-2 d-flex justify-content-center align-items-center" onClick={handleSubmit}>
-                    Vardiya Ekle
-                </button>
-
             </div>
-            <AssignShift />
-            <Shifts />
+            <AssignShift shiftsList={shiftsList} setShiftsList={setShiftsList} companyId={companyId} />
         </>
     )
 }
 
 
 
-function AssignShift() {
-    const user = JSON.parse(window.localStorage.getItem("user"))
-    const companyId = user.companyId
+function AssignShift({ shiftsList, setShiftsList, companyId }) {
+    useEffect(() => {
+        fetch(`http://localhost:80/shift/findshiftsbycompanyid?companyId=${companyId}`).then(response => {
+            return response.json();
+        }).then(data => {
+            console.log(data);
+            setShiftsList(data);
+        }).catch(error => console.log(error))
+    }, []);
     const defAssignShift = {
         companyId: companyId,
         shiftName: "",
@@ -104,8 +112,10 @@ function AssignShift() {
         <>
             <form onSubmit={handleSubmit}>
                 <h2 className="text-white">Vardiya Ata</h2>
-                <div className="">
-                    <input type="text" className="form-control mt-1" name="shiftName" onChange={handleChange} value={newAssignShift.shiftName} placeholder="Vardiya Adı Ekleyiniz" />
+                <div className="input-group d-flex justify-content-center mt-1">
+                    <select name="shiftName" value={newAssignShift.shiftName} onChange={handleChange} >
+                        {shiftsList.map(shift => <option key={shift.shiftName} value={shift.shiftName} >{shift.shiftName}</option>)}
+                    </select>
                 </div>
                 <div className="">
                     <input type="email" className="form-control mt-1" name="email" value={newAssignShift.email} onChange={handleChange} placeholder="Bu vardiyanın ekleneceği çalışanın email'ini giriniz !!" />
@@ -119,45 +129,3 @@ function AssignShift() {
     )
 }
 
-function Shifts() {
-    const user = JSON.parse(window.localStorage.getItem("user"));
-    const companyId = user.companyId;
-    const [shiftsList, setShiftsList] = useState([]);
-    useEffect(() => {
-        fetch(`http://localhost:80/shift/findshiftsbycompanyid?companyId=${companyId}`).then(response => {
-            return response.json();
-        }).then(data => {
-            console.log(data);
-            setShiftsList(data);
-        }).catch(error => console.log(error))
-    }, []);
-
-
-    return (
-        <section className="mb-0 bg-white text-center mt-3">
-            <h1>EKLI VARDIYALAR</h1>
-            <table className="table align-middle">
-                <thead className="bg-light">
-                    <tr>
-                        <th className="font-weight-bold" scope="col">Vardiyalar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {shiftsList.length != 0 && shiftsList.map(
-                        shift => {
-                            return <GetShifts key={shift.shiftName} {...shift} />
-                        }
-                    )}
-                </tbody>
-            </table>
-        </section>
-    )
-}
-
-function GetShifts({ shiftName }) {
-    return (
-        <tr>
-            <td>{shiftName}</td>
-        </tr>
-    )
-}
