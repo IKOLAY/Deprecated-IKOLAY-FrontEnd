@@ -39,14 +39,14 @@ function ListEmployeeAndAddEmployee({ companyId }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {employeeList.map(emp => <EmployeeRow key={emp.email} {...emp} />)}
+                    {employeeList.map(emp => <EmployeeRow employeeList={employeeList} setEmployeeList={setEmployeeList} companyId={companyId} key={emp.email} {...emp} />)}
                 </tbody>
             </table>
         </div>
     )
 }
 
-function EmployeeRow({ firstname, lastname, email, phone }) {
+function EmployeeRow({employeeList,setEmployeeList, firstname, lastname, email, phone,companyId }) {
 
     return (
         <>
@@ -69,7 +69,7 @@ function EmployeeRow({ firstname, lastname, email, phone }) {
                     <p className="fw-normal mb-1">{phone}</p>
                 </td>
                 <td>
-                    <EmployeeDelete />
+                    <EmployeeDelete employeeList={employeeList} setEmployeeList={setEmployeeList} email={email} companyId={companyId}/>
                 </td>
             </tr>
         </>
@@ -194,6 +194,7 @@ function EmployeeAdd({ companyId,employeeList,setEmployeeList }) {
                                         type="button"
                                         className="btn btn-secondary"
                                         data-bs-dismiss="modal"
+                                        
                                     >
                                         Vazgeç
                                     </button>
@@ -211,7 +212,32 @@ function EmployeeAdd({ companyId,employeeList,setEmployeeList }) {
     )
 }
 
-function EmployeeDelete() {
+function EmployeeDelete({email,companyId,employeeList,setEmployeeList}) {
+    const defDeleteInfo={companyId:companyId,email:""}
+    const [deleteInfo,setDeleteInfo] = useState({...defDeleteInfo})
+    function handleChange(e){
+        setDeleteInfo({...deleteInfo,[e.target.name]:e.target.value})
+    }
+    function handleCancel(e){
+        setDeleteInfo({...defDeleteInfo})
+    }
+    function handleClick(e){
+        console.log(deleteInfo);
+        fetch("http://localhost:80/user/delete", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(deleteInfo)
+        }).then(resp => {
+            if (!resp.ok)
+                throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+            if(data)
+            setEmployeeList(employeeList.filter(emp=>emp.email!=email ))
+        }).catch(err => console.log(err))
+    }
     return (
         <>
             <button
@@ -248,6 +274,16 @@ function EmployeeDelete() {
                                     <div className="border rounded p-1 m-2 mb-4" style={{ color: "#FF99BF", borderColor: "#FF99BF" }}>
                                         <small>Lütfen silme işlemini onaylamak için personel kişisel emailini giriniz. <br /> <b>BU İŞLEM GERİ ALINAMAZ!</b></small>
                                     </div>
+                                    <label htmlFor="exampleInputEmail1">Silinmek istenen kişinin e-mail adresi:</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        id="exampleInputEmail1"
+                                        aria-describedby="emailHelp"
+                                        placeholder="Enter email"
+                                        value={email}
+                                        disabled
+                                    />
                                     <label htmlFor="exampleInputEmail1">Personel Kisisel Email</label>
                                     <input
                                         type="email"
@@ -255,6 +291,9 @@ function EmployeeDelete() {
                                         id="exampleInputEmail1"
                                         aria-describedby="emailHelp"
                                         placeholder="Enter email"
+                                        name="email"
+                                        onChange={handleChange}
+                                        value={deleteInfo.email}
                                     />
                                 </div>
                                 <div className="modal-footer justify-content-between">
@@ -262,10 +301,11 @@ function EmployeeDelete() {
                                         type="button"
                                         className="btn btn-secondary"
                                         data-bs-dismiss="modal"
+                                        onClick={handleCancel}
                                     >
                                         Vazgeç
                                     </button>
-                                    <button type="button" className="btn btn-outline-danger">
+                                    <button type="button" onClick={handleClick} className="btn btn-outline-danger" data-bs-dismiss="modal"> 
                                         Silmeyi Onayla
                                     </button>
                                 </div>
