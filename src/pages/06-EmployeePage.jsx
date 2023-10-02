@@ -405,11 +405,11 @@ function EmployeeProfile({ setOperation }) {
                                                 <div className="form-group">
                                                     <label htmlFor="phone">Telefon</label>
                                                     <input
-                                                        type="number"
+                                                        type="phone"
                                                         className="form-control"
                                                         id="phone"
                                                         name="phone"
-                                                        value={user.phone==null?"":user.phone}
+                                                        value={user.phone==null ? "" : user.phone}
                                                         onChange={handleChange}
 
                                                     />
@@ -421,7 +421,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="address"
                                                         name="address"
-                                                        value={user.address==null?"":user.address}
+                                                        value={user.address==null?"": user.address}
                                                         onChange={handleChange}
 
                                                     />

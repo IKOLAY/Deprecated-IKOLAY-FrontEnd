@@ -4,7 +4,7 @@ import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
 import { AllExpenses } from "../components/AllExpenses";
-import { IncomeOutcomeMethod } from "../components/IncomeOutcomeMethod";
+import { IncomeOutcomeMethod,IncomeOutcomeForEmployeeMethod } from "../components/IncomeOutcomeMethod";
 import { CompanyReviewForGuest } from "../components/CompanyReviewForGuest";
 import { useSearchParams } from "react-router-dom";
 import EmployeePage from "./06-EmployeePage";
@@ -266,6 +266,8 @@ export function CompanyPage() {
                         {method === "incoming-payment" && <IncomingPayments />}
                         {method === "employee-leave" && <EmployeeLeave />}
                         {method === "income-outcome-input" && <IncomeOutcomeMethod />}
+                        {/* {method === "income-outcome-input" && <IncomeOutcomeForEmployeeMethod />} */}
+                        
                         {method === "shift-system" && <ShiftSystem />}
                         {method === "company-review" && <CompanyReviewForGuest />}
                     </div>
