@@ -41,13 +41,13 @@ export function IncomingPayments() {
     )
 }
 
-function IncomingExpensesRow({ transactionDate, name, transactionAmount }) {
+function IncomingExpensesRow({ transactionDate, name, transactionAmount,currencyType,currencyMultiplier }) {
 
     return (
         <tr>
             <th>{transactionDate}</th>
             <td>{name}</td>
-            <td>{transactionAmount}TL</td>
+            <td>{currencyType!=null && transactionAmount/currencyMultiplier} {currencyType}</td>
         </tr>
     )
 }
