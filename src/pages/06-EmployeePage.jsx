@@ -15,7 +15,7 @@ export default function EmployeePage() {
         setMessage({ ...message, [e.target.name]: e.target.value })
     }
     function handleCommentClick(e) {
-      
+
         fetch(`http://localhost:80/comment/finduserscomment/${defUser.id}`)
             .then(resp => resp.json())
             .then(data => {
@@ -25,7 +25,8 @@ export default function EmployeePage() {
                 setMessage(data)
             }).catch(err => {
                 console.log(err);
-                setMessage({ ...defMessage })})
+                setMessage({ ...defMessage })
+            })
     }
 
     function handleSendMessage(e) {
@@ -170,30 +171,30 @@ export default function EmployeePage() {
                                                     <textarea className="w-100" style={{ minHeight: "150px" }} name="content" id="content" cols="30" rows="10" placeholder="Şirketinizle ilgili düşüncelerinizi giriniz...(Boş bırakılamaz!)" onChange={handleMessageChange} required value={message.content}></textarea>
                                                 </div>
                                                 <div className={`mb-3 mx-5 rounded ${message.commentType == "REJECTED" && "bg-danger"} ${message.commentType == "PENDING" && "bg-warning"} ${message.commentType == "ACCEPTED" && "bg-success"}`}>
-                                            {message.commentType == "PENDING" && <label>Önceki gönderiniz karar aşamasındadır. Yorumunuz onaylanana veya reddedilene kadar yorumunuzu yenileyemezsiniz!</label>}
-                                            {message.commentType == "ACCEPTED" && <label>Yorumunuz onaylanmıştır! Yorumunuzu güncelleyebilirsiniz!</label>}
-                                            {message.commentType == "REJECTED" && <label >Yorumunuz reddedilmiştir! Lütfen yorumunuzu güncelleyiniz!</label>}
-                                            {message.commentType == null && <label>Daha önce yorum yapmadınız!</label>}
+                                                    {message.commentType == "PENDING" && <label>Önceki gönderiniz karar aşamasındadır. Yorumunuz onaylanana veya reddedilene kadar yorumunuzu yenileyemezsiniz!</label>}
+                                                    {message.commentType == "ACCEPTED" && <label>Yorumunuz onaylanmıştır! Yorumunuzu güncelleyebilirsiniz!</label>}
+                                                    {message.commentType == "REJECTED" && <label >Yorumunuz reddedilmiştir! Lütfen yorumunuzu güncelleyiniz!</label>}
+                                                    {message.commentType == null && <label>Daha önce yorum yapmadınız!</label>}
 
-                                        </div>
-                                        <div className="modal-footer justify-content-between">
-                                            <button
-                                                type="button"
-                                                className="btn btn-secondary"
-                                                data-bs-dismiss="modal"
-                                            >
-                                                Vazgeç
-                                            </button>
-                                            <button type="submit" data-bs-dismiss="modal"
-                                                className={`btn btn-info ${status == "error" && "btn-danger"} ${status == "success" && "btn-success"}`}
-                                                disabled={(status == "pending" || message.commentType == "PENDING" || message.content=="") && true}>
-                                                Gönder
-                                                {status == "pending" && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
-                                            </button>
-                                        </div>
+                                                </div>
+                                                <div className="modal-footer justify-content-between">
+                                                    <button
+                                                        type="button"
+                                                        className="btn btn-secondary"
+                                                        data-bs-dismiss="modal"
+                                                    >
+                                                        Vazgeç
+                                                    </button>
+                                                    <button type="submit" data-bs-dismiss="modal"
+                                                        className={`btn btn-info ${status == "error" && "btn-danger"} ${status == "success" && "btn-success"}`}
+                                                        disabled={(status == "pending" || message.commentType == "PENDING" || message.content == "") && true}>
+                                                        Gönder
+                                                        {status == "pending" && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
+                                                    </button>
+                                                </div>
                                             </form>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                             </section>
@@ -265,7 +266,7 @@ export default function EmployeePage() {
                     </nav>
                     <div className="container-fluid px-4 w-100 text-center" style={{ minWidth: "700px" }}>
                         {operation === null && <Welcome />}
-                        {operation === "leave" && <Leave />}
+                        {operation === "leave" && <Leave {...defUser} />}
                         {operation === "employee-profile" && <EmployeeProfile setOperation={setOperation} />}
                         {operation === "send-expense-request" && <IncomeOutcomeForEmployeeMethod />}
                     </div>
@@ -420,7 +421,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="phone"
                                                         name="phone"
-                                                        value={user.phone==null ? "" : user.phone}
+                                                        value={user.phone == null ? "" : user.phone}
                                                         onChange={handleChange}
 
                                                     />
@@ -432,7 +433,7 @@ function EmployeeProfile({ setOperation }) {
                                                         className="form-control"
                                                         id="address"
                                                         name="address"
-                                                        value={user.address==null?"": user.address}
+                                                        value={user.address == null ? "" : user.address}
                                                         onChange={handleChange}
 
                                                     />
@@ -514,7 +515,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Telefon</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{defUser.phone==null?"Belirlenmedi.":defUser.phone}</p>
+                                        <p className="text-muted mb-0">{defUser.phone == null ? "Belirlenmedi." : defUser.phone}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -523,7 +524,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Adres</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{defUser.address==null?"Belirlenmedi.":defUser.address}</p>
+                                        <p className="text-muted mb-0">{defUser.address == null ? "Belirlenmedi." : defUser.address}</p>
                                     </div>
                                 </div>
                             </div>
@@ -541,7 +542,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Vardiya Adı</p>
                                     </div>
                                     <div className="col-sm-8">
-                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD" :userShiftDetails.shiftName}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails == undefined ? "TBD" : userShiftDetails.shiftName}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -550,7 +551,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Başlangıç Saati</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD":userShiftDetails.startTime}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails == undefined ? "TBD" : userShiftDetails.startTime}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -559,7 +560,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Bitiş Saati</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD":userShiftDetails.endTime}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails == undefined ? "TBD" : userShiftDetails.endTime}</p>
                                     </div>
                                 </div>
                                 <hr />
@@ -568,7 +569,7 @@ function EmployeeProfile({ setOperation }) {
                                         <p className="mb-0">Mola Hakkı</p>
                                     </div>
                                     <div className="col-sm-7">
-                                        <p className="text-muted mb-0">{userShiftDetails==undefined ? "TBD":userShiftDetails.breakTime}</p>
+                                        <p className="text-muted mb-0">{userShiftDetails == undefined ? "TBD" : userShiftDetails.breakTime}</p>
                                     </div>
                                 </div>
                             </div>
@@ -582,7 +583,45 @@ function EmployeeProfile({ setOperation }) {
     )
 }
 
-function Leave() {
+function Leave({ id, companyId }) {
+    const defLeave = { leaveName: "", startingDate: "", duration: "", userId: id, companyId: companyId };
+    const [newLeave, setNewLeave] = useState({ ...defLeave });
+    const [myRequest, setMyRequest] = useState(null);
+    useEffect(() => {
+        fetch(`http://localhost:80/leave/getmyleaverequests?companyId=${companyId}&userId=${id}`)
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.message)
+                    throw new Error(data.message);
+                setMyRequest(data);
+                console.log(data);
+            })
+    }, [])
+
+    function handleChange(e) {
+        setNewLeave({ ...newLeave, [e.target.name]: e.target.value })
+    }
+
+    function handleClick(e) {
+        fetch(`http://localhost:80/leave/sendleaverequest`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newLeave)
+        }).then(resp => resp.json())
+            .then(data => {
+                if (data.message)
+                    throw new Error(data.message)
+                console.log(data);
+                setMyRequest([...myRequest, { ...data }])
+                setNewLeave({ ...defLeave })
+                console.log(defLeave);
+            })
+    }
+    function handleCancel(e) {
+        setNewLeave({ ...defLeave })
+    }
     return (
         <>
             <section>
@@ -623,6 +662,9 @@ function Leave() {
                                                 type="text"
                                                 className="form-control"
                                                 id="holidayName"
+                                                name="leaveName"
+                                                onChange={handleChange}
+                                                value={newLeave.leaveName}
                                             />
                                         </div>
                                         <div className="form-group">
@@ -631,6 +673,9 @@ function Leave() {
                                                 type="date"
                                                 className="form-control"
                                                 id="startDate"
+                                                name="startingDate"
+                                                onChange={handleChange}
+                                                value={newLeave.startingDate}
                                             />
                                         </div>
                                         <div className="form-group">
@@ -638,12 +683,12 @@ function Leave() {
                                             <input
                                                 type="number"
                                                 className="form-control"
+                                                placeholder="Gün sayısını giriniz..."
                                                 id="duration"
+                                                name="duration"
+                                                onChange={handleChange}
+                                                value={newLeave.duration}
                                             />
-                                        </div>
-                                        <div className="form-group">
-                                            <label htmlFor="additional-info">Ek Bilgi</label>
-                                            <textarea className="w-100" name="additional-info" id="additional-info" cols="30" rows="10" placeholder="Lütfen gerekiyorsa izin talebinizle ilgili ek bilgileri giriniz..."></textarea>
                                         </div>
                                     </form>
                                 </div>
@@ -652,10 +697,15 @@ function Leave() {
                                         type="button"
                                         className="btn btn-secondary"
                                         data-bs-dismiss="modal"
+                                        onClick={handleCancel}
                                     >
                                         Vazgeç
                                     </button>
-                                    <button type="button" className="btn btn-info">
+                                    <button type="button"
+                                        className="btn btn-info"
+                                        onClick={handleClick}
+                                        data-bs-dismiss="modal"
+                                    >
                                         Gönder
                                     </button>
                                 </div>
@@ -666,35 +716,85 @@ function Leave() {
             </section>
             <PublicHoliday />
 
-            <section className="mb-0 bg-white text-center">
-                <h1>İZİN TALEPLERİ</h1>
+            <section className="mb-0 bg-white text-center overflow-y-scroll" style={{height:"400px"}}>
+                <h1>PERSONELE ÖZEL İZİNLER</h1>
                 <table className="table align-middle">
                     <thead className="bg-light">
                         <tr>
                             <th scope="col">Gerekçe</th>
-                            <th scope="col">Başlangıç Tarihi</th>
-                            <th scope="col">Bitiş Tarihi</th>
-                            <th scope="col">Durum</th>
+                            <th scope="col">İzin Başlangıç Tarihi</th>
+                            <th scope="col">İş günü</th>
+                            <th scope="col">Onay durumu</th>
+                            <th scope="col">Talep Oluşturulma Tarihi</th>
+                            <th scope="col">Vazgeç</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Doğum İzni</td>
-                            <td>10/10/2023</td>
-                            <td>30/01/2024</td>
-                            <td>Onaylandı</td>
-                        </tr>
-                        <tr>
-                            <td>Hastane İşlemleri - Doktor Randevuları</td>
-                            <td>29/09/2023</td>
-                            <td>29/09/2023</td>
-                            <td>Beklemede</td>
-                        </tr>
+                        {myRequest!=null && myRequest.map(request => <MyRequestEmployeeTableRow setMyRequest={setMyRequest} myRequest={myRequest} {...request}/>)}
                     </tbody>
                 </table>
             </section>
         </>
     )
 }
+
+
+function MyRequestEmployeeTableRow({id,leaveName, createDate,duration,startingDate,status,setMyRequest,myRequest}) {
+
+    const date = new Date(createDate);
+
+    const stringDate = date.toISOString().split("T")[0];
+    function backgroundFixer(status){
+        switch(status){
+            case"PENDING": return "bg-warning"
+            case"ACCEPTED": return "bg-success"
+            case"REJECTED": return "bg-danger"
+            case"CANCELED": return "bg-secondary"
+        }
+    }
+
+    function handleEnglish(status){
+        switch(status){
+            case"PENDING": return "BEKLEMEDE"
+            case"ACCEPTED": return "ONAYLANDI"
+            case"REJECTED": return "REDDEDILDI"
+            case "CANCELED": return "IPTAL EDILDI"
+        }
+    }
+
+    function handleClick(e){
+        fetch(`http://localhost:80/leave/cancelleave/${id}`).then(resp => resp.json())
+        .then(data=>{
+            if(data.message)
+            throw new Error(data.message)
+            setMyRequest([...myRequest.map(req=> {
+                if(req.id==id)
+                return {...data}
+                return req
+            })])
+        })
+    }
+
+
+    return (<>
+
+        <tr>
+            <td>{leaveName}</td>
+            <td>{startingDate}</td>
+            <td>{duration}</td>
+            <td><span className={`"badge px-2 rounded text-black ${backgroundFixer(status)}`}>{handleEnglish(status)}</span></td>
+            <td>{stringDate}</td>
+            <td><button type="button" 
+            className="btn btn-danger" 
+            disabled={status!="PENDING"?true:false}
+            onClick={handleClick}
+            >IPTAL ET</button></td>
+        </tr>
+
+    </>
+    )
+}
+
+
 
