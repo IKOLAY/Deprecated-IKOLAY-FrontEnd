@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom"
 import "../assets/styles/EmployeePage.css";
 import { useEffect, useState } from "react";
 import { PublicHoliday } from "../components/PublicHoliday";
+import { IncomeOutcomeForEmployeeMethod } from "../components/IncomeOutcomeMethod";
+import { EmployeesAllPayments } from "../components/EmployeesAllPayments";
 
 export default function EmployeePage() {
     const [status, setStatus] = useState(); //success, pending, error
@@ -207,6 +209,14 @@ export default function EmployeePage() {
                         >
                             Resmi Tatiller / İzin
                         </a>
+                        <a
+                            href="#"
+                            className="list-group-item list-group-item-action bg-transparent second-text fw-bold"
+                            name="send-expense-request"
+                            onClick={handleClick}
+                        >
+                            Harcama Talebi Oluştur
+                        </a>
                     </div>
                 </div>
                 <div id="page-content-wrapper d-flex w-100" className="">
@@ -257,6 +267,7 @@ export default function EmployeePage() {
                         {operation === null && <Welcome />}
                         {operation === "leave" && <Leave />}
                         {operation === "employee-profile" && <EmployeeProfile setOperation={setOperation} />}
+                        {operation === "send-expense-request" && <IncomeOutcomeForEmployeeMethod />}
                     </div>
                 </div>
             </div>
