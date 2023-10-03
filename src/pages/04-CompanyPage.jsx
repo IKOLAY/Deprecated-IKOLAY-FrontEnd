@@ -298,7 +298,17 @@ function EmployeeLeave() {
     }
 
     const [newLeave, setNewLeave] = useState({ ...defLeave });
-
+    const [pendingRequests, setPendingRequests] = useState(null);
+    useEffect(() => {
+        fetch(`http://localhost:80/leave/getcompanyspendingleaverequest/${user.companyId}`)
+            .then(resp => resp.json())
+            .then(data => {
+                if (data.message)
+                    throw new Error(data.message);
+                setPendingRequests(data);
+                console.log(data);
+            })
+    }, [])
 
 
     function handleChange(e) {
@@ -510,8 +520,92 @@ function EmployeeLeave() {
                 </div>
             </section>
             <PublicHoliday />
+            <section className="mb-0 bg-white text-center">
+                <h1>PERSONELE ÖZEL İZİNLER</h1>
+                <table className="table align-middle">
+                    <thead className="bg-light">
+                        <tr>
+                            <th scope="col">Gerekçe</th>
+                            <th scope="col">İzin Başlangıç Tarihi</th>
+                            <th scope="col">İş günü</th>
+                            <th scope="col">Onay durumu</th>
+                            <th scope="col">Talep Oluşturulma Tarihi</th>
+                            <th scope="col">Vazgeç</th>
 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pendingRequests!=null && pendingRequests.map(request => <PendingRequestsEmployeeTableRow setPendingRequests={setPendingRequests} pendingRequests={pendingRequests} {...request}/>)}
+                    </tbody>
+                </table>
+            </section>
         </div>
+    )
+}
+
+function PendingRequestsEmployeeTableRow({id,leaveName, createDate,duration,startingDate,status,setPendingRequests,pendingRequests}) {
+
+    const date = new Date(createDate);
+    const stringDate = date.toISOString().split("T")[0];
+
+    function backgroundFixer(status){
+        switch(status){
+            case"PENDING": return "bg-warning"
+            case"ACCEPTED": return "bg-success"
+            case"REJECTED": return "bg-danger"
+            case"CANCELED": return "bg-secondary"
+        }
+    }
+
+    function handleEnglish(status){
+        switch(status){
+            case"PENDING": return "BEKLEMEDE"
+            case"ACCEPTED": return "ONAYLANDI"
+            case"REJECTED": return "REDDEDILDI"
+            case "CANCELED": return "IPTAL EDILDI"
+        }
+    }
+
+    function handleConfirmClick(e){
+        fetch(`http://localhost:80/leave/confirmleave/${id}`).then(resp => resp.json())
+        .then(data=>{
+            if(data.message)
+            throw new Error(data.message)
+            setPendingRequests([...pendingRequests.filter(req=> req.id!=id)]);
+        })
+    }
+
+    function handleRejectClick(e){
+        fetch(`http://localhost:80/leave/rejectleave/${id}`).then(resp => resp.json())
+        .then(data=>{
+            if(data.message)
+            throw new Error(data.message)
+            setPendingRequests([...pendingRequests.filter(req=> req.id!=id)]);
+        })
+    }
+
+
+    return (<>
+
+        <tr>
+            <td>{leaveName}</td>
+            <td>{startingDate}</td>
+            <td>{duration}</td>
+            <td><span className={`"badge px-2 rounded text-black ${backgroundFixer(status)}`}>{handleEnglish(status)}</span></td>
+            <td>{stringDate}</td>
+            <td><button type="button" 
+            className="btn btn-success" 
+            disabled={status!="PENDING"?true:false}
+            onClick={handleConfirmClick}
+            >ONAYLA</button>
+            <button type="button" 
+            className="btn btn-danger" 
+            disabled={status!="PENDING"?true:false}
+            onClick={handleRejectClick}
+            >REDDET</button></td>
+        </tr>
+
+    </>
     )
 }
 
