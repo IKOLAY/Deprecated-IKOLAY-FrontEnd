@@ -100,7 +100,7 @@ function MainGuestIndex() {
     const [companyList, setCompanyList] = useState([])
    if(localStorage.getItem("user")!=null){
    useEffect(() => {
-    fetch(`http://localhost/company/findbycompanynametopfive`)
+       fetch(`http://localhost:80/company/findbycompanynametopfive`)
         .then
         (response => {
             console.log(response);

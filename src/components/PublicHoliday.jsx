@@ -1,20 +1,9 @@
 import { useEffect, useState } from "react";
 
-export function PublicHoliday() {
+export function PublicHoliday({setLeaveList,leaveList}) {
     const user = JSON.parse(window.localStorage.getItem("user"))
     const companyId = user.companyId
-    const [leaveList, setLeaveList] = useState([]);
-    useEffect(() => {
-        fetch(`http://localhost:80/leave/getcompanyleaves?companyId=${companyId}`).then(resp => {
-            if (!resp.ok)
-                throw new Error("Hata initiate");
-            return resp.json();
-        }).then(data => {
-            console.log(data);
-            setLeaveList(data);
-            console.log(leaveList);
-        }).catch(err => console.log(err))
-    }, []);
+    
     return (
         <section className="mb-0 bg-white text-center">
             <h1>RESMİ TATİLLER</h1>

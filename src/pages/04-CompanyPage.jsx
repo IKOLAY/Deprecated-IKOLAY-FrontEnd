@@ -296,6 +296,7 @@ function EmployeeLeave() {
         email: "",
         companyId: user.companyId,
     }
+    const [leaveList, setLeaveList] = useState([]);    
 
     const [newLeave, setNewLeave] = useState({ ...defLeave });
     const [pendingRequests, setPendingRequests] = useState(null);
@@ -308,6 +309,15 @@ function EmployeeLeave() {
                 setPendingRequests(data);
                 console.log(data);
             })
+        fetch(`http://localhost:80/leave/getcompanyleaves?companyId=${user.companyId}`).then(resp => {
+            if (!resp.ok)
+                throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+            console.log(data);
+            setLeaveList(data);
+            console.log(leaveList);
+        }).catch(err => console.log(err))
     }, [])
 
 
@@ -332,14 +342,15 @@ function EmployeeLeave() {
             body: JSON.stringify(leaves)
         }).then
             (response => {
-                console.log(response);
-                setWarningMessage("İzin başarıyla kaydedilmiştir!")
+                console.log(response);                
                 return response.json();
             }).then(data => {
                 console.log(data);
                 if (data.message)
                     throw new Error(data.message)
+                setWarningMessage("İzin başarıyla kaydedilmiştir!")
                 setNewLeave({ ...defLeave })
+                setLeaveList([...leaveList , leaves])
             }).catch(err => {
                 console.log(err)
                 setWarningMessage(err.message)
@@ -427,7 +438,7 @@ function EmployeeLeave() {
                             >
                                 Vazgeç
                             </button>
-                            <button type="button" className="btn btn-outline-primary" onClick={handleSubmit}>
+                            <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleSubmit}>
                                 Kaydet
                             </button>
                         </div>
@@ -519,7 +530,7 @@ function EmployeeLeave() {
                     </div>
                 </div>
             </section>
-            <PublicHoliday />
+            <PublicHoliday leaveList={leaveList} setLeaveList={setLeaveList} />
             <section className="mb-0 bg-white text-center">
                 <h1>PERSONELE ÖZEL İZİNLER</h1>
                 <table className="table align-middle">
