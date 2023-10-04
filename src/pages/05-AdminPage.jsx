@@ -8,7 +8,7 @@ export default function AdminPage() {
     const [confirmInfo, setConfirmInfo] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost/user/pendingmanagers").then(resp => resp.json()).then(data => setConfirmInfo(data));
+        fetch("http://localhost:80/user/pendingmanagers").then(resp => resp.json()).then(data => setConfirmInfo(data));
     }, [])
     console.log(confirmInfo);
     function handleClick(e) {
@@ -210,7 +210,7 @@ function AcceptOrRejectComments() {
     const [pendingComments, setPendingComments] = useState([])
 
     useEffect(() => {
-        fetch("http://localhost/comment/findallcommentforadmin")
+        fetch("http://localhost:80/comment/findallcommentforadmin")
             .then(resp => resp.json())
             .then(data => setPendingComments(data))
             .catch(err => console.log(err));
@@ -231,13 +231,13 @@ function CommentRow({ id, companyId, userId, content, comments, setComments }) {
 
     function handleClick(e) {
         if (e.target.name == "accept") {
-            fetch(`http://localhost/comment/acceptcomment/${id}`).then(resp => {
+            fetch(`http://localhost:80/comment/acceptcomment/${id}`).then(resp => {
                 if (resp.ok) {
                     setComments(comments.filter(comment => comment.id != id));
                 }
             }).catch(err => console.log(err))
         } else {
-            fetch(`http://localhost/comment/rejectcomment/${id}`).then(resp => {
+            fetch(`http://localhost:80/comment/rejectcomment/${id}`).then(resp => {
                 if (resp.ok) {
                     setComments(comments.filter(comment => comment.id != id));
                 }
@@ -310,7 +310,7 @@ function CommentRow({ id, companyId, userId, content, comments, setComments }) {
 
 function GetFirstAndLastName({ userId, user, setUser }) {
     useEffect(() => {
-        fetch(`http://localhost/user/getusersfirstandlastname/${userId}`).then(resp => resp.json()).then(data => {
+        fetch(`http://localhost:80/user/getusersfirstandlastname/${userId}`).then(resp => resp.json()).then(data => {
             if (!data.firstname)
                 throw new Error(data.message);
             setUser(data);
@@ -325,7 +325,7 @@ function GetFirstAndLastName({ userId, user, setUser }) {
 
 function GetCompanyNameAndTaxNo({ companyId, company, setCompany }) {
     useEffect(() => {
-        fetch(`http://localhost/company/companyinformation?id=${companyId}`).then(resp => resp.json()).then(data => {
+        fetch(`http://localhost:80/company/companyinformation?id=${companyId}`).then(resp => resp.json()).then(data => {
             if (!data.taxNo)
                 throw new Error(data.message);
             setCompany(data);
