@@ -22,6 +22,7 @@ function ListEmployeeAndAddEmployee({ companyId }) {
             return resp.json();
         }).then(data => {
             setEmployeeList(data);
+            console.log(data);
         }).catch(err => console.log(err))
     }, []);
 
@@ -46,7 +47,7 @@ function ListEmployeeAndAddEmployee({ companyId }) {
     )
 }
 
-function EmployeeRow({employeeList,setEmployeeList, firstname, lastname, email, phone,companyId }) {
+function EmployeeRow({employeeList,setEmployeeList, firstname, lastname, email, phone,companyId,id,salary }) {
 
     return (
         <>
@@ -69,7 +70,8 @@ function EmployeeRow({employeeList,setEmployeeList, firstname, lastname, email, 
                     <p className="fw-normal mb-1">{phone}</p>
                 </td>
                 <td>
-                    <EmployeeDelete employeeList={employeeList} setEmployeeList={setEmployeeList} email={email} companyId={companyId}/>
+                    <UpdateEmployeesSalary employeeList={employeeList} setEmployeeList={setEmployeeList} salary={salary} id={id} firstname={firstname} lastname={lastname}/>
+                    <EmployeeDelete employeeList={employeeList} setEmployeeList={setEmployeeList} email={email} id={id} companyId={companyId}/>
                 </td>
             </tr>
         </>
@@ -212,8 +214,8 @@ function EmployeeAdd({ companyId,employeeList,setEmployeeList }) {
     )
 }
 
-function EmployeeDelete({email,companyId,employeeList,setEmployeeList}) {
-    const defDeleteInfo={companyId:companyId,email:""}
+function EmployeeDelete({id,email,companyId,employeeList,setEmployeeList}) {
+    const defDeleteInfo={companyId:companyId,id:id,email:""}
     const [deleteInfo,setDeleteInfo] = useState({...defDeleteInfo})
     function handleChange(e){
         setDeleteInfo({...deleteInfo,[e.target.name]:e.target.value})
@@ -223,6 +225,8 @@ function EmployeeDelete({email,companyId,employeeList,setEmployeeList}) {
     }
     function handleClick(e){
         console.log(deleteInfo);
+        if(deleteInfo.email!=email)
+        throw new Error("Mail adresleri uyuşmuyor!")
         fetch("http://localhost:80/user/delete", {
             method: "DELETE",
             headers: {
@@ -234,7 +238,8 @@ function EmployeeDelete({email,companyId,employeeList,setEmployeeList}) {
                 throw new Error("Hata initiate");
             return resp.json();
         }).then(data => {
-            if(data)
+            if(data.message)
+            throw new Error(data.message)
             setEmployeeList(employeeList.filter(emp=>emp.email!=email ))
         }).catch(err => console.log(err))
     }
@@ -244,13 +249,13 @@ function EmployeeDelete({email,companyId,employeeList,setEmployeeList}) {
                 type="button"
                 className="btn btn-sm btn-outline-danger"
                 data-bs-toggle="modal"
-                data-bs-target="#modalDelete"
+                data-bs-target={`#modalDelete-${id}`}
             >
                 Personel Sil
             </button>
             <div
                 className="modal fade"
-                id="modalDelete"
+                id={`modalDelete-${id}`}
                 tabIndex={-1}
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
@@ -316,6 +321,116 @@ function EmployeeDelete({email,companyId,employeeList,setEmployeeList}) {
                 </div>
             </div>
         </>
-
     )
+}
+
+function UpdateEmployeesSalary({id,salary,setEmployeeList,employeeList,firstname,lastname}){
+    const defUpdateSalary={id:id,salary:""}
+    const [updateSalary,setUpdateSalary] = useState({...defUpdateSalary})
+    function handleChange(e){
+        setUpdateSalary({...updateSalary,[e.target.name]:e.target.value})
+    }
+    function handleCancel(e){
+        setUpdateSalary({...defUpdateSalary})
+    }
+    function handleClick(e){
+    
+        fetch("http://localhost:80/user/updatesalary", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updateSalary)
+        }).then(resp => {
+            return resp.json();
+        }).then(data => {
+            if(data.message)
+            throw new Error(data.message)
+            setEmployeeList(employeeList.map(emp=>{
+                if(emp.id == id)
+                return {...emp,salary:updateSalary.salary}
+                return emp;
+            }))
+            setUpdateSalary({...defUpdateSalary})
+        }).catch(err => console.log(err))
+    }
+
+    return ( <>
+        <button
+            type="button"
+            className="btn btn-sm btn-outline-warning"
+            data-bs-toggle="modal"
+            data-bs-target={`#modalUpdate-${id}`}
+        >
+            Maaş Güncelle!
+        </button>
+        <div
+            className="modal fade"
+            id={`modalUpdate-${id}`}
+            tabIndex={-1}
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+        >
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h1 style={{ color: "black" }} className="modal-title fs-5" id="exampleModalLabel">
+                            IKOLAY Maaş Güncelle!
+                        </h1>
+                        <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        />
+                    </div>
+                    <div className="modal-body">
+                        <form typeof="submit">
+                            <div className="form-group">
+                                <div className="border rounded p-1 m-2 mb-4" style={{ color: "#FF99BF", borderColor: "#FF99BF" }}>
+                                    <span className="text-black"> Çalışan Maaş Güncelleme </span>
+                                </div>
+                                <label htmlFor="oldSalary">Çalışan ve Mevcut Maaşı:</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="oldSalary"
+                                    aria-describedby="salaryHelp"
+                                    placeholder="Mevcut Maaş"
+                                    value={`${firstname} ${lastname} - ${salary}TL`}
+                                    disabled
+                                />
+                                <label htmlFor="newSalary">Yeni Maaşı Giriniz</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="newSalary"
+                                    aria-describedby="newSalaryHelp"
+                                    placeholder="Yeni Maaşı girin (TL)"
+                                    name="salary"
+                                    onChange={handleChange}
+                                    value={updateSalary.salary}
+                                />
+                            </div>
+                            <div className="modal-footer justify-content-between">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                    onClick={handleCancel}
+                                >
+                                    Vazgeç
+                                </button>
+                                <button type="button" onClick={handleClick} className="btn btn-outline-danger" data-bs-dismiss="modal"> 
+                                    Yeni Maaşı Onayla
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </>
+)
 }
