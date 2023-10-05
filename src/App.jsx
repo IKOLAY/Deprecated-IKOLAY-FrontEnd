@@ -8,12 +8,16 @@ import LoginPage from './pages/03-LoginPage'
 import AdminPage from './pages/05-AdminPage'
 import EmployeePage from './pages/06-EmployeePage'
 import { Redirect } from './components/RedirectPage'
+import { useState } from 'react'
+import { CompanyReviewForGuest } from './components/CompanyReviewForGuest'
 
 
 function App() {
+    const [searchCompany, setSearchCompany] = useState("");
     return (
         <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route path="/" element={<HomePage setSearchCompany={setSearchCompany} searchCompany={searchCompany}/>} />
+            <Route path="/search" element={<CompanyReviewForGuest searchCompany={searchCompany} setSearchCompany={setSearchCompany}/>}/>
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/company" element={<CompanyPage />} />
             <Route path="/login" element={<LoginPage />} />

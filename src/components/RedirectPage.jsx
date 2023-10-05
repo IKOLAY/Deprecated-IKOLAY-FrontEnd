@@ -7,7 +7,7 @@ export function Redirect() {
     const token = searchParams.get("token");
     console.log(token);
     useEffect(() => {
-        fetch(`http://34.159.230.7/auth/activation?token=${token}`).then(response =>
+        fetch(`http://localhost:80/auth/activation?token=${token}`).then(response =>
             response.json()
         ).then(data => {
             if (data.code) {
