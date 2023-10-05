@@ -1,5 +1,7 @@
-export default function MainHeader() {   
+import { NavLink, useNavigate } from "react-router-dom"
 
+export default function MainHeader({setSearchCompany,searchCompany}) {   
+    const navigate= useNavigate();
     function handleClick(e) {
         e.preventDefault()
         window.localStorage.clear("token")
@@ -9,6 +11,15 @@ export default function MainHeader() {
         window.location.reload();
 
     }
+
+    function handleChange(e){
+        setSearchCompany(e.target.value);
+    }
+
+    function handleSearch(e){
+        navigate("/search");
+    }
+    
 
     return (
         <header>
@@ -35,28 +46,30 @@ export default function MainHeader() {
                             </a>
                         </li>
                         {localStorage.getItem("user") ? <li className="nav-item">
-                            <a className="nav-link text-info" href="#" onClick={handleClick}>
+                            <NavLink className="nav-link text-info" to="#" onClick={handleClick}>
                                 Çıkış
-                            </a>
+                            </NavLink>
                         </li>:<li className="nav-item">
-                            <a className="nav-link text-info" href="/login">
+                            <NavLink className="nav-link text-info" to="/login">
                                 Giriş
-                            </a>
+                            </NavLink>
                         </li>}
                         
                         
                     </ul>
-                    <form typeof="submit" className="form-inline my-2 my-lg-0 d-flex">
+                    {localStorage.getItem("user") &&<form typeof="submit" className="form-inline my-2 my-lg-0 d-flex">
                         <input
                             className="form-control mr-sm-2"
                             type="search"
                             placeholder="Şirket ara"
                             aria-label="Search"
+                            value={searchCompany}
+                            onChange={handleChange}
                         />
-                        <button className="btn btn-outline-primary my-2 my-sm-0" type="submit">
+                        <button className="btn btn-outline-primary my-2 my-sm-0" type="button" onClick={handleSearch}>
                             Ara
                         </button>
-                    </form>
+                    </form>}
                 </div>
             </nav>
         </header>

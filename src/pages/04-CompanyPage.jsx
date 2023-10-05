@@ -85,7 +85,7 @@ export function CompanyPage() {
     return (
         <main className="company d-flex flex-row h-100">
 
-            <div className=" sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle bg-opacity-70 h-100">
+            <div className=" sidebar d-flex flex-column flex-shrink-0 p-1 bg-dark-subtle bg-opacity-70 h-100 w-25">
                 <a href="/company" className="d-flex justify-content-center link-body-emphasis text-decoration-none mb-3 p-1">
                     <img className="shadow-sm rounded bg-light p-2" src="img/ikolay-companyManager.svg" alt="logo" />
                 </a>
@@ -93,7 +93,7 @@ export function CompanyPage() {
                 <div className="d-flex flex-column align-items-center p-3 m-1 bg-light bg-opacity-50 shadow-lg rounded small">
                     <img className="rounded-circle" src="/img/ikolay-companypp.svg" width={50} alt="" />
                     <hr />
-                    <p><span className="fw-bold">Şirket Adı: </span>{defCompany==null?"Belirlenmedi":defCompany.companyName}</p>
+                    <p className=""><span className="fw-bold">Şirket Adı: </span>{defCompany==null?"Belirlenmedi":defCompany.companyName}</p>
                     <p><span className="fw-bold">Adres: </span>{defCompany==null?"Belirlenmedi":defCompany.address}</p>
                     <p><span className="fw-bold">Hakkında: </span>{defCompany==null?"Belirlenmedi":defCompany.about}</p>
                     <p className="border-bottom border-dark pb-3 w-100 text-center"><span className="fw-bold">Tel: </span>{defCompany==null?"Belirlenmedi":defCompany.phone}</p>
@@ -136,7 +136,7 @@ export function CompanyPage() {
                                                 id="companyName"
                                                 name="companyName"
                                                 value={company.companyName}
-                                                onChange={handleChange}
+                                                disabled
                                             />
                                         </div>
                                         <div className="form-group">
@@ -231,11 +231,6 @@ export function CompanyPage() {
                             Vardiya Ekle / Ata
                         </a>
                     </li>
-                    <li>
-                        <a href="#" name="company-review" className="nav-link link-body-emphasis" onClick={handleClick}>
-                            Şirket Yorum TEST
-                        </a>
-                    </li>
                 </ul>
                 <NavLink className="text-center btn btn-warning" to="/" onClick={handleLogout}>ÇIKIŞ YAP</NavLink>
                 <hr />
@@ -266,10 +261,7 @@ export function CompanyPage() {
                         {method === "incoming-payment" && <IncomingPayments />}
                         {method === "employee-leave" && <EmployeeLeave />}
                         {method === "income-outcome-input" && <IncomeOutcomeMethod />}
-                        {/* {method === "income-outcome-input" && <IncomeOutcomeForEmployeeMethod />} */}
-                        
                         {method === "shift-system" && <ShiftSystem />}
-                        {method === "company-review" && <CompanyReviewForGuest />}
                     </div>
                 </div>
             </div>
