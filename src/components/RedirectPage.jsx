@@ -11,9 +11,9 @@ export function Redirect() {
             response.json()
         ).then(data => {
             if (data.code) {
-                navigate("/")
+                navigate("http://ikolay.great-site.net")
             } else {
-                navigate("/login")
+                navigate("http://ikolay.great-site.net/login")
             }
         })
     }, [])
