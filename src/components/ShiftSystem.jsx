@@ -114,6 +114,7 @@ function AssignShift({ shiftsList, setShiftsList, companyId }) {
                 <h2 className="text-white">Vardiya Ata</h2>
                 <div className="input-group d-flex justify-content-center mt-1">
                     <select name="shiftName" value={newAssignShift.shiftName} onChange={handleChange} >
+                        <option value={null}>Seçiniz</option>
                         {shiftsList.map(shift => <option key={shift.shiftName} value={shift.shiftName} >{shift.shiftName}</option>)}
                     </select>
                 </div>

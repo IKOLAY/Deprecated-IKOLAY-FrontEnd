@@ -48,7 +48,7 @@ export function IncomeOutcomeMethod() {
         }).catch(error => console.log(error));
     }
     return (
-        <>
+        <>            
             <form onSubmit={handleSubmit}>
                 <h3 className="text-center p-2" style={{ color: "white" }}>HARCAMA EKLE</h3>
                 <div className="d-flex flex-column">

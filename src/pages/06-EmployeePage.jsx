@@ -587,6 +587,8 @@ function Leave({ id, companyId }) {
     const defLeave = { leaveName: "", startingDate: "", duration: "", userId: id, companyId: companyId };
     const [newLeave, setNewLeave] = useState({ ...defLeave });
     const [myRequest, setMyRequest] = useState(null);
+    const [leaveList, setLeaveList] = useState([]);
+    const user = JSON.parse(window.localStorage.getItem("user"));
     useEffect(() => {
         fetch(`http://localhost:80/leave/getmyleaverequests?companyId=${companyId}&userId=${id}`)
             .then(resp => resp.json())
@@ -596,6 +598,15 @@ function Leave({ id, companyId }) {
                 setMyRequest(data);
                 console.log(data);
             })
+        fetch(`http://localhost:80/leave/getcompanyleaves?companyId=${user.companyId}`).then(resp => {
+            if (!resp.ok)
+                throw new Error("Hata initiate");
+            return resp.json();
+        }).then(data => {
+            console.log(data);
+            setLeaveList(data);
+            console.log(leaveList);
+        }).catch(err => console.log(err))
     }, [])
 
     function handleChange(e) {
@@ -623,7 +634,7 @@ function Leave({ id, companyId }) {
         setNewLeave({ ...defLeave })
     }
     return (
-        <>
+        <>            
             <section>
                 <div className="d-flex flex-column gap-2">
                     <section className="d-flex flex-row gap-3">
@@ -714,9 +725,9 @@ function Leave({ id, companyId }) {
                     </section>
                 </div>
             </section>
-            <PublicHoliday />
+            <PublicHoliday leaveList={leaveList} setLeaveList={setLeaveList} />
 
-            <section className="mb-0 bg-white text-center overflow-y-scroll" style={{height:"400px"}}>
+            <section className="mb-0 bg-white text-center overflow-y-scroll" style={{ height: "400px" }}>
                 <h1>PERSONELE ÖZEL İZİNLER</h1>
                 <table className="table align-middle">
                     <thead className="bg-light">
@@ -731,7 +742,7 @@ function Leave({ id, companyId }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {myRequest!=null && myRequest.map(request => <MyRequestEmployeeTableRow setMyRequest={setMyRequest} myRequest={myRequest} {...request}/>)}
+                        {myRequest != null && myRequest.map(request => <MyRequestEmployeeTableRow setMyRequest={setMyRequest} myRequest={myRequest} {...request} />)}
                     </tbody>
                 </table>
             </section>
@@ -740,40 +751,40 @@ function Leave({ id, companyId }) {
 }
 
 
-function MyRequestEmployeeTableRow({id,leaveName, createDate,duration,startingDate,status,setMyRequest,myRequest}) {
+function MyRequestEmployeeTableRow({ id, leaveName, createDate, duration, startingDate, status, setMyRequest, myRequest }) {
 
-    const date = new Date(createDate);
+    const date = new Date(createDate + 10800000);
 
     const stringDate = date.toISOString().split("T")[0];
-    function backgroundFixer(status){
-        switch(status){
-            case"PENDING": return "bg-warning"
-            case"ACCEPTED": return "bg-success"
-            case"REJECTED": return "bg-danger"
-            case"CANCELED": return "bg-secondary"
+    function backgroundFixer(status) {
+        switch (status) {
+            case "PENDING": return "bg-warning"
+            case "ACCEPTED": return "bg-success"
+            case "REJECTED": return "bg-danger"
+            case "CANCELED": return "bg-secondary"
         }
     }
 
-    function handleEnglish(status){
-        switch(status){
-            case"PENDING": return "BEKLEMEDE"
-            case"ACCEPTED": return "ONAYLANDI"
-            case"REJECTED": return "REDDEDILDI"
+    function handleEnglish(status) {
+        switch (status) {
+            case "PENDING": return "BEKLEMEDE"
+            case "ACCEPTED": return "ONAYLANDI"
+            case "REJECTED": return "REDDEDILDI"
             case "CANCELED": return "IPTAL EDILDI"
         }
     }
 
-    function handleClick(e){
+    function handleClick(e) {
         fetch(`http://localhost:80/leave/cancelleave/${id}`).then(resp => resp.json())
-        .then(data=>{
-            if(data.message)
-            throw new Error(data.message)
-            setMyRequest([...myRequest.map(req=> {
-                if(req.id==id)
-                return {...data}
-                return req
-            })])
-        })
+            .then(data => {
+                if (data.message)
+                    throw new Error(data.message)
+                setMyRequest([...myRequest.map(req => {
+                    if (req.id == id)
+                        return { ...data }
+                    return req
+                })])
+            })
     }
 
 
@@ -785,10 +796,10 @@ function MyRequestEmployeeTableRow({id,leaveName, createDate,duration,startingDa
             <td>{duration}</td>
             <td><span className={`"badge px-2 rounded text-black ${backgroundFixer(status)}`}>{handleEnglish(status)}</span></td>
             <td>{stringDate}</td>
-            <td><button type="button" 
-            className="btn btn-danger" 
-            disabled={status!="PENDING"?true:false}
-            onClick={handleClick}
+            <td><button type="button"
+                className="btn btn-danger"
+                disabled={status != "PENDING" ? true : false}
+                onClick={handleClick}
             >IPTAL ET</button></td>
         </tr>
 

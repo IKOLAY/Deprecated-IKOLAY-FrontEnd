@@ -16,7 +16,7 @@ export function PublicHoliday({setLeaveList,leaveList}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {leaveList.length != 0 && leaveList.map(
+                    {leaveList !== undefined && leaveList.length !== 0 && leaveList.map(
                         leave => {
                             return <GetLeaveRow key={leave.startingDate + leave.leaveName} {...leave} />
                         }

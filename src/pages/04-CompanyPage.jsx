@@ -4,7 +4,7 @@ import { AnnualProfitLoss } from "../components/AnnualProfitLoss";
 import { EmployeeSection } from "../components/EmployeeSection";
 import { IncomingPayments } from "../components/IncomingPayments";
 import { AllExpenses } from "../components/AllExpenses";
-import { IncomeOutcomeMethod,IncomeOutcomeForEmployeeMethod } from "../components/IncomeOutcomeMethod";
+import { IncomeOutcomeMethod, IncomeOutcomeForEmployeeMethod } from "../components/IncomeOutcomeMethod";
 import { CompanyReviewForGuest } from "../components/CompanyReviewForGuest";
 import { useSearchParams } from "react-router-dom";
 import EmployeePage from "./06-EmployeePage";
@@ -15,12 +15,14 @@ import { WarningMessage } from "../components/InfoMessages";
 
 
 export function CompanyPage() {
+
+
     const [searchParams, setSearchParams] = useSearchParams();
     console.log(searchParams.get("companyName"));
     console.log(searchParams.get("logo"));
     console.log(searchParams.get("about"));
     console.log(searchParams.get("address"));
-    
+
     let defCompany = JSON.parse(window.localStorage.getItem("company"));
     const [company, setCompany] = useState({ ...defCompany })
 
@@ -41,7 +43,7 @@ export function CompanyPage() {
     }
 
     function handleSave() {
-        fetch("http://localhost:80/company/update", {
+        fetch("http://34.159.230.7/company/update", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -93,12 +95,12 @@ export function CompanyPage() {
                 <div className="d-flex flex-column align-items-center p-3 m-1 bg-light bg-opacity-50 shadow-lg rounded small">
                     <img className="rounded-circle" src="/img/ikolay-companypp.svg" width={50} alt="" />
                     <hr />
-                    <p className=""><span className="fw-bold">Şirket Adı: </span>{defCompany==null?"Belirlenmedi":defCompany.companyName}</p>
-                    <p><span className="fw-bold">Adres: </span>{defCompany==null?"Belirlenmedi":defCompany.address}</p>
-                    <p><span className="fw-bold">Hakkında: </span>{defCompany==null?"Belirlenmedi":defCompany.about}</p>
-                    <p className="border-bottom border-dark pb-3 w-100 text-center"><span className="fw-bold">Tel: </span>{defCompany==null?"Belirlenmedi":defCompany.phone}</p>
-                  { defCompany!=null && <><p><span className="fw-bold">Yönetici: </span>{managerFirstName} {managerLastName}</p>
-                    <p><span className="fw-bold">Yönetici Email: </span>{managerMail}</p></>}
+                    <p className=""><span className="fw-bold">Şirket Adı: </span>{defCompany == null ? "Belirlenmedi" : defCompany.companyName}</p>
+                    <p><span className="fw-bold">Adres: </span>{defCompany == null ? "Belirlenmedi" : defCompany.address}</p>
+                    <p><span className="fw-bold">Hakkında: </span>{defCompany == null ? "Belirlenmedi" : defCompany.about}</p>
+                    <p className="border-bottom border-dark pb-3 w-100 text-center"><span className="fw-bold">Tel: </span>{defCompany == null ? "Belirlenmedi" : defCompany.phone}</p>
+                    {defCompany != null && <><p><span className="fw-bold">Yönetici: </span>{managerFirstName} {managerLastName}</p>
+                        <p><span className="fw-bold">Yönetici Email: </span>{managerMail}</p></>}
                     <button
                         className="btn btn-info btn-sm"
                         type="button"
@@ -166,7 +168,7 @@ export function CompanyPage() {
                                         <div className="form-group">
                                             <label htmlFor="companyTel">Telefon</label>
                                             <input
-                                                type="number"
+                                                type="tel"
                                                 className="form-control"
                                                 id="phone"
                                                 name="phone"
@@ -184,7 +186,7 @@ export function CompanyPage() {
                                             >
                                                 Vazgeç
                                             </button>
-                                            <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleSave} disabled={company.companyName==""&&true}>
+                                            <button type="button" className="btn btn-outline-primary" data-bs-dismiss="modal" onClick={handleSave} disabled={company.companyName == "" && true}>
                                                 Kaydet
                                             </button>
                                         </div>
@@ -271,7 +273,8 @@ export function CompanyPage() {
 
 function WelcomeToDashboard() {
     return (
-        <>
+        <>            
+        
             <h1 className="text-white">ŞİRKET YÖNETİM SAYFASINA HOŞGELDİNİZ </h1>
             <h2>Bugün sizin için ne yapmamızı istersiniz?</h2>
         </>
@@ -288,12 +291,12 @@ function EmployeeLeave() {
         email: "",
         companyId: user.companyId,
     }
-    const [leaveList, setLeaveList] = useState([]);    
+    const [leaveList, setLeaveList] = useState([]);
 
     const [newLeave, setNewLeave] = useState({ ...defLeave });
     const [pendingRequests, setPendingRequests] = useState(null);
     useEffect(() => {
-        fetch(`http://localhost:80/leave/getcompanyspendingleaverequest/${user.companyId}`)
+        fetch(`http://34.159.230.7/leave/getcompanyspendingleaverequest/${user.companyId}`)
             .then(resp => resp.json())
             .then(data => {
                 if (data.message)
@@ -301,7 +304,7 @@ function EmployeeLeave() {
                 setPendingRequests(data);
                 console.log(data);
             })
-        fetch(`http://localhost:80/leave/getcompanyleaves?companyId=${user.companyId}`).then(resp => {
+        fetch(`http://34.159.230.7/leave/getcompanyleaves?companyId=${user.companyId}`).then(resp => {
             if (!resp.ok)
                 throw new Error("Hata initiate");
             return resp.json();
@@ -326,7 +329,7 @@ function EmployeeLeave() {
         if (newLeave.email == "") {
             leaves.email = null;
         }
-        fetch(`http://localhost:80/leave/create`, {
+        fetch(`http://34.159.230.7/leave/create`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -334,7 +337,7 @@ function EmployeeLeave() {
             body: JSON.stringify(leaves)
         }).then
             (response => {
-                console.log(response);                
+                console.log(response);
                 return response.json();
             }).then(data => {
                 console.log(data);
@@ -342,7 +345,8 @@ function EmployeeLeave() {
                     throw new Error(data.message)
                 setWarningMessage("İzin başarıyla kaydedilmiştir!")
                 setNewLeave({ ...defLeave })
-                setLeaveList([...leaveList , leaves])
+                if (leaves.email == null)
+                    setLeaveList([...leaveList, leaves])
             }).catch(err => {
                 console.log(err)
                 setWarningMessage(err.message)
@@ -538,7 +542,7 @@ function EmployeeLeave() {
                         </tr>
                     </thead>
                     <tbody>
-                        {pendingRequests!=null && pendingRequests.map(request => <PendingRequestsEmployeeTableRow setPendingRequests={setPendingRequests} pendingRequests={pendingRequests} {...request}/>)}
+                        {pendingRequests != null && pendingRequests.map(request => <PendingRequestsEmployeeTableRow setPendingRequests={setPendingRequests} pendingRequests={pendingRequests} {...request} />)}
                     </tbody>
                 </table>
             </section>
@@ -546,45 +550,45 @@ function EmployeeLeave() {
     )
 }
 
-function PendingRequestsEmployeeTableRow({id,leaveName, createDate,duration,startingDate,status,setPendingRequests,pendingRequests}) {
+function PendingRequestsEmployeeTableRow({ id, leaveName, createDate, duration, startingDate, status, setPendingRequests, pendingRequests }) {
 
-    const date = new Date(createDate);
+    const date = new Date(createDate + 10800000);
     const stringDate = date.toISOString().split("T")[0];
 
-    function backgroundFixer(status){
-        switch(status){
-            case"PENDING": return "bg-warning"
-            case"ACCEPTED": return "bg-success"
-            case"REJECTED": return "bg-danger"
-            case"CANCELED": return "bg-secondary"
+    function backgroundFixer(status) {
+        switch (status) {
+            case "PENDING": return "bg-warning"
+            case "ACCEPTED": return "bg-success"
+            case "REJECTED": return "bg-danger"
+            case "CANCELED": return "bg-secondary"
         }
     }
 
-    function handleEnglish(status){
-        switch(status){
-            case"PENDING": return "BEKLEMEDE"
-            case"ACCEPTED": return "ONAYLANDI"
-            case"REJECTED": return "REDDEDILDI"
+    function handleEnglish(status) {
+        switch (status) {
+            case "PENDING": return "BEKLEMEDE"
+            case "ACCEPTED": return "ONAYLANDI"
+            case "REJECTED": return "REDDEDILDI"
             case "CANCELED": return "IPTAL EDILDI"
         }
     }
 
-    function handleConfirmClick(e){
+    function handleConfirmClick(e) {
         fetch(`http://localhost:80/leave/confirmleave/${id}`).then(resp => resp.json())
-        .then(data=>{
-            if(data.message)
-            throw new Error(data.message)
-            setPendingRequests([...pendingRequests.filter(req=> req.id!=id)]);
-        })
+            .then(data => {
+                if (data.message)
+                    throw new Error(data.message)
+                setPendingRequests([...pendingRequests.filter(req => req.id != id)]);
+            })
     }
 
-    function handleRejectClick(e){
+    function handleRejectClick(e) {
         fetch(`http://localhost:80/leave/rejectleave/${id}`).then(resp => resp.json())
-        .then(data=>{
-            if(data.message)
-            throw new Error(data.message)
-            setPendingRequests([...pendingRequests.filter(req=> req.id!=id)]);
-        })
+            .then(data => {
+                if (data.message)
+                    throw new Error(data.message)
+                setPendingRequests([...pendingRequests.filter(req => req.id != id)]);
+            })
     }
 
 
@@ -596,16 +600,16 @@ function PendingRequestsEmployeeTableRow({id,leaveName, createDate,duration,star
             <td>{duration}</td>
             <td><span className={`"badge px-2 rounded text-black ${backgroundFixer(status)}`}>{handleEnglish(status)}</span></td>
             <td>{stringDate}</td>
-            <td><button type="button" 
-            className="btn btn-success" 
-            disabled={status!="PENDING"?true:false}
-            onClick={handleConfirmClick}
+            <td><button type="button"
+                className="btn btn-success"
+                disabled={status != "PENDING" ? true : false}
+                onClick={handleConfirmClick}
             >ONAYLA</button>
-            <button type="button" 
-            className="btn btn-danger" 
-            disabled={status!="PENDING"?true:false}
-            onClick={handleRejectClick}
-            >REDDET</button></td>
+                <button type="button"
+                    className="btn btn-danger"
+                    disabled={status != "PENDING" ? true : false}
+                    onClick={handleRejectClick}
+                >REDDET</button></td>
         </tr>
 
     </>

@@ -227,7 +227,7 @@ function EmployeeDelete({id,email,companyId,employeeList,setEmployeeList}) {
         console.log(deleteInfo);
         if(deleteInfo.email!=email)
         throw new Error("Mail adresleri uyuşmuyor!")
-        fetch("http://localhost:80/user/delete", {
+        fetch("http://34.159.230.7/user/delete", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
