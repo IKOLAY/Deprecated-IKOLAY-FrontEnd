@@ -40,7 +40,7 @@ export default function AdminPage() {
                     <div className="w-100">
 
                         <section style={{ height: "85vh", backgroundColor: "white" }} className="d-flex flex-column align-items-start p-2">
-                            {section === "register-requests" && confirmInfo.map(companyInfo => <RegisterRequest key={companyInfo.companyId} {...companyInfo} />)}
+                            {section === "register-requests" && confirmInfo.map(companyInfo => <RegisterRequest key={companyInfo.companyId} {...companyInfo} setConfirmInfo={setConfirmInfo} confirmInfo={confirmInfo} />)}
                             {section === "confirm-comments" && <AcceptOrRejectComments />}
                         </section>
                     </div>
@@ -83,7 +83,7 @@ function AdminHeader() {
                     <ul className="dropdown-menu text-small shadow"
                         aria-labelledby="dropdownUser1">
                         <li className="text-center">
-                            <a href="http://localhost:5173/" onClick={handleLogout}>Çıkış</a>
+                            <a href="http://ikolay.great-site.net" onClick={handleLogout}>Çıkış</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +92,7 @@ function AdminHeader() {
     )
 }
 
-function RegisterRequest({ companyId, email, firstname, lastname, companyName, taxNo }) {
+function RegisterRequest({ companyId, email, firstname, lastname, companyName, taxNo,setConfirmInfo,confirmInfo }) {
     const defConfirm = { isAccepted: true, companyId: companyId, email: email, content: "Üzgünüz!" };
     const [confirm, setConfirm] = useState({ isAccepted: true, companyId: companyId, email: email, content: "Üzgünüz!" });
 
@@ -111,6 +111,7 @@ function RegisterRequest({ companyId, email, firstname, lastname, companyName, t
             return resp.json();
         }).then(data => {
             setConfirm({ ...defConfirm })
+            setConfirmInfo(confirmInfo.filter(req =>req.companyId != companyId))
         }).catch(err => console.log(err))
     }
 
@@ -127,6 +128,7 @@ function RegisterRequest({ companyId, email, firstname, lastname, companyName, t
             return resp.json();
         }).then(data => {
             setConfirm({ ...defConfirm })
+            setConfirmInfo(confirmInfo.filter(req => req.companyId != companyId))
         }).catch(err => console.log(err))
     }
 

@@ -7,7 +7,7 @@ export function CompanyReviewForGuest({ setSearchCompany, searchCompany }) {
     const [companies, setCompanies] = useState(null);
     console.log(companies);
     useEffect(() => {
-        fetch(`http://localhost/company/findbysearchvalue?searchValue=${searchCompany}`).then(resp => resp.json())
+        fetch(`http://localhost:80/company/findbysearchvalue?searchValue=${searchCompany}`).then(resp => resp.json())
             .then(data => {
                 if (data.message)
                     throw new Error(data.message)
@@ -104,7 +104,7 @@ export default function SearchHeader({ setSearchCompany, searchCompany, setCompa
     }
 
     function handleSearch(e) {
-        fetch(`http://localhost/company/findbysearchvalue?searchValue=${searchCompany}`).then(resp => resp.json())
+        fetch(`http://localhost:80/company/findbysearchvalue?searchValue=${searchCompany}`).then(resp => resp.json())
             .then(data => {
                 if (data.message)
                     throw new Error(data.message)

@@ -147,7 +147,7 @@ function RegisterCompanyManager({ warningMessage, setWarningMessage }) {
                         {user.password != user.passwordControl && <FormValidationMessage message="Şifreler uyuşmuyor!" />}
                     </div>
                     <div className="d-flex flex-row justify-content-between gap-4">
-                        <a href="http://localhost:5173/register">
+                        <a href="http://ikolay.great-site.net/register">
                             <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                         </a>
                         <button className="btn btn-lg btn-outline-primary" type="submit">GÖNDER</button>
@@ -252,7 +252,7 @@ function RegisterGuest({ warningMessage, setWarningMessage }) {
                             {user.password != user.passwordControl && <FormValidationMessage message="Şifreler uyuşmuyor!" />}
                         </div>
                         <div className="d-flex flex-row justify-content-between gap-4">
-                            <a href="http://localhost:5173/register">
+                            <a href="http://ikolay.great-site.net/register">
                                 <button className="btn btn-lg btn-outline-secondary w-100" type="button">Vazgeç</button>
                             </a>
                             <button className="btn btn-lg btn-outline-primary" type="submit">GÖNDER</button>
